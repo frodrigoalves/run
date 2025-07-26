@@ -45,7 +45,7 @@ export default function Gpts() {
             <Card key={gpt.id} className="glass-effect rounded-xl flex flex-col transform hover:-translate-y-2 transition-transform duration-300">
               <CardHeader className="flex flex-row items-start gap-4 space-y-0">
                 <div className="bg-secondary p-3 rounded-lg mt-1 flex-shrink-0">
-                  {Icon && <Icon className="h-7 w-7 text-accent-foreground" strokeWidth={1.5} />}
+                  {Icon && <Icon className="h-6 w-6 text-accent-foreground" strokeWidth={1.5} />}
                 </div>
                 <div>
                   <CardTitle className="text-lg text-foreground">{t(gpt.title)}</CardTitle>
