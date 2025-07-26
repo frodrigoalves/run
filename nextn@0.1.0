@@ -1,0 +1,7 @@
+Building: netbsd amd64
+Building: linux ppc64le
+Building: openbsd 386
+Building: openbsd amd64
+Building: linux arm
+Building: linux mips64
+build is not installed, but available in the following packages, pick one to run it, Ctrl+C to cancel.
