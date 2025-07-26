@@ -6,8 +6,8 @@ export default function Partners() {
   const doubledPartners = [...partners, ...partners];
 
   return (
-    <section className="py-20 overflow-hidden">
-      <h2 className="text-2xl font-bold text-white text-center mb-12">
+    <section className="py-10 overflow-hidden">
+      <h2 className="text-2xl font-bold text-foreground text-center mb-12">
         <LocalizedText pt="Clientes e Parceiros" en="Clients & Partners" />
       </h2>
       <div className="relative overflow-hidden group">

@@ -89,7 +89,7 @@ export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
 
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent className="bg-background/95 backdrop-blur-lg text-foreground border-l-border w-full max-w-md overflow-y-auto">
+      <SheetContent side="left" className="bg-background/95 backdrop-blur-lg text-foreground border-r-border w-full max-w-md overflow-y-auto">
         <SheetHeader>
           <SheetTitle className="text-xl font-semibold text-primary">{t({ pt: 'Mural de Ideias', en: 'Idea Mural' })}</SheetTitle>
         </SheetHeader>

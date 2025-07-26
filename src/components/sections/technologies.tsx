@@ -12,19 +12,19 @@ export default function Technologies() {
   };
 
   return (
-    <section id="tech" className="py-16 md:py-24">
-      <h2 className="text-3xl font-bold text-foreground text-center mb-12">{t(title)}</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 max-w-4xl mx-auto">
+    <section id="tech" className="py-8">
+      <h2 className="text-3xl font-bold text-foreground text-left mb-8">{t(title)}</h2>
+      <div className="grid grid-cols-3 sm:grid-cols-4 gap-6">
         {technologies.map((tech) => (
           <div key={tech.name} className="flex flex-col items-center gap-2 text-center transition-transform hover:scale-110">
             <Image
               src={tech.icon}
               alt={tech.name}
-              width={64}
-              height={64}
-              className="h-16 w-16"
+              width={48}
+              height={48}
+              className="h-12 w-12"
             />
-            <span className="font-medium text-muted-foreground">{tech.name}</span>
+            <span className="font-medium text-muted-foreground text-sm">{tech.name}</span>
           </div>
         ))}
       </div>

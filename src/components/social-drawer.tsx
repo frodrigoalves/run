@@ -19,13 +19,13 @@ export function SocialDrawer({ isOpen, onOpenChange }: SocialDrawerProps) {
 
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent className="bg-slate-800/95 backdrop-blur-lg text-white border-l-slate-700 w-full max-w-md overflow-y-auto">
+      <SheetContent side="left" className="bg-background/95 backdrop-blur-lg text-foreground border-r-border w-full max-w-md overflow-y-auto">
         <SheetHeader>
           <SheetTitle className="text-xl font-semibold text-foreground">{t({ pt: 'Redes Sociais', en: 'Social Media' })}</SheetTitle>
         </SheetHeader>
         <div className="p-1 py-6 space-y-4">
             {socialLinks.map(link => (
-                 <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-700 transition-colors">
+                 <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-lg hover:bg-accent/80 transition-colors">
                     {link.icon}
                     <span>{link.name}</span>
                 </a>

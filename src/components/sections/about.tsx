@@ -25,13 +25,13 @@ export default function About() {
   }
 
   return (
-    <section id="about" className="py-16 md:py-24">
-      <div className="max-w-3xl mx-auto text-center">
+    <section id="about" className="py-8">
+      <div className="text-left">
         <h2 className="text-3xl font-bold text-foreground mb-4">{t(title)}</h2>
         <p className="text-lg text-muted-foreground">{t(description)}</p>
         <div className="mt-8">
             <h3 className="text-2xl font-bold text-foreground mb-4">{t(listTitle)}</h3>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-lg text-foreground/90">
+            <ul className="grid grid-cols-1 gap-4 text-lg text-foreground/90">
                 {areas[t({pt: 'pt', en: 'en'})].map(area => (
                     <li key={area} className="glass-effect p-4 rounded-lg">{area}</li>
                 ))}

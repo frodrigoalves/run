@@ -13,8 +13,8 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="py-16 md:py-24">
-      <h2 className="text-3xl font-bold text-white text-center mb-12">{t(sectionTitle)}</h2>
+    <section id="projects" className="py-8">
+      <h2 className="text-3xl font-bold text-foreground text-left mb-12">{t(sectionTitle)}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projectsData.map((project) => (
           <Card key={project.id} className="glass-effect overflow-hidden group transform hover:-translate-y-2 transition-transform duration-300 border-transparent hover:border-primary">
@@ -30,7 +30,7 @@ export default function Projects() {
               </div>
             </CardContent>
             <CardHeader>
-              <CardTitle className="text-white font-semibold truncate text-xl">{t(project.title)}</CardTitle>
+              <CardTitle className="text-foreground font-semibold truncate text-xl">{t(project.title)}</CardTitle>
             </CardHeader>
           </Card>
         ))}
