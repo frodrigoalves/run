@@ -2,17 +2,25 @@
 import Image from 'next/image';
 import { partners } from '@/lib/data';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { Card, CardContent } from '@/components/ui/card';
+import Autoplay from 'embla-carousel-autoplay';
+import React from 'react';
 
 export default function Partners() {
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  );
+
   return (
     <section className="w-full max-w-5xl mx-auto py-12 absolute bottom-24 left-1/2 -translate-x-1/2 z-20">
        <Carousel
+          plugins={[plugin.current]}
           opts={{
               align: "start",
               loop: true,
           }}
           className="w-full"
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
       >
           <CarouselContent className="-ml-4">
               {partners.map((partner, index) => (
