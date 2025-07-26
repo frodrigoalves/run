@@ -24,7 +24,7 @@ export default function Hero() {
   const { theme, setTheme } = useTheme();
   const [activeTheme, setActiveTheme] = useState<Theme>('dark');
   
-  const [activeMatrixIndex, setActiveMatrixIndex] = useState(-1);
+  const [activeMatrixIndex, setActiveMatrixIndex] = useState(0);
   const [activeSubtitleIndex, setActiveSubtitleIndex] = useState(0);
 
   const titles = {
@@ -53,7 +53,7 @@ export default function Hero() {
       // Cycle through subtitles
       setActiveSubtitleIndex(prev => (prev + 1) % titles[lang].length);
 
-    }, 3000); // Change every 3 seconds
+    }, 2000); // Change every 2 seconds
 
     return () => clearInterval(interval);
   }, [lang, titles]);
@@ -81,13 +81,13 @@ export default function Hero() {
     const size = 'w-4 h-4'
 
     if (position === 0) { // Active
-        return cn(baseClasses, size, "z-30 transform scale-100 opacity-100 translate-y-0");
+        return cn(baseClasses, size, "z-30 transform scale-100 opacity-100 -translate-y-2");
     }
     if (position === 1) { // Next
-        return cn(baseClasses, size, "z-20 transform scale-90 opacity-75 translate-y-3");
+        return cn(baseClasses, size, "z-20 transform scale-90 opacity-75 translate-y-1");
     }
     // Last
-    return cn(baseClasses, size, "z-10 transform scale-80 opacity-50 translate-y-6");
+    return cn(baseClasses, size, "z-10 transform scale-80 opacity-50 translate-y-4");
   };
 
   return (
@@ -102,25 +102,28 @@ export default function Hero() {
           isFeatured={activeMatrixIndex === 0}
         />
       </div>
-      <div className="absolute top-24 right-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
+      <div className="absolute top-1/3 right-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
           strings={activeMatrixIndex === 1 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[1]}
           isFeatured={activeMatrixIndex === 1}
         />
       </div>
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in-delay-3 w-64 text-primary">
-         {/* This is intentionally left empty now as subtitles are randomized */}
-      </div>
-      <div className="absolute bottom-24 right-8 opacity-0 animate-fade-in-delay-4 hidden md:block">
-        <MatrixEffect 
+      <div className="absolute bottom-1/4 left-1/2 opacity-0 animate-fade-in-delay-3 w-64 text-primary">
+         <MatrixEffect 
           strings={activeMatrixIndex === 2 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[2]}
           isFeatured={activeMatrixIndex === 2}
         />
       </div>
-      <div className="absolute top-1/2 left-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
+      <div className="absolute bottom-24 right-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
           strings={activeMatrixIndex === 3 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[3]}
           isFeatured={activeMatrixIndex === 3}
+        />
+      </div>
+       <div className="absolute top-3/4 left-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
+        <MatrixEffect 
+          strings={activeMatrixIndex === 4 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[1]}
+          isFeatured={activeMatrixIndex === 4}
         />
       </div>
 
@@ -155,7 +158,7 @@ export default function Hero() {
           </Button>
         </div>
         
-        <div className="fixed top-24 right-5 md:right-8 z-50 h-10 w-10 flex flex-col items-center justify-center group" onClick={handleThemeChange}>
+        <div className="fixed top-24 right-5 md:right-8 z-50 h-10 w-10 flex flex-col items-center justify-start group pt-2" onClick={handleThemeChange}>
             <button aria-label='Switch to light theme' className={cn(getThemeClasses('light'))}>
                 <Sun className="h-3 w-3 text-foreground" />
             </button>
