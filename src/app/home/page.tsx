@@ -1,7 +1,6 @@
 import About from '@/components/sections/about';
 import Certifications from '@/components/sections/certifications';
 import Gpts from '@/components/sections/gpts';
-import Partners from '@/components/sections/partners';
 import Projects from '@/components/sections/projects';
 import Technologies from '@/components/sections/technologies';
 import Footer from '@/components/footer';
@@ -18,8 +17,7 @@ export default function HomePage() {
         </Link>
       </header>
       <main className="flex-1">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Partners />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-16">
               {/* Coluna Principal */}
               <div className="lg:col-span-2 space-y-16">

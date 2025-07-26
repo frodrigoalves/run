@@ -6,21 +6,23 @@ export default function Partners() {
   const doubledPartners = [...partners, ...partners];
 
   return (
-    <section className="py-10 overflow-hidden">
-      <h2 className="text-2xl font-bold text-foreground text-center mb-12">
-        <LocalizedText pt="Clientes e Parceiros" en="Clients & Partners" />
-      </h2>
-      <div className="relative overflow-hidden group">
-        <div className="logo-strip group-hover:[animation-play-state:paused]">
+    <section className="absolute bottom-24 left-0 w-full z-20">
+      <div 
+        className="relative w-full h-32 overflow-hidden"
+        style={{
+            maskImage: 'linear-gradient(to right, transparent, black 20%, black 80%, transparent)'
+        }}
+      >
+        <div className="logo-strip">
           {doubledPartners.map((partner, index) => (
-            <div key={index} className="mx-8 flex-shrink-0">
+            <div key={index} className="mx-8 flex-shrink-0 flex items-center justify-center">
                <Image
                 src={partner.logo}
                 alt={partner.name}
-                width={160}
-                height={96}
+                width={128}
+                height={64}
                 data-ai-hint={partner.hint}
-                className="w-40 h-24 object-contain grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition duration-300"
+                className="w-32 h-16 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 hover:scale-110 transition-all duration-300 ease-in-out"
               />
             </div>
           ))}
