@@ -12,7 +12,9 @@ import { z } from 'zod';
 import { addIdea } from '@/services/idea-service';
 
 const IdeaSubmissionInputSchema = z.object({
-  idea: z.string().describe('The user\'s project idea or query.'),
+  idea: z.string().describe("The user's project idea or query."),
+  isPublic: z.boolean().describe('Whether the user authorizes the idea to be displayed publicly.'),
+  contact: z.string().optional().describe('The user\'s optional contact information.'),
 });
 export type IdeaSubmissionInput = z.infer<typeof IdeaSubmissionInputSchema>;
 
@@ -34,7 +36,7 @@ const ideaSubmissionFlow = ai.defineFlow(
   },
   async (input) => {
     
-    addIdea(input.idea);
+    addIdea(input.idea, input.isPublic, input.contact);
     
     return {
       success: true,

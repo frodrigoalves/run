@@ -4,13 +4,13 @@ import { getIdeasFlow } from '@/ai/flows/get-ideas-flow';
 
 export async function POST(req: NextRequest) {
   try {
-    const { idea } = (await req.json()) as IdeaSubmissionInput;
+    const { idea, isPublic, contact } = (await req.json()) as IdeaSubmissionInput;
 
     if (!idea) {
       return NextResponse.json({ error: 'Idea is required' }, { status: 400 });
     }
 
-    const result = await submitIdea({ idea });
+    const result = await submitIdea({ idea, isPublic, contact });
 
     if (result.success) {
       return NextResponse.json({ message: result.message }, { status: 200 });

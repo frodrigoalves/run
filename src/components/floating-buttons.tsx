@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Linkedin, Mail } from 'lucide-react';
+import { Linkedin, Lightbulb } from 'lucide-react';
 import { ContactDrawer } from '@/components/contact-drawer';
 import { SocialDrawer } from '@/components/social-drawer';
 
@@ -25,9 +25,9 @@ export default function FloatingButtons() {
           onClick={() => setContactOpen(true)}
           size="icon"
           className="bg-primary hover:bg-primary/90 text-white w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-110"
-          aria-label="Abrir formulário de contato"
+          aria-label="Abrir mural de ideias"
         >
-          <Mail size={24} />
+          <Lightbulb size={24} />
         </Button>
       </div>
       <ContactDrawer isOpen={isContactOpen} onOpenChange={setContactOpen} />

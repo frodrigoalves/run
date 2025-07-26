@@ -8,6 +8,9 @@ import { useToast } from '@/hooks/use-toast';
 import { useState, useEffect } from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 interface ContactDrawerProps {
   isOpen: boolean;
@@ -49,13 +52,15 @@ export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
     setIsSubmitting(true);
     
     const formData = new FormData(event.currentTarget);
-    const idea = formData.get('idea');
+    const idea = formData.get('idea') as string;
+    const isPublic = formData.get('isPublic') === 'on';
+    const contact = formData.get('contact') as string;
 
     try {
       const response = await fetch('/api/ideas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idea }),
+        body: JSON.stringify({ idea, isPublic, contact }),
       });
 
       if (!response.ok) {
@@ -97,8 +102,24 @@ export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
           </p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <Textarea name="idea" rows={5} placeholder={t({ pt: 'Descreva sua ideia, necessidade ou projeto...', en: 'Describe your idea, need, or project...' })} required className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
+            
+            <div className="space-y-2">
+                <Label htmlFor="contact" className="text-sm font-medium text-slate-300">{t({pt: 'Contato (opcional)', en: 'Contact (optional)'})}</Label>
+                <Input name="contact" id="contact" placeholder={t({pt: 'Seu e-mail ou rede social', en: 'Your email or social media'})} className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
+            </div>
+
+            <div className="flex items-center space-x-2">
+                <Checkbox id="isPublic" name="isPublic" className="border-slate-500 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
+                <label
+                    htmlFor="isPublic"
+                    className="text-sm text-slate-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                    {t({pt: 'Autorizo a exibição desta ideia no mural público.', en: 'I authorize this idea to be displayed on the public mural.'})}
+                </label>
+            </div>
+            
             <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/90 text-white w-full transition-transform hover:scale-105">
-              {isSubmitting ? t({ pt: 'Enviando...', en: 'Submitting...' }) : t({ pt: 'Enviar Ideia Anônima', en: 'Submit Anonymous Idea' })}
+              {isSubmitting ? t({ pt: 'Enviando...', en: 'Submitting...' }) : t({ pt: 'Enviar Ideia', en: 'Submit Idea' })}
             </Button>
           </form>
 
