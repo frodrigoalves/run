@@ -131,39 +131,9 @@
 }
 
 @layer utilities {
-    .carousel-container {
-        perspective: 1000px;
-    }
-
-    .carousel {
-        width: 100%;
-        position: relative;
-        transform-style: preserve-3d;
-        animation: rotate3d 40s linear infinite;
-    }
-    
-    .carousel:hover {
-        animation-play-state: paused;
-    }
-    
-    .carousel-item {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
     .aspect-video {
         aspect-ratio: 16 / 9;
     }
-}
-
-@keyframes rotate3d {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(360deg); }
 }
 
 
@@ -187,4 +157,14 @@
 .animate-fade-in-delay-4 {
   animation: fade-in 0.5s ease-out forwards;
   animation-delay: 2s;
+}
+
+@keyframes scrollX {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+.logo-strip {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
