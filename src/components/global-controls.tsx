@@ -20,7 +20,8 @@ export default function GlobalControls() {
     }
   }, [theme]);
 
-  const handleLangChange = (newLang: Language) => {
+  const handleLangChange = () => {
+    const newLang = lang === 'pt' ? 'en' : 'pt';
     changeLang(newLang);
   };
 
@@ -50,27 +51,27 @@ export default function GlobalControls() {
     return cn(baseClasses, size, "z-10 transform translate-y-6 scale-80 opacity-50");
   };
 
+  const getLangClasses = (buttonLang: Language) => {
+    const baseClasses = "absolute flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out cursor-pointer";
+    const size = 'w-6 h-6';
+    
+    if (buttonLang === lang) {
+      // Active language
+      return cn(baseClasses, size, "z-30 transform translate-x-0 scale-100 opacity-100");
+    } else {
+      // Inactive language
+      return cn(baseClasses, size, "z-20 transform -translate-x-4 scale-90 opacity-75");
+    }
+  };
+
+
   return (
     <>
-      <div className="fixed top-5 left-5 md:left-8 z-50 flex items-center space-x-2">
-          <div 
-              onClick={() => handleLangChange('pt')} 
-              aria-label='Mudar para Português' 
-              className={cn(
-                  "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-opacity duration-300 w-6 h-6 cursor-pointer",
-                  lang === 'pt' ? 'opacity-100' : 'opacity-50 hover:opacity-100'
-              )}
-          >
+      <div className="fixed top-5 left-5 md:left-8 z-50 h-8 w-6 flex items-center justify-start" onClick={handleLangChange}>
+          <div aria-label='Mudar para Português' className={cn(getLangClasses('pt'))}>
               <span>🇧🇷</span>
           </div>
-          <div 
-              onClick={() => handleLangChange('en')} 
-              aria-label='Switch to English' 
-              className={cn(
-                  "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-opacity duration-300 w-6 h-6 cursor-pointer",
-                  lang === 'en' ? 'opacity-100' : 'opacity-50 hover:opacity-100'
-              )}
-          >
+          <div aria-label='Switch to English' className={cn(getLangClasses('en'))}>
               <span>🇬🇧</span>
           </div>
       </div>
