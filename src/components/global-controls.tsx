@@ -1,0 +1,91 @@
+'use client';
+
+import { useLocalization } from '@/hooks/use-localization';
+import type { Language } from '@/components/localization-provider';
+import { useTheme } from 'next-themes';
+import { Moon, Sun, Ghost } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { cn } from '@/lib/utils';
+
+type Theme = 'light' | 'dark' | 'cyberpunk';
+
+export default function GlobalControls() {
+  const { lang, changeLang } = useLocalization();
+  const { theme, setTheme } = useTheme();
+  const [activeTheme, setActiveTheme] = useState<Theme>('dark');
+  
+  useEffect(() => {
+    if (theme) {
+      setActiveTheme(theme as Theme);
+    }
+  }, [theme]);
+
+  const handleLangChange = (newLang: Language) => {
+    changeLang(newLang);
+  };
+
+  const handleThemeChange = () => {
+    const themeOrder: Theme[] = ['light', 'dark', 'cyberpunk'];
+    const currentIndex = themeOrder.indexOf(activeTheme);
+    const newIndex = (currentIndex + 1) % themeOrder.length;
+    setTheme(themeOrder[newIndex]);
+  };
+  
+  const getThemeClasses = (buttonTheme: Theme) => {
+    const themeOrder: Theme[] = ['light', 'dark', 'cyberpunk'];
+    const activeIndex = themeOrder.indexOf(activeTheme);
+    const buttonIndex = themeOrder.indexOf(buttonTheme);
+
+    let position = (buttonIndex - activeIndex + 3) % 3;
+
+    const baseClasses = "absolute flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out cursor-pointer";
+    const size = 'w-6 h-6';
+
+    if (position === 0) {
+      return cn(baseClasses, size, "z-30 transform -translate-y-0 scale-100 opacity-100");
+    }
+    if (position === 1) {
+      return cn(baseClasses, size, "z-20 transform translate-y-3 scale-90 opacity-75");
+    }
+    return cn(baseClasses, size, "z-10 transform translate-y-6 scale-80 opacity-50");
+  };
+
+  return (
+    <>
+      <div className="fixed top-5 left-5 md:left-8 z-50 flex items-center space-x-2">
+          <div 
+              onClick={() => handleLangChange('pt')} 
+              aria-label='Mudar para Português' 
+              className={cn(
+                  "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-opacity duration-300 w-6 h-6 cursor-pointer",
+                  lang === 'pt' ? 'opacity-100' : 'opacity-50 hover:opacity-100'
+              )}
+          >
+              <span>🇧🇷</span>
+          </div>
+          <div 
+              onClick={() => handleLangChange('en')} 
+              aria-label='Switch to English' 
+              className={cn(
+                  "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-opacity duration-300 w-6 h-6 cursor-pointer",
+                  lang === 'en' ? 'opacity-100' : 'opacity-50 hover:opacity-100'
+              )}
+          >
+              <span>🇬🇧</span>
+          </div>
+      </div>
+      
+      <div className="fixed top-5 right-5 md:right-8 z-50 h-8 w-6 flex flex-col items-center justify-start group pt-2" onClick={handleThemeChange}>
+          <div aria-label='Switch to light theme' className={cn(getThemeClasses('light'))}>
+              <Sun className="h-3 w-3 text-foreground" />
+          </div>
+          <div aria-label='Switch to dark theme' className={cn(getThemeClasses('dark'))}>
+              <Moon className="h-3 w-3 text-foreground" />
+          </div>
+          <div aria-label='Switch to cyberpunk theme' className={cn(getThemeClasses('cyberpunk'))}>
+              <Ghost className="h-3 w-3 text-foreground" />
+          </div>
+      </div>
+    </>
+  );
+}

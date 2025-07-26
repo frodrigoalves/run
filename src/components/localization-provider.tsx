@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useState, useCallback, useMemo } from 'react';
+import React, { createContext, useState, useCallback, useMemo, useEffect } from 'react';
 import type { ReactNode } from 'react';
 
 export type Language = 'pt' | 'en';
@@ -18,11 +18,23 @@ export function LocalizationProvider({ children }: { children: ReactNode }) {
 
   const changeLang = useCallback((newLang: Language) => {
     setLang(newLang);
+    if (typeof window !== 'undefined') {
+        localStorage.setItem('lang', newLang);
+    }
   }, []);
 
   const t = useCallback((translations: Record<Language, string>): string => {
     return translations[lang] || translations['pt'];
   }, [lang]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+        const savedLang = localStorage.getItem('lang') as Language | null;
+        if (savedLang && (savedLang === 'pt' || savedLang === 'en')) {
+            setLang(savedLang);
+        }
+    }
+  }, []);
 
   const value = useMemo(() => ({ lang, changeLang, t }), [lang, changeLang, t]);
 

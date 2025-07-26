@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
+import { LocalizationProvider } from '@/components/localization-provider';
+import GlobalControls from '@/components/global-controls';
 
 export const metadata: Metadata = {
   title: 'Rodrigo',
@@ -21,15 +23,18 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased bg-background text-foreground tracking-wide">
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-        >
-            {children}
-            <Toaster />
-        </ThemeProvider>
+        <LocalizationProvider>
+          <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+          >
+              <GlobalControls />
+              {children}
+              <Toaster />
+          </ThemeProvider>
+        </LocalizationProvider>
       </body>
     </html>
   );

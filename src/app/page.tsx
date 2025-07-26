@@ -44,8 +44,6 @@ function LandingPageContent() {
 
 export default function LandingPage() {
   return (
-    <LocalizationProvider>
       <LandingPageContent />
-    </LocalizationProvider>
   );
 }
