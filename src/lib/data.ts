@@ -1,3 +1,4 @@
+
 export const projectsData = [
   { id: 'mentor', title: { pt: 'Mentor der neuen Zeit', en: 'Mentor der neuen Zeit' }, embedId: 'YOTgISedhN0' },
   { id: 'bot-juridico', title: { pt: 'Bot Jurídico', en: 'Legal Bot' }, embedId: 'HW9EqHiobSo' },
@@ -18,7 +19,7 @@ export const certificationsData = [
     { id: 'direito', title: { pt: 'Bacharel em Direito', en: 'Bachelor of Laws (LLB)' }, issuer: 'UNISUL', year: '2025', link: '#', icon: 'graduation-cap' },
     { id: 'fullstack', title: { pt: 'Desenvolvedor Full Stack autodidata', en: 'Self-taught Full Stack Developer' }, issuer: 'Desde', year: '2014', link: '#', icon: 'code' },
     { id: 'lgpd-marco-civil', title: { pt: 'LGPD e Marco Civil da Internet', en: 'LGPD and Marco Civil da Internet' }, issuer: 'Experiência Prática', year: '', link: '#', icon: 'file-text' },
-    { id: 'blockchain', title: { pt: 'Smart Contracts e Blockchain', en: 'Smart Contracts and Blockchain' }, issuer: 'Estudando', year: '2025', link: '#', icon: 'link' }
+    { id: 'blockchain', title: { pt: 'Smart Contracts e Blockchain', en: 'Smart Contracts and Blockchain' }, issuer: 'University at Buffalo', year: '2025', link: '#', icon: 'link' }
 ];
 
 export const technologies = [
