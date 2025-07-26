@@ -2,13 +2,14 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import { useHeroAnimation } from '@/contexts/hero-animation-context';
 
 interface MatrixEffectProps {
   strings: string[];
   className?: string;
   isFeatured?: boolean;
-  stopAfter?: number; // Time in ms to stop the animation permanently
-  loopAfter?: number; // Time in ms to loop between animating and paused
+  stopAfter?: number;
+  loopAfter?: number;
   characterSet?: string[];
 }
 
@@ -44,19 +45,33 @@ const ScrambledChar = ({ char, isRevealed, isFeatured, characterSet }: { char: s
 };
 
 export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter, loopAfter, characterSet: customCharSet }: MatrixEffectProps) => {
+  const { isSyncing, syncText } = useHeroAnimation();
   const [stringIndex, setStringIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
 
-  const currentString = useMemo(() => strings[stringIndex] || '', [strings, stringIndex]);
+  const activeStrings = useMemo(() => (isSyncing ? [syncText] : strings), [isSyncing, syncText, strings]);
+  const currentString = useMemo(() => activeStrings[stringIndex] || '', [activeStrings, stringIndex]);
   const characterSet = useMemo(() => customCharSet || DEFAULT_CHARACTERS.split(''), [customCharSet]);
   
   const animationIntervalRef = useRef<NodeJS.Timeout>();
   const loopIntervalRef = useRef<NodeJS.Timeout>();
+  
+  // Effect to handle synchronization state change
+  useEffect(() => {
+    if (isSyncing) {
+        setRevealedCount(0);
+        setStringIndex(0);
+        setIsAnimating(true);
+        if(loopIntervalRef.current) clearInterval(loopIntervalRef.current);
+        if(animationIntervalRef.current) clearInterval(animationIntervalRef.current);
+    }
+  }, [isSyncing]);
+
 
   useEffect(() => {
     // Permanent stop logic
-    if (stopAfter) {
+    if (stopAfter && !isSyncing) {
       const stopTimer = setTimeout(() => {
         setIsAnimating(false);
         setRevealedCount(currentString.length);
@@ -64,18 +79,18 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
       }, stopAfter);
       return () => clearTimeout(stopTimer);
     }
-  }, [stopAfter, currentString.length]);
+  }, [stopAfter, currentString.length, isSyncing]);
 
   useEffect(() => {
     // Loop logic (animating/paused)
-    if (loopAfter) {
+    if (loopAfter && !isSyncing) {
         if (loopIntervalRef.current) clearInterval(loopIntervalRef.current);
         loopIntervalRef.current = setInterval(() => {
             setIsAnimating(prev => !prev);
         }, loopAfter);
         return () => clearInterval(loopIntervalRef.current);
     }
-  }, [loopAfter]);
+  }, [loopAfter, isSyncing]);
 
 
   useEffect(() => {
@@ -86,17 +101,17 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
                 if (prev < currentString.length) {
                     return prev + 1;
                 } else {
-                    // When animation completes, reset for next cycle
-                     setTimeout(() => {
-                        setRevealedCount(0);
-                        setStringIndex(prevIdx => (prevIdx + 1) % strings.length);
-                     }, loopAfter ? 0 : 2000); // Reset immediately if looping
+                    if (!isSyncing) { // Only loop if not in sync mode
+                         setTimeout(() => {
+                            setRevealedCount(0);
+                            setStringIndex(prevIdx => (prevIdx + 1) % activeStrings.length);
+                         }, loopAfter ? 0 : 2000);
+                    }
                     return currentString.length;
                 }
             });
         }, 50);
     } else {
-        // If not animating (paused state in a loop)
         setRevealedCount(currentString.length);
         if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
     }
@@ -104,12 +119,12 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
     return () => {
         if (animationIntervalRef.current) clearInterval(animationIntervalRef.current)
     };
-  }, [isAnimating, currentString, strings, stringIndex, loopAfter]);
+  }, [isAnimating, currentString, activeStrings, stringIndex, loopAfter, isSyncing]);
 
   useEffect(() => {
     setRevealedCount(0);
     setStringIndex(0);
-    setIsAnimating(true); // Reset animation state on string change
+    setIsAnimating(true);
   }, [strings]);
 
 
