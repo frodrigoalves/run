@@ -5,7 +5,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LocalizationProvider } from '@/components/localization-provider';
 import GlobalControls from '@/components/global-controls';
-import { TypebotEmbed } from '@/components/typebot-embed';
 
 export const metadata: Metadata = {
     title: 'Rodrigo Alves Ferreira | Desenvolvedor Web3 & Especialista em IA',
@@ -39,7 +38,6 @@ export default function RootLayout({
               <Toaster />
           </ThemeProvider>
         </LocalizationProvider>
-        <TypebotEmbed />
       </body>
     </html>
   );

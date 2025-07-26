@@ -6,10 +6,11 @@ import Technologies from '@/components/sections/technologies';
 import Footer from '@/components/footer';
 import FloatingButtons from '@/components/floating-buttons';
 import Link from 'next/link';
-import { Home, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { LocalizedText } from '@/components/localized-text';
 import Partners from '@/components/sections/partners';
+import { TypebotEmbed } from '@/components/typebot-embed';
 
 export default function HomePage() {
   return (
@@ -42,6 +43,7 @@ export default function HomePage() {
 
       <Footer />
       <FloatingButtons />
+      <TypebotEmbed />
     </div>
   );
 }
