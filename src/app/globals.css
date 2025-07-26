@@ -74,6 +74,7 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  [data-theme='cyberpunk'],
   .cyberpunk {
     --background: 230 20% 7%;
     --foreground: 210 40% 98%;
@@ -146,4 +147,26 @@
 @keyframes scrollX {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-delay-1 {
+  animation: fade-in 0.5s ease-out forwards;
+  animation-delay: 0.5s;
+}
+.animate-fade-in-delay-2 {
+  animation: fade-in 0.5s ease-out forwards;
+  animation-delay: 1s;
+}
+.animate-fade-in-delay-3 {
+  animation: fade-in 0.5s ease-out forwards;
+  animation-delay: 1.5s;
+}
+.animate-fade-in-delay-4 {
+  animation: fade-in 0.5s ease-out forwards;
+  animation-delay: 2s;
 }

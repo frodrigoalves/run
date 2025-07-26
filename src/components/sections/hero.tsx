@@ -18,11 +18,12 @@ export default function Hero() {
   const [activeTheme, setActiveTheme] = useState<Theme>('dark');
 
   useEffect(() => {
+    document.body.dataset.theme = theme;
     if (theme) {
       setActiveTheme(theme as Theme);
     }
   }, [theme]);
-
+  
   const titles = {
     pt: ["Desenvolvedor Web3", "Especialista em IA", "Advogado & Criador do SingulAI"],
     en: ["Web3 Developer", "AI Specialist", "Lawyer & Creator of SingulAI"]
@@ -39,51 +40,69 @@ export default function Hero() {
 
   const handleThemeChange = (newTheme: Theme) => {
     setTheme(newTheme);
-    setActiveTheme(newTheme);
   }
   
   const themeOrder: Theme[] = ['light', 'dark', 'cyberpunk'];
-  const activeIndex = themeOrder.indexOf(activeTheme);
-
+  
   const getThemeClasses = (buttonTheme: Theme) => {
+    const currentIndex = themeOrder.indexOf(activeTheme);
+    const buttonIndex = themeOrder.indexOf(buttonTheme);
+    let position = (buttonIndex - currentIndex + 3) % 3; // 0: active, 1: next, 2: prev
+
     const baseClasses = "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out absolute";
     
-    let displayIndex = (themeOrder.indexOf(buttonTheme) - activeIndex + 3) % 3;
-
-    if (displayIndex === 0) {
-        // Current theme: front and largest
-        return cn(baseClasses, "w-6 h-6 z-30 transform scale-100 opacity-100 translate-y-0");
-    } else if (displayIndex === 1) {
-        // Next theme
-        return cn(baseClasses, "w-6 h-6 z-20 transform scale-90 opacity-75 translate-y-8");
-    } else {
-        // Previous theme
-        return cn(baseClasses, "w-6 h-6 z-10 transform scale-80 opacity-50 translate-y-16");
+    // Position 0 is the active theme, which should be at the back
+    if (position === 0) {
+        return cn(baseClasses, "w-6 h-6 z-10 transform scale-80 opacity-50 translate-y-12");
+    } 
+    // Position 1 is the next theme, which should be at the front
+    else if (position === 1) {
+        return cn(baseClasses, "w-10 h-10 z-30 transform scale-100 opacity-100 translate-y-0");
+    } 
+    // Position 2 is the previous theme, which is in the middle
+    else {
+        return cn(baseClasses, "w-8 h-8 z-20 transform scale-90 opacity-75 translate-y-6");
     }
   };
 
 
   return (
-    <header className="py-16 text-center relative overflow-hidden border-b border-border">
+    <header className="py-24 md:py-32 text-center relative overflow-hidden border-b border-border min-h-[500px] md:min-h-[450px]">
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background opacity-80"></div>
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
-      <div className="relative z-10 max-w-4xl mx-auto px-4">
+      
+      {/* Matrix Effects */}
+      <div className="absolute top-10 left-8 opacity-0 animate-fade-in-delay-1">
+        <MatrixEffect strings={["system.init()"]} />
+      </div>
+      <div className="absolute top-24 right-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
+        <MatrixEffect strings={["load: /blockchain/modules", "booting: SingulAI"]} />
+      </div>
+       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in-delay-3">
+        <MatrixEffect strings={["render: portfolio.interactive"]}/>
+      </div>
+       <div className="absolute bottom-24 right-8 opacity-0 animate-fade-in-delay-4 hidden md:block">
+        <MatrixEffect strings={["ACCESS GRANTED"]}/>
+      </div>
+
+
+      <div className="relative z-20 max-w-4xl mx-auto px-4 flex flex-col items-center">
         <Image
           src="https://placehold.co/128x128.png"
           alt="Foto de Rodrigo Alves Ferreira"
           width={128}
           height={128}
           data-ai-hint="profile photo"
-          className="w-32 h-32 rounded-full mx-auto border-4 border-border shadow-xl mb-4 object-cover"
+          className="w-24 h-24 md:w-32 md:h-32 rounded-full mx-auto border-4 border-border shadow-xl mb-4 object-cover"
         />
         <h1 className="text-4xl md:text-5xl font-bold text-foreground">Rodrigo</h1>
         <div className="text-lg md:text-xl text-primary mt-2 min-h-[56px] flex items-center justify-center">
           <MatrixEffect strings={titles[lang]} />
         </div>
-        <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
+        <p className="mt-4 text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
             {t(intro)}
         </p>
-        <div className="mt-6 flex justify-center gap-2">
+        <div className="mt-8 flex justify-center gap-2">
           <Button
             onClick={() => handleLangChange('pt')}
             variant={lang === 'pt' ? 'default' : 'secondary'}
@@ -100,15 +119,15 @@ export default function Hero() {
           </Button>
         </div>
         
-        <div className="fixed top-24 right-8 z-50 h-28 w-12 flex items-center justify-center">
+        <div className="fixed top-24 right-5 md:right-8 z-50 h-28 w-12 flex items-center justify-center group">
             <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className={cn(getThemeClasses('light'))}>
-                <Sun className="h-[0.9rem] w-[0.9rem] text-foreground" />
+                <Sun className="h-4 w-4 md:h-5 md:w-5 text-foreground" />
             </button>
             <button onClick={() => handleThemeChange('dark')} aria-label='Switch to dark theme' className={cn(getThemeClasses('dark'))}>
-                <Moon className="h-[0.9rem] w-[0.9rem] text-foreground" />
+                <Moon className="h-4 w-4 md:h-5 md:w-5 text-foreground" />
             </button>
             <button onClick={() => handleThemeChange('cyberpunk')} aria-label='Switch to cyberpunk theme' className={cn(getThemeClasses('cyberpunk'))}>
-                <Ghost className="h-[0.9rem] w-[0.9rem] text-foreground" />
+                <Ghost className="h-4 w-4 md:h-5 md:w-5 text-foreground" />
             </button>
         </div>
 
