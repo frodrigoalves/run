@@ -72,7 +72,7 @@ export default function GlobalControls() {
               <span>🇧🇷</span>
           </div>
           <div aria-label='Switch to English' className={cn(getLangClasses('en'))}>
-              <span>🇬🇧</span>
+              <span>🇺🇸</span>
           </div>
       </div>
       
