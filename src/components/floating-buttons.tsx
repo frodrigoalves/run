@@ -16,7 +16,7 @@ export default function FloatingButtons() {
         <Button
           onClick={() => setSocialOpen(true)}
           size="icon"
-          className="bg-blue-600 hover:bg-blue-500 text-white w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-110"
+          className="bg-secondary hover:bg-accent text-white w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-110"
           aria-label="Abrir redes sociais"
         >
           <Linkedin size={24} />
@@ -24,7 +24,7 @@ export default function FloatingButtons() {
         <Button
           onClick={() => setContactOpen(true)}
           size="icon"
-          className="bg-primary hover:bg-primary/90 text-white w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-110"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-110"
           aria-label="Abrir mural de ideias"
         >
           <Lightbulb size={24} />

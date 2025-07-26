@@ -89,43 +89,43 @@ export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
 
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent className="bg-slate-800/95 backdrop-blur-lg text-white border-l-slate-700 w-full max-w-md overflow-y-auto">
+      <SheetContent className="bg-background/95 backdrop-blur-lg text-foreground border-l-border w-full max-w-md overflow-y-auto">
         <SheetHeader>
           <SheetTitle className="text-xl font-semibold text-primary">{t({ pt: 'Mural de Ideias', en: 'Idea Mural' })}</SheetTitle>
         </SheetHeader>
         <div className="p-1 py-6">
-          <p className="text-sm text-slate-400 mb-4">
+          <p className="text-sm text-muted-foreground mb-4">
             {t({ 
               pt: 'Tem uma ideia para um projeto, uma necessidade de negócio ou busca consultoria? Descreva-a anonimamente abaixo. As ideias são um espaço para interação mútua. Quando sentir que posso ajudar, você decide o próximo passo.', 
               en: 'Have an idea for a project, a business need, or are you looking for consulting? Describe it anonymously below. Ideas are a space for mutual interaction. When you feel I can help, you decide the next step.' 
             })}
           </p>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <Textarea name="idea" rows={5} placeholder={t({ pt: 'Descreva sua ideia, necessidade ou projeto...', en: 'Describe your idea, need, or project...' })} required className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
+            <Textarea name="idea" rows={5} placeholder={t({ pt: 'Descreva sua ideia, necessidade ou projeto...', en: 'Describe your idea, need, or project...' })} required className="bg-input border-border placeholder:text-muted-foreground focus:ring-ring" />
             
             <div className="space-y-2">
-                <Label htmlFor="contact" className="text-sm font-medium text-slate-300">{t({pt: 'Contato (opcional)', en: 'Contact (optional)'})}</Label>
-                <Input name="contact" id="contact" placeholder={t({pt: 'Seu e-mail ou rede social', en: 'Your email or social media'})} className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
+                <Label htmlFor="contact" className="text-sm font-medium text-foreground">{t({pt: 'Contato (opcional)', en: 'Contact (optional)'})}</Label>
+                <Input name="contact" id="contact" placeholder={t({pt: 'Seu e-mail ou rede social', en: 'Your email or social media'})} className="bg-input border-border placeholder:text-muted-foreground focus:ring-ring" />
             </div>
 
             <div className="flex items-center space-x-2">
-                <Checkbox id="isPublic" name="isPublic" className="border-slate-500 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
+                <Checkbox id="isPublic" name="isPublic" className="border-muted-foreground data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
                 <label
                     htmlFor="isPublic"
-                    className="text-sm text-slate-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    className="text-sm text-muted-foreground font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                     {t({pt: 'Autorizo a exibição desta ideia no mural público.', en: 'I authorize this idea to be displayed on the public mural.'})}
                 </label>
             </div>
             
-            <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/90 text-white w-full transition-transform hover:scale-105">
+            <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/90 text-primary-foreground w-full transition-transform hover:scale-105">
               {isSubmitting ? t({ pt: 'Enviando...', en: 'Submitting...' }) : t({ pt: 'Enviar Ideia', en: 'Submit Idea' })}
             </Button>
           </form>
 
           {ideas.length > 0 && (
             <div className="mt-8">
-                <h3 className="text-lg font-semibold text-white mb-4">{t({pt: "Ideias Recentes", en: "Recent Ideas"})}</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-4">{t({pt: "Ideias Recentes", en: "Recent Ideas"})}</h3>
                 <Carousel
                     opts={{
                         align: "start",
@@ -138,8 +138,8 @@ export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
                                 <div className="p-1">
                                     <Card className='glass-effect'>
                                         <CardContent className="flex flex-col items-start justify-center p-4 gap-2">
-                                            <p className="text-sm text-slate-300">{idea.text}</p>
-                                            <span className='text-xs text-slate-500'>
+                                            <p className="text-sm text-foreground/80">{idea.text}</p>
+                                            <span className='text-xs text-muted-foreground'>
                                                 {new Date(idea.timestamp).toLocaleDateString(t({pt: 'pt-BR', en: 'en-US'}))}
                                             </span>
                                         </CardContent>
@@ -148,8 +148,8 @@ export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious className='-left-4 text-white' />
-                    <CarouselNext className='-right-4 text-white' />
+                    <CarouselPrevious className='-left-4 text-foreground' />
+                    <CarouselNext className='-right-4 text-foreground' />
                 </Carousel>
             </div>
           )}
