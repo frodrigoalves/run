@@ -94,7 +94,7 @@ export default function Hero() {
           isFeatured={activeMatrixIndex === 1}
         />
       </div>
-       <div className="absolute bottom-16 right-1/2 opacity-0 animate-fade-in-delay-4 hidden md:block md:right-1/3">
+       <div className="absolute bottom-24 right-16 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
           strings={allMatrixStrings[3]}
           isFeatured={activeMatrixIndex === 3}
