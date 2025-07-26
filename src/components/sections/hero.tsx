@@ -53,13 +53,13 @@ export default function Hero() {
 
     if (displayIndex === 0) {
         // Current theme: front and largest
-        return cn(baseClasses, "w-16 h-16 z-30 transform scale-100 opacity-100 translate-y-0");
+        return cn(baseClasses, "w-10 h-10 z-30 transform scale-100 opacity-100 translate-y-0");
     } else if (displayIndex === 1) {
         // Next theme
-        return cn(baseClasses, "w-14 h-14 z-20 transform scale-90 opacity-75 translate-y-12");
+        return cn(baseClasses, "w-9 h-9 z-20 transform scale-90 opacity-75 translate-y-8");
     } else {
         // Previous theme
-        return cn(baseClasses, "w-12 h-12 z-10 transform scale-80 opacity-50 translate-y-24");
+        return cn(baseClasses, "w-8 h-8 z-10 transform scale-80 opacity-50 translate-y-16");
     }
   };
 
@@ -101,15 +101,15 @@ export default function Hero() {
           </Button>
         </div>
         
-        <div className="fixed top-24 right-8 z-50 h-48 w-20 flex items-center justify-center">
+        <div className="fixed top-24 right-8 z-50 h-28 w-12 flex items-center justify-center">
             <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className={getThemeClasses('light')}>
-                <Sun className="h-[1.6rem] w-[1.6rem] text-foreground" />
+                <Sun className="h-[1.2rem] w-[1.2rem] text-foreground" />
             </button>
             <button onClick={() => handleThemeChange('dark')} aria-label='Switch to dark theme' className={getThemeClasses('dark')}>
-                <Moon className="h-[1.6rem] w-[1.6rem] text-foreground" />
+                <Moon className="h-[1.2rem] w-[1.2rem] text-foreground" />
             </button>
             <button onClick={() => handleThemeChange('cyberpunk')} aria-label='Switch to cyberpunk theme' className={getThemeClasses('cyberpunk')}>
-                <Ghost className="h-[1.6rem] w-[1.6rem] text-foreground" />
+                <Ghost className="h-[1.2rem] w-[1.2rem] text-foreground" />
             </button>
         </div>
 
