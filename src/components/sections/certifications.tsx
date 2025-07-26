@@ -36,7 +36,7 @@ export default function Certifications() {
                     <h4 className="font-semibold text-foreground text-base">{t(cert.title)}</h4>
                     <p className="text-sm text-muted-foreground">{cert.issuer}{cert.year ? ` - ${cert.year}` : ''}</p>
                   </div>
-                  <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                  <ExternalLink className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" strokeWidth={1.5}/>
                 </CardContent>
               </Card>
             </a>

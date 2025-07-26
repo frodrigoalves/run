@@ -19,7 +19,7 @@ export default function FloatingButtons() {
           className="bg-secondary hover:bg-accent text-white w-12 h-12 rounded-full shadow-lg transition-transform hover:scale-110"
           aria-label="Abrir redes sociais"
         >
-          <Contact size={20} />
+          <Contact size={24} strokeWidth={1.5} />
         </Button>
         <Button
           onClick={() => setIdeaOpen(true)}
@@ -27,7 +27,7 @@ export default function FloatingButtons() {
           className="bg-primary hover:bg-primary/90 text-primary-foreground w-12 h-12 rounded-full shadow-lg transition-transform hover:scale-110"
           aria-label="Abrir mural de ideias"
         >
-          <Lightbulb size={20} />
+          <Lightbulb size={24} strokeWidth={1.5} />
         </Button>
       </div>
       <IdeaDrawer isOpen={isIdeaOpen} onOpenChange={setIdeaOpen} />
