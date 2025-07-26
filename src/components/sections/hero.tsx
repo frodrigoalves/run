@@ -46,14 +46,10 @@ export default function Hero() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // Pick a random location for the subtitle to be featured
       const nextMatrixIndex = Math.floor(Math.random() * allMatrixStrings.length);
       setActiveMatrixIndex(nextMatrixIndex);
-
-      // Cycle through subtitles
       setActiveSubtitleIndex(prev => (prev + 1) % titles[lang].length);
-
-    }, 2000); // Change every 2 seconds
+    }, 2000); 
 
     return () => clearInterval(interval);
   }, [lang, titles]);
@@ -98,11 +94,12 @@ export default function Hero() {
     const baseClasses = "absolute flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out cursor-pointer";
     const size = 'w-6 h-6';
 
-    if (position === 0) { // Active
-        return cn(baseClasses, size, "z-30 transform -translate-y-0 scale-100 opacity-100");
+    // Invert the logic: The inactive one (next choice) should be in front
+    if (position === 0) { // Active language
+        return cn(baseClasses, size, "z-20 transform translate-y-3 scale-90 opacity-75");
     }
-    // Next
-    return cn(baseClasses, size, "z-20 transform translate-y-3 scale-90 opacity-75");
+    // Inactive language (the one to click)
+    return cn(baseClasses, size, "z-30 transform -translate-y-0 scale-100 opacity-100");
   }
 
 
@@ -114,31 +111,31 @@ export default function Hero() {
       {/* Matrix Effects */}
       <div className="absolute top-10 left-8 opacity-0 animate-fade-in-delay-1">
         <MatrixEffect 
-          strings={activeMatrixIndex === 0 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[0]} 
+          strings={allMatrixStrings[0]} 
           isFeatured={activeMatrixIndex === 0}
         />
       </div>
       <div className="absolute top-1/3 right-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
-          strings={activeMatrixIndex === 1 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[1]}
+          strings={allMatrixStrings[1]}
           isFeatured={activeMatrixIndex === 1}
         />
       </div>
       <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in-delay-3 w-64 text-primary">
          <MatrixEffect 
-          strings={activeMatrixIndex === 2 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[2]}
-          isFeatured={activeMatrixIndex === 2}
+          strings={[titles[lang][activeSubtitleIndex]]}
+          isFeatured={true}
         />
       </div>
       <div className="absolute bottom-24 right-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
-          strings={activeMatrixIndex === 3 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[3]}
+          strings={allMatrixStrings[3]}
           isFeatured={activeMatrixIndex === 3}
         />
       </div>
        <div className="absolute top-3/4 left-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
-          strings={activeMatrixIndex === 4 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[1]}
+          strings={allMatrixStrings[1]}
           isFeatured={activeMatrixIndex === 4}
         />
       </div>
