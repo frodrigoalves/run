@@ -20,9 +20,9 @@ export default function Technologies() {
             <Image
               src={tech.icon}
               alt={tech.name}
-              width={48}
-              height={48}
-              className="h-12 w-12 grayscale group-hover:grayscale-0 transition-all duration-300"
+              width={40}
+              height={40}
+              className="h-10 w-10 grayscale group-hover:grayscale-0 transition-all duration-300"
             />
             <span className="font-medium text-muted-foreground text-sm">{tech.name}</span>
           </div>
