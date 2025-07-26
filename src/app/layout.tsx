@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   title: 'Rodrigo',
-  description: 'Este é o meu portfólio interativo, onde você pode explorar projetos reais, soluções com IA e blockchain, e experiências desenvolvidas com propósito e tecnologia.',
+  description: 'Portfólio interativo de Rodrigo Alves Ferreira. Explore projetos, soluções com IA e blockchain, e experiências desenvolvidas com propósito e tecnologia.',
 };
 
 export default function RootLayout({

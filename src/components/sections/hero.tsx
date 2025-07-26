@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { MatrixEffect } from '@/components/matrix-effect';
 import { useLocalization } from '@/hooks/use-localization';
 import type { Language } from '@/components/localization-provider';
@@ -16,10 +15,12 @@ const allMatrixStrings = [
   ["load: /blockchain/modules", "booting: SingulAI"],
   ["ACCESS GRANTED", "render:portfolio.interactive"],
   ["0x5a2e...c8a4", "eth_send"],
+  ["running diagnostics", "kernel_panic: false"],
+  ["decrypting_data", "auth_success"],
 ];
 
 export default function Hero() {
-  const { lang, changeLang, t } = useLocalization();
+  const { lang, changeLang } = useLocalization();
   const { theme, setTheme } = useTheme();
   const [activeTheme, setActiveTheme] = useState<Theme>('dark');
   
@@ -32,7 +33,6 @@ export default function Hero() {
   };
   
   useEffect(() => {
-    document.body.dataset.theme = theme;
     if (theme) {
       setActiveTheme(theme as Theme);
     }
@@ -40,8 +40,7 @@ export default function Hero() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const nextMatrixIndex = Math.floor(Math.random() * allMatrixStrings.length);
-      setActiveMatrixIndex(nextMatrixIndex);
+      setActiveMatrixIndex(prev => (prev + 1) % allMatrixStrings.length);
       setActiveSubtitleIndex(prev => (prev + 1) % titles[lang].length);
     }, 1500); 
 
@@ -67,7 +66,7 @@ export default function Hero() {
 
     let position = (buttonIndex - activeIndex + 3) % 3;
 
-    const baseClasses = "absolute flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out";
+    const baseClasses = "absolute flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out cursor-pointer";
     const size = 'w-6 h-6';
 
     if (position === 0) {
@@ -80,7 +79,7 @@ export default function Hero() {
   };
 
   return (
-    <header className="py-24 md:py-32 text-center relative overflow-hidden border-b border-border min-h-[500px] md:min-h-[450px]">
+    <header className="absolute inset-0 text-center overflow-hidden bg-background">
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background opacity-80"></div>
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
       
@@ -99,7 +98,7 @@ export default function Hero() {
       </div>
        <div className="absolute bottom-24 right-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
-          strings={allMatrixStrings[3]}
+          strings={activeMatrixIndex === 3 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[3]}
           isFeatured={activeMatrixIndex === 3}
         />
       </div>
@@ -111,17 +110,16 @@ export default function Hero() {
       </div>
        <div className="absolute top-1/2 left-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
-          strings={allMatrixStrings[1]}
+          strings={allMatrixStrings[4]}
           isFeatured={activeMatrixIndex === 4}
         />
       </div>
-      <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in-delay-3 w-64 text-primary">
+      <div className="absolute top-1/4 left-1/2 opacity-0 animate-fade-in-delay-3">
          <MatrixEffect 
-          strings={[titles[lang][activeSubtitleIndex]]}
-          isFeatured={true}
+          strings={activeMatrixIndex === 5 ? [titles[lang][(activeSubtitleIndex + 1) % titles[lang].length]] : allMatrixStrings[5]}
+          isFeatured={activeMatrixIndex === 5}
         />
       </div>
-
 
       <div className="relative z-20 max-w-4xl mx-auto px-4 flex flex-col items-center">
         
@@ -150,15 +148,15 @@ export default function Hero() {
 
         
         <div className="fixed top-5 right-5 md:right-8 z-50 h-8 w-6 flex flex-col items-center justify-start group pt-2" onClick={handleThemeChange}>
-            <button aria-label='Switch to light theme' className={cn(getThemeClasses('light'))}>
+            <div aria-label='Switch to light theme' className={cn(getThemeClasses('light'))}>
                 <Sun className="h-3 w-3 text-foreground" />
-            </button>
-            <button aria-label='Switch to dark theme' className={cn(getThemeClasses('dark'))}>
+            </div>
+            <div aria-label='Switch to dark theme' className={cn(getThemeClasses('dark'))}>
                 <Moon className="h-3 w-3 text-foreground" />
-            </button>
-            <button aria-label='Switch to cyberpunk theme' className={cn(getThemeClasses('cyberpunk'))}>
+            </div>
+            <div aria-label='Switch to cyberpunk theme' className={cn(getThemeClasses('cyberpunk'))}>
                 <Ghost className="h-3 w-3 text-foreground" />
-            </button>
+            </div>
         </div>
 
       </div>
