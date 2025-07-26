@@ -28,12 +28,14 @@ function LandingPageContent() {
             <MatrixEffect 
               strings={[buttonText[lang]]}
               isFeatured={true}
+              stopAfter={3000}
               loopAfter={5000}
               className="text-base font-sans"
             />
              <MatrixEffect 
               strings={['→']}
               isFeatured={true}
+              stopAfter={3000}
               loopAfter={5000}
               characterSet={arrowChars}
               className="text-base font-sans"
