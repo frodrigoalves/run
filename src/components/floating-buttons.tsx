@@ -2,17 +2,27 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Linkedin, Lightbulb } from 'lucide-react';
+import { Linkedin, Lightbulb, Bot } from 'lucide-react';
 import { IdeaDrawer } from '@/components/idea-drawer';
 import { SocialDrawer } from '@/components/social-drawer';
+import { AssistantDrawer } from '@/components/assistant-drawer';
 
 export default function FloatingButtons() {
   const [isIdeaOpen, setIdeaOpen] = useState(false);
   const [isSocialOpen, setSocialOpen] = useState(false);
+  const [isAssistantOpen, setAssistantOpen] = useState(false);
 
   return (
     <>
       <div className="fixed bottom-5 right-5 z-30 flex flex-col gap-3">
+         <Button
+          onClick={() => setAssistantOpen(true)}
+          size="icon"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground w-12 h-12 rounded-full shadow-lg transition-transform hover:scale-110"
+          aria-label="Abrir assistente de IA"
+        >
+          <Bot size={20} />
+        </Button>
         <Button
           onClick={() => setSocialOpen(true)}
           size="icon"
@@ -32,6 +42,7 @@ export default function FloatingButtons() {
       </div>
       <IdeaDrawer isOpen={isIdeaOpen} onOpenChange={setIdeaOpen} />
       <SocialDrawer isOpen={isSocialOpen} onOpenChange={setSocialOpen} />
+      <AssistantDrawer isOpen={isAssistantOpen} onOpenChange={setAssistantOpen} />
     </>
   );
 }
