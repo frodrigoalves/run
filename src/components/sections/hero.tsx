@@ -46,30 +46,26 @@ export default function Hero() {
   const getThemeClasses = (buttonTheme: Theme) => {
     const baseClasses = "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out absolute";
     
-    if (buttonTheme === activeTheme) {
-      return cn(baseClasses, "w-16 h-16 z-30 transform scale-100 opacity-100 translate-y-0");
-    }
-    
     const themeOrder: Theme[] = ['light', 'dark', 'cyberpunk'];
     const activeIndex = themeOrder.indexOf(activeTheme);
     const buttonIndex = themeOrder.indexOf(buttonTheme);
 
-    if (buttonIndex === (activeIndex + 1) % 3) { // Next theme
-       return cn(baseClasses, "w-14 h-14 z-20 transform scale-90 opacity-75 -translate-y-16");
+    if (buttonIndex === activeIndex) {
+        // Active theme: front and largest
+        return cn(baseClasses, "w-16 h-16 z-30 transform scale-100 opacity-100 translate-y-0");
+    } else if (buttonIndex === (activeIndex + 1) % 3) {
+        // Next theme: middle
+        return cn(baseClasses, "w-14 h-14 z-20 transform scale-90 opacity-75 translate-y-12");
+    } else {
+        // Previous/Last theme: back and smallest
+        return cn(baseClasses, "w-12 h-12 z-10 transform scale-80 opacity-50 translate-y-24");
     }
-    
-    if (buttonIndex === (activeIndex + 2) % 3) { // Previous/Last theme
-        return cn(baseClasses, "w-12 h-12 z-10 transform scale-80 opacity-50 -translate-y-28");
-    }
-    
-    return baseClasses;
   };
-
 
   return (
     <header className="py-16 text-center relative overflow-hidden border-b border-border">
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background opacity-80"></div>
-      <div className="absolute inset-0 bg-[url(\'https://www.transparenttextures.com/patterns/cubes.png\')] opacity-5"></div>
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
       <div className="relative z-10 max-w-4xl mx-auto px-4">
         <Image
           src="https://placehold.co/128x128.png"
