@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { MatrixEffect } from '@/components/matrix-effect';
 import { useLocalization } from '@/hooks/use-localization';
@@ -49,7 +48,7 @@ export default function Hero() {
       const nextMatrixIndex = Math.floor(Math.random() * allMatrixStrings.length);
       setActiveMatrixIndex(nextMatrixIndex);
       setActiveSubtitleIndex(prev => (prev + 1) % titles[lang].length);
-    }, 2000); 
+    }, 1500); 
 
     return () => clearInterval(interval);
   }, [lang, titles]);
@@ -94,11 +93,9 @@ export default function Hero() {
     const baseClasses = "absolute flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out cursor-pointer";
     const size = 'w-6 h-6';
 
-    // Invert the logic: The inactive one (next choice) should be in front
     if (position === 0) { // Active language
         return cn(baseClasses, size, "z-20 transform translate-y-3 scale-90 opacity-75");
     }
-    // Inactive language (the one to click)
     return cn(baseClasses, size, "z-30 transform -translate-y-0 scale-100 opacity-100");
   }
 
@@ -109,13 +106,13 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
       
       {/* Matrix Effects */}
-      <div className="absolute top-10 left-8 opacity-0 animate-fade-in-delay-1">
+       <div className="absolute top-10 left-8 opacity-0 animate-fade-in-delay-1">
         <MatrixEffect 
           strings={allMatrixStrings[0]} 
           isFeatured={activeMatrixIndex === 0}
         />
       </div>
-      <div className="absolute top-1/3 right-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
+       <div className="absolute top-1/3 right-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
           strings={allMatrixStrings[1]}
           isFeatured={activeMatrixIndex === 1}
@@ -127,7 +124,7 @@ export default function Hero() {
           isFeatured={true}
         />
       </div>
-      <div className="absolute bottom-24 right-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
+       <div className="absolute bottom-24 right-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
           strings={allMatrixStrings[3]}
           isFeatured={activeMatrixIndex === 3}
@@ -135,26 +132,20 @@ export default function Hero() {
       </div>
        <div className="absolute top-3/4 left-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
+          strings={allMatrixStrings[2]}
+          isFeatured={activeMatrixIndex === 2}
+        />
+      </div>
+       <div className="absolute top-1/2 left-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
+        <MatrixEffect 
           strings={allMatrixStrings[1]}
           isFeatured={activeMatrixIndex === 4}
         />
       </div>
 
+
       <div className="relative z-20 max-w-4xl mx-auto px-4 flex flex-col items-center">
-        <Image
-          src="https://placehold.co/128x128.png"
-          alt="Foto de Rodrigo Alves Ferreira"
-          width={128}
-          height={128}
-          data-ai-hint="profile photo"
-          className="w-24 h-24 md:w-32 md:h-32 rounded-full mx-auto border-4 border-border shadow-xl mb-4 object-cover"
-        />
-        <h1 className="text-4xl md:text-5xl font-bold text-foreground">Rodrigo</h1>
-
-        <p className="mt-4 text-muted-foreground text-base md:text-lg max-w-2xl mx-auto min-h-[72px] md:min-h-[48px]">
-            {t(intro)}
-        </p>
-
+        
         <div className="fixed top-5 left-5 md:left-8 z-50 h-8 w-6 flex flex-col items-center justify-start group pt-2">
             <div onClick={() => handleLangChange('pt')} aria-label='Mudar para Português' className={cn(getLangClasses('pt'))}>
                 <span>🇧🇷</span>
