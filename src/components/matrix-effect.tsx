@@ -1,18 +1,20 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 interface MatrixEffectProps {
   strings: string[];
   className?: string;
   isFeatured?: boolean;
-  stopAfter?: number; // Time in ms to stop the animation
+  stopAfter?: number; // Time in ms to stop the animation permanently
+  loopAfter?: number; // Time in ms to loop between animating and paused
+  characterSet?: string[];
 }
 
-const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*&^%$#@!';
+const DEFAULT_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*&^%$#@!';
 
-const ScrambledChar = ({ char, isRevealed, isFeatured }: { char: string; isRevealed: boolean; isFeatured: boolean }) => {
+const ScrambledChar = ({ char, isRevealed, isFeatured, characterSet }: { char: string; isRevealed: boolean; isFeatured: boolean, characterSet: string[] }) => {
   const [displayChar, setDisplayChar] = useState('');
 
   useEffect(() => {
@@ -22,12 +24,12 @@ const ScrambledChar = ({ char, isRevealed, isFeatured }: { char: string; isRevea
     }
 
     const interval = setInterval(() => {
-      const randomChar = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
+      const randomChar = characterSet[Math.floor(Math.random() * characterSet.length)];
       setDisplayChar(randomChar);
     }, 100);
 
     return () => clearInterval(interval);
-  }, [isRevealed, char]);
+  }, [isRevealed, char, characterSet]);
 
   return (
     <span
@@ -41,53 +43,81 @@ const ScrambledChar = ({ char, isRevealed, isFeatured }: { char: string; isRevea
   );
 };
 
-export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter }: MatrixEffectProps) => {
+export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter, loopAfter, characterSet: customCharSet }: MatrixEffectProps) => {
   const [stringIndex, setStringIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
-  const [isAnimationStopped, setAnimationStopped] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(true);
 
   const currentString = useMemo(() => strings[stringIndex] || '', [strings, stringIndex]);
+  const characterSet = useMemo(() => customCharSet || DEFAULT_CHARACTERS.split(''), [customCharSet]);
+  
+  const animationIntervalRef = useRef<NodeJS.Timeout>();
+  const loopIntervalRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
+    // Permanent stop logic
     if (stopAfter) {
       const stopTimer = setTimeout(() => {
+        setIsAnimating(false);
         setRevealedCount(currentString.length);
-        setAnimationStopped(true);
+        if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
       }, stopAfter);
       return () => clearTimeout(stopTimer);
     }
   }, [stopAfter, currentString.length]);
 
   useEffect(() => {
-    if (isAnimationStopped) return;
-
-    const revealTimer = setTimeout(() => {
-      if (revealedCount < currentString.length) {
-        setRevealedCount((prev) => prev + 1);
-      } else {
-        setTimeout(() => {
-          setRevealedCount(0);
-          setStringIndex((prev) => (prev + 1) % strings.length);
-        }, 2000); 
-      }
-    }, 50);
-
-    return () => clearTimeout(revealTimer);
-  }, [revealedCount, currentString, strings, stringIndex, isAnimationStopped]);
-  
-  useEffect(() => {
-    if (!isAnimationStopped) {
-      setRevealedCount(0);
-      setStringIndex(0);
+    // Loop logic (animating/paused)
+    if (loopAfter) {
+        if (loopIntervalRef.current) clearInterval(loopIntervalRef.current);
+        loopIntervalRef.current = setInterval(() => {
+            setIsAnimating(prev => !prev);
+        }, loopAfter);
+        return () => clearInterval(loopIntervalRef.current);
     }
-  }, [strings, isAnimationStopped]);
+  }, [loopAfter]);
+
+
+  useEffect(() => {
+    if (isAnimating) {
+        if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
+        animationIntervalRef.current = setInterval(() => {
+            setRevealedCount(prev => {
+                if (prev < currentString.length) {
+                    return prev + 1;
+                } else {
+                    // When animation completes, reset for next cycle
+                     setTimeout(() => {
+                        setRevealedCount(0);
+                        setStringIndex(prevIdx => (prevIdx + 1) % strings.length);
+                     }, loopAfter ? 0 : 2000); // Reset immediately if looping
+                    return currentString.length;
+                }
+            });
+        }, 50);
+    } else {
+        // If not animating (paused state in a loop)
+        setRevealedCount(currentString.length);
+        if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
+    }
+
+    return () => {
+        if (animationIntervalRef.current) clearInterval(animationIntervalRef.current)
+    };
+  }, [isAnimating, currentString, strings, stringIndex, loopAfter]);
+
+  useEffect(() => {
+    setRevealedCount(0);
+    setStringIndex(0);
+    setIsAnimating(true); // Reset animation state on string change
+  }, [strings]);
 
 
   return (
     <div className={cn("font-code", className)}>
       <div className="tracking-wider">
         {currentString.split('').map((char, index) => (
-          <ScrambledChar key={index} char={char} isRevealed={index < revealedCount} isFeatured={isFeatured} />
+          <ScrambledChar key={index} char={char} isRevealed={index < revealedCount} isFeatured={isFeatured} characterSet={characterSet} />
         ))}
       </div>
     </div>
