@@ -7,10 +7,22 @@ import { useLocalization } from '@/hooks/use-localization';
 import type { Language } from '@/components/localization-provider';
 import { useTheme } from 'next-themes';
 import { Moon, Sun, Ghost } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { cn } from '@/lib/utils';
+
+type Theme = 'light' | 'dark' | 'cyberpunk';
 
 export default function Hero() {
   const { lang, changeLang, t } = useLocalization();
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [activeTheme, setActiveTheme] = useState<Theme>('dark');
+
+  useEffect(() => {
+    // Sync with next-themes's theme state
+    if (theme) {
+      setActiveTheme(theme as Theme);
+    }
+  }, [theme]);
 
   const titles = {
     pt: ["Desenvolvedor Web3", "Especialista em IA", "Advogado & Criador do SingulAI"],
@@ -26,9 +38,36 @@ export default function Hero() {
     changeLang(newLang);
   };
 
-  const handleThemeChange = (newTheme: string) => {
+  const handleThemeChange = (newTheme: Theme) => {
     setTheme(newTheme);
+    setActiveTheme(newTheme);
   }
+  
+  const getThemeClasses = (buttonTheme: Theme) => {
+    const baseClasses = "flex items-center justify-center rounded-full bg-card/50 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out absolute";
+    
+    if (buttonTheme === activeTheme) {
+      return cn(baseClasses, "w-16 h-16 z-30 transform scale-100 opacity-100");
+    }
+    
+    // Determine the order for the other themes
+    const themeOrder: Theme[] = ['light', 'dark', 'cyberpunk'];
+    const activeIndex = themeOrder.indexOf(activeTheme);
+    
+    const nextThemeIndex = (activeIndex + 1) % 3;
+    const prevThemeIndex = (activeIndex + 2) % 3;
+
+    if (buttonTheme === themeOrder[nextThemeIndex]) {
+       return cn(baseClasses, "w-14 h-14 z-20 transform scale-90 -translate-y-10 opacity-80");
+    }
+    
+    if (buttonTheme === themeOrder[prevThemeIndex]) {
+        return cn(baseClasses, "w-12 h-12 z-10 transform scale-75 -translate-y-20 opacity-60");
+    }
+    
+    return baseClasses;
+  };
+
 
   return (
     <header className="py-16 text-center relative overflow-hidden border-b border-border">
@@ -67,18 +106,16 @@ export default function Hero() {
           </Button>
         </div>
         
-        <div className="group fixed top-5 right-5 z-50 flex flex-col items-center gap-1">
-          <div className="relative flex flex-col items-center gap-2">
-              <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className="group/button relative flex h-12 w-12 items-center justify-center rounded-full bg-card/50 backdrop-blur-sm border border-border/50 transition-all duration-300 ease-in-out hover:scale-110 group-hover:translate-x-0 -translate-x-20 opacity-0 group-hover:opacity-100">
-                  <Sun className="h-[1.4rem] w-[1.4rem] text-foreground" />
-              </button>
-              <button onClick={() => handleThemeChange('dark')} aria-label='Switch to dark theme' className="group/button relative flex h-14 w-14 items-center justify-center rounded-full bg-card/50 backdrop-blur-md border border-border/50 transition-all duration-500 ease-in-out hover:scale-110 group-hover:translate-x-0 -translate-x-20 opacity-0 group-hover:opacity-100">
-                  <Moon className="h-[1.5rem] w-[1.5rem] text-foreground" />
-              </button>
-              <button onClick={() => handleThemeChange('cyberpunk')} aria-label='Switch to cyberpunk theme' className="group/button relative flex h-12 w-12 items-center justify-center rounded-full bg-card/50 backdrop-blur-sm border border-border/50 transition-all duration-700 ease-in-out hover:scale-110 group-hover:translate-x-0 -translate-x-20 opacity-0 group-hover:opacity-100">
-                  <Ghost className="h-[1.4rem] w-[1.4rem] text-foreground" />
-              </button>
-          </div>
+        <div className="fixed top-24 right-8 z-50 h-32 w-20 flex items-center justify-center">
+            <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className={getThemeClasses('light')}>
+                <Sun className="h-[1.6rem] w-[1.6rem] text-foreground" />
+            </button>
+            <button onClick={() => handleThemeChange('dark')} aria-label='Switch to dark theme' className={getThemeClasses('dark')}>
+                <Moon className="h-[1.6rem] w-[1.6rem] text-foreground" />
+            </button>
+            <button onClick={() => handleThemeChange('cyberpunk')} aria-label='Switch to cyberpunk theme' className={getThemeClasses('cyberpunk')}>
+                <Ghost className="h-[1.6rem] w-[1.6rem] text-foreground" />
+            </button>
         </div>
 
       </div>
