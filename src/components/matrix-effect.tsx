@@ -32,7 +32,7 @@ const ScrambledChar = ({ char, isRevealed, isFeatured }: { char: string; isRevea
     <span
       className={cn(
         'transition-opacity duration-500',
-        isRevealed && isFeatured ? 'opacity-100' : 'opacity-20'
+        isRevealed && isFeatured ? 'opacity-100' : 'opacity-40'
       )}
     >
       {displayChar}
@@ -56,7 +56,7 @@ export const MatrixEffect = ({ strings, className, isFeatured = false }: MatrixE
           setStringIndex((prev) => (prev + 1) % strings.length);
         }, 2000); 
       }
-    }, 75);
+    }, 50);
 
     return () => clearTimeout(revealTimer);
   }, [revealedCount, currentString, strings.length]);

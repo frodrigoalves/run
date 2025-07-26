@@ -53,7 +53,7 @@ export default function Hero() {
       // Cycle through subtitles
       setActiveSubtitleIndex(prev => (prev + 1) % titles[lang].length);
 
-    }, 4000); // Change every 4 seconds
+    }, 3000); // Change every 3 seconds
 
     return () => clearInterval(interval);
   }, [lang, titles]);
