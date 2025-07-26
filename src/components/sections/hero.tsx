@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import TypedEffect from '@/components/typed-effect';
+import { MatrixEffect } from '@/components/matrix-effect';
 import { useLocalization } from '@/hooks/use-localization';
 import type { Language } from '@/components/localization-provider';
 import { useTheme } from 'next-themes';
@@ -52,13 +52,13 @@ export default function Hero() {
 
     if (displayIndex === 0) {
         // Current theme: front and largest
-        return cn(baseClasses, "w-10 h-10 z-30 transform scale-100 opacity-100 translate-y-0");
+        return cn(baseClasses, "w-6 h-6 z-30 transform scale-100 opacity-100 translate-y-0");
     } else if (displayIndex === 1) {
         // Next theme
-        return cn(baseClasses, "w-9 h-9 z-20 transform scale-90 opacity-75 translate-y-12");
+        return cn(baseClasses, "w-6 h-6 z-20 transform scale-90 opacity-75 translate-y-8");
     } else {
         // Previous theme
-        return cn(baseClasses, "w-8 h-8 z-10 transform scale-80 opacity-50 translate-y-24");
+        return cn(baseClasses, "w-6 h-6 z-10 transform scale-80 opacity-50 translate-y-16");
     }
   };
 
@@ -77,8 +77,8 @@ export default function Hero() {
           className="w-32 h-32 rounded-full mx-auto border-4 border-border shadow-xl mb-4 object-cover"
         />
         <h1 className="text-4xl md:text-5xl font-bold text-foreground">Rodrigo</h1>
-        <div className="text-lg md:text-xl text-primary mt-2">
-          <TypedEffect strings={titles[lang]} />
+        <div className="text-lg md:text-xl text-primary mt-2 min-h-[56px] flex items-center justify-center">
+          <MatrixEffect strings={titles[lang]} />
         </div>
         <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
             {t(intro)}
@@ -101,14 +101,14 @@ export default function Hero() {
         </div>
         
         <div className="fixed top-24 right-8 z-50 h-28 w-12 flex items-center justify-center">
-            <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className={cn(getThemeClasses('light'), 'w-6 h-6')}>
-                <Sun className="h-[1.0rem] w-[1.0rem] text-foreground" />
+            <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className={cn(getThemeClasses('light'))}>
+                <Sun className="h-[0.9rem] w-[0.9rem] text-foreground" />
             </button>
-            <button onClick={() => handleThemeChange('dark')} aria-label='Switch to dark theme' className={cn(getThemeClasses('dark'), 'w-6 h-6')}>
-                <Moon className="h-[1.0rem] w-[1.0rem] text-foreground" />
+            <button onClick={() => handleThemeChange('dark')} aria-label='Switch to dark theme' className={cn(getThemeClasses('dark'))}>
+                <Moon className="h-[0.9rem] w-[0.9rem] text-foreground" />
             </button>
-            <button onClick={() => handleThemeChange('cyberpunk')} aria-label='Switch to cyberpunk theme' className={cn(getThemeClasses('cyberpunk'), 'w-6 h-6')}>
-                <Ghost className="h-[1.0rem] w-[1.0rem] text-foreground" />
+            <button onClick={() => handleThemeChange('cyberpunk')} aria-label='Switch to cyberpunk theme' className={cn(getThemeClasses('cyberpunk'))}>
+                <Ghost className="h-[0.9rem] w-[0.9rem] text-foreground" />
             </button>
         </div>
 
