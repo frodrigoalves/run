@@ -1,7 +1,6 @@
 'use client';
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useLocalization } from '@/hooks/use-localization';
@@ -43,6 +42,7 @@ export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
       
       const form = event.target as HTMLFormElement;
       form.reset();
+      onOpenChange(false);
 
     } catch (error) {
       toast({
@@ -62,15 +62,14 @@ export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
           <SheetTitle className="text-xl font-semibold text-primary">{t({ pt: 'Mural de Ideias', en: 'Idea Mural' })}</SheetTitle>
         </SheetHeader>
         <div className="p-1 py-6">
-          <h3 className="text-lg font-semibold mb-2">{t({ pt: 'Compartilhe sua Ideia', en: 'Share Your Idea' })}</h3>
           <p className="text-sm text-slate-400 mb-4">
             {t({ 
-              pt: 'Tem uma ideia para um projeto digital, Web3, ou precisa de consultoria? Descreva-a anonimamente abaixo. Interagiremos com as propostas, e quando sentir que podemos ajudar, você decide o próximo passo.', 
-              en: 'Have an idea for a digital project, Web3, or need consulting? Describe it anonymously below. We will interact with the proposals, and when you feel we can help, you decide the next step.' 
+              pt: 'Tem uma ideia para um projeto, uma necessidade de negócio ou busca consultoria? Descreva-a anonimamente abaixo. As ideias são um espaço para interação mútua. Quando sentir que posso ajudar, você decide o próximo passo.', 
+              en: 'Have an idea for a project, a business need, or are you looking for consulting? Describe it anonymously below. Ideas are a space for mutual interaction. When you feel I can help, you decide the next step.' 
             })}
           </p>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <Textarea name="idea" rows={5} placeholder={t({ pt: 'Descreva sua ideia, necessidade ou projeto...', en: 'Describe your idea, need, or project...' })} required className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
+            <Textarea name="idea" rows={8} placeholder={t({ pt: 'Descreva sua ideia, necessidade ou projeto...', en: 'Describe your idea, need, or project...' })} required className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
             <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/90 text-white w-full transition-transform hover:scale-105">
               {isSubmitting ? t({ pt: 'Enviando...', en: 'Submitting...' }) : t({ pt: 'Enviar Ideia Anônima', en: 'Submit Anonymous Idea' })}
             </Button>
