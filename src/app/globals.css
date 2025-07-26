@@ -134,6 +134,32 @@
     .aspect-video {
         aspect-ratio: 16 / 9;
     }
+
+    .blur-fade-edges {
+      position: relative;
+    }
+    .blur-fade-edges::before,
+    .blur-fade-edges::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 15%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .blur-fade-edges::before {
+      left: 0;
+      background: linear-gradient(to right, hsl(var(--background)), transparent);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+    .blur-fade-edges::after {
+      right: 0;
+      background: linear-gradient(to left, hsl(var(--background)), transparent);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
 }
 
 @keyframes scrollX {

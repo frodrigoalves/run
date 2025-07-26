@@ -7,7 +7,7 @@ export default function Partners() {
   const extendedPartners = [...partners, ...partners];
 
   return (
-    <section className="w-full max-w-5xl mx-auto py-12 absolute bottom-24 left-1/2 -translate-x-1/2 z-20 overflow-hidden">
+    <section className="w-full max-w-5xl mx-auto py-12 absolute bottom-24 left-1/2 -translate-x-1/2 z-20 overflow-hidden blur-fade-edges">
       <div className="w-max flex logo-strip">
         {extendedPartners.map((partner, index) => (
           <div key={index} className="flex-shrink-0 px-8">
