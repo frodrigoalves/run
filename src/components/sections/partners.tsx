@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import { partners } from '@/lib/data';
 
@@ -9,7 +10,7 @@ export default function Partners() {
   return (
     <section className="absolute bottom-24 left-0 w-full z-20 flex justify-center items-center">
       <div className="carousel-container">
-        <div className="carousel">
+        <div className="carousel" style={{ transformStyle: 'preserve-3d' }}>
           {partners.map((partner, index) => {
             const angle = (index / numPartners) * 360;
             const style = {
