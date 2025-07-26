@@ -5,38 +5,24 @@ export default function About() {
   const { t } = useLocalization();
 
   const title = {
-    pt: 'Sobre Mim',
-    en: 'About Me',
+    pt: 'Um desenvolvedor que une Direito, IA e Blockchain para criar soluções inovadoras.',
+    en: 'A developer combining Law, AI, and Blockchain to create innovative solutions.',
   };
 
   const description = {
-    pt: 'Desenvolvedor e especialista em Inteligência Artificial com background em direito. Tenho sólida experiência em automação de processos, criação de chatbots e integração de APIs. Atuo no desenvolvimento de soluções inovadoras que otimizam o atendimento, aprimoram a eficiência e garantem a segurança digital.',
-    en: 'Developer and specialist in Artificial Intelligence with a background in law. I have solid experience in process automation, chatbot creation, and API integration. I work on developing innovative solutions that optimize service, improve efficiency, and ensure digital security.',
+    pt: 'Com background em direito e paixão por tecnologia, meu foco é desenvolver automações, chatbots e integrações que não apenas otimizam processos, mas também garantem segurança e eficiência. Atuo na intersecção entre a lógica jurídica e o poder da inteligência artificial para construir aplicações com propósito.',
+    en: 'With a background in law and a passion for technology, my focus is on developing automations, chatbots, and integrations that not only optimize processes but also ensure security and efficiency. I operate at the intersection of legal logic and the power of artificial intelligence to build purposeful applications.',
   };
-  
-  const listTitle = {
-    pt: 'Especialista em:',
-    en: 'Specialist in:',
-  }
-
-  const areas = {
-      pt: ['Web3 + Smart Contracts', 'Chatbots e automações com GPT', 'Branding e criativos visuais', 'Desenvolvimento de interfaces imersivas'],
-      en: ['Web3 + Smart Contracts', 'Chatbots and automations with GPT', 'Branding and visual creatives', 'Immersive interface development'],
-  }
 
   return (
-    <section id="about" className="py-8">
-      <div className="text-left">
-        <h2 className="text-3xl font-bold text-foreground mb-4">{t(title)}</h2>
-        <p className="text-lg text-muted-foreground">{t(description)}</p>
-        <div className="mt-8">
-            <h3 className="text-2xl font-bold text-foreground mb-4">{t(listTitle)}</h3>
-            <ul className="grid grid-cols-1 gap-4 text-lg text-foreground/90">
-                {areas[t({pt: 'pt', en: 'en'})].map(area => (
-                    <li key={area} className="glass-effect p-4 rounded-lg">{area}</li>
-                ))}
-            </ul>
-        </div>
+    <section id="about" className="text-center">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-foreground mb-6">
+            {t(title)}
+        </h1>
+        <p className="text-lg md:text-xl text-muted-foreground">
+            {t(description)}
+        </p>
       </div>
     </section>
   );

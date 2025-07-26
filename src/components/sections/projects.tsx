@@ -14,8 +14,10 @@ export default function Projects() {
 
   return (
     <section id="projects" className="py-8">
-      <h2 className="text-3xl font-bold text-foreground text-left mb-12">{t(sectionTitle)}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="text-center max-w-3xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{t(sectionTitle)}</h2>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
         {projectsData.map((project) => (
           <Card key={project.id} className="glass-effect overflow-hidden group transform hover:-translate-y-2 transition-transform duration-300 border-transparent hover:border-primary">
             <CardContent className="p-0">

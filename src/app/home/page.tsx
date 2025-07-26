@@ -6,34 +6,37 @@ import Technologies from '@/components/sections/technologies';
 import Footer from '@/components/footer';
 import FloatingButtons from '@/components/floating-buttons';
 import Link from 'next/link';
-import { Home } from 'lucide-react';
+import { Home, ArrowLeft } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import { LocalizedText } from '@/components/localized-text';
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <header className="py-4 text-center">
-        <Link href="/" className="inline-block p-2 rounded-full hover:bg-accent transition-colors" aria-label="Voltar para a página inicial">
-          <Home className="h-6 w-6 text-foreground" />
-        </Link>
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <header className="sticky top-0 z-40 w-full border-b border-border/50 bg-background/95 backdrop-blur-sm">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+          <Link href="/" className="flex items-center gap-2 text-lg font-semibold" aria-label="Voltar para a página inicial">
+            <ArrowLeft className="h-5 w-5" />
+            <LocalizedText pt="Início" en="Home" />
+          </Link>
+        </div>
       </header>
-      <main className="flex-1">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-16">
-              {/* Coluna Principal */}
-              <div className="lg:col-span-2 space-y-16">
-                <Projects />
-                <Gpts />
-              </div>
 
-              {/* Barra Lateral */}
-              <aside className="space-y-16">
-                <About />
+      <main className="flex-1">
+        <div className="container mx-auto px-4 py-12 md:px-6 md:py-20 lg:py-24">
+            <About />
+            <Separator className="my-16 md:my-24" />
+            <Projects />
+            <Separator className="my-16 md:my-24" />
+            <Gpts />
+            <Separator className="my-16 md:my-24" />
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-24">
                 <Technologies />
                 <Certifications />
-              </aside>
             </div>
         </div>
       </main>
+
       <Footer />
       <FloatingButtons />
     </div>
