@@ -16,7 +16,7 @@ export const gptsData = [
 
 export const certificationsData = [
     { id: 'direito', title: { pt: 'Bacharel em Direito', en: 'Bachelor of Laws (LLB)' }, issuer: 'UNISUL', year: '2025', link: '#', icon: 'graduation-cap' },
-    { id: 'fullstack', title: { pt: 'Desenvolvedor Full Stack', en: 'Full Stack Developer' }, issuer: 'EBAC', year: '2024', link: '#', icon: 'code' },
+    { id: 'fullstack', title: { pt: 'Desenvolvedor Full Stack autodidata', en: 'Self-taught Full Stack Developer' }, issuer: 'EBAC', year: '2024', link: '#', icon: 'code' },
     { id: 'smart-contracts', title: { pt: 'Smart Contracts', en: 'Smart Contracts' }, issuer: 'University at Buffalo', year: '2023', link: 'https://coursera.org/verify/23BWBKN652JZ', icon: 'file-text' },
     { id: 'blockchain', title: { pt: 'Blockchain Basics', en: 'Blockchain Basics' }, issuer: 'University at Buffalo', year: '2023', link: 'https://coursera.org/verify/23BWBKN652JZ', icon: 'link' }
 ];
