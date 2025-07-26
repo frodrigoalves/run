@@ -11,6 +11,7 @@ const allMatrixStrings = [
   ["0x5a2e...c8a4", "eth_send"],
   ["running diagnostics", "kernel_panic: false"],
   ["decrypting_data", "auth_success"],
+  ["Web3", "AI Specialist"],
 ];
 
 export default function Hero() {
@@ -42,42 +43,56 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background opacity-80"></div>
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
       
-       <div className="absolute top-1/4 left-1/4 opacity-0 animate-fade-in-delay-1">
+       <div className="absolute top-[35%] left-1/4 opacity-0 animate-fade-in-delay-1">
         <MatrixEffect 
           strings={[titles[lang][activeSubtitleIndex]]}
           isFeatured={featuredMatrixIndex === 0}
         />
       </div>
-       <div className="absolute top-1/3 right-1/4 opacity-0 animate-fade-in-delay-2 hidden md:block">
+       <div className="absolute top-1/4 right-1/4 opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
           strings={allMatrixStrings[1]}
           isFeatured={featuredMatrixIndex === 1}
         />
       </div>
-       <div className="absolute bottom-1/4 right-1/3 opacity-0 animate-fade-in-delay-4 hidden md:block">
+       <div className="absolute bottom-1/4 right-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
           strings={allMatrixStrings[3]}
           isFeatured={featuredMatrixIndex === 3}
         />
       </div>
-       <div className="absolute bottom-2/3 left-1/4 opacity-0 animate-fade-in-delay-2 hidden md:block">
+       <div className="absolute top-1/3 left-[15%] opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
           strings={allMatrixStrings[2]}
           isFeatured={featuredMatrixIndex === 2}
         />
       </div>
-       <div className="absolute top-3/4 right-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
+       <div className="absolute bottom-1/4 left-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
           strings={allMatrixStrings[4]}
           isFeatured={featuredMatrixIndex === 4}
         />
       </div>
-      <div className="absolute bottom-1/4 left-1/3 opacity-0 animate-fade-in-delay-3">
+      <div className="absolute bottom-[35%] right-[20%] opacity-0 animate-fade-in-delay-3">
          <MatrixEffect 
           strings={[titles[lang][(activeSubtitleIndex + 1) % titles[lang].length]]}
           isFeatured={featuredMatrixIndex === 5}
         />
       </div>
+       <div className="absolute top-1/2 left-[30%] -translate-y-1/2 opacity-0 animate-fade-in-delay-3 hidden md:block">
+        <MatrixEffect 
+          strings={allMatrixStrings[6]}
+          isFeatured={featuredMatrixIndex === 6}
+        />
+      </div>
+      <div className="absolute top-1/2 right-[30%] -translate-y-1/2 opacity-0 animate-fade-in-delay-1 hidden md:block">
+         <MatrixEffect 
+          strings={["Rodrigo Alves"]}
+          isFeatured={true}
+          loopAfter={5000}
+        />
+      </div>
+
 
       <div className="relative z-20 max-w-4xl mx-auto px-4 flex flex-col items-center">
       </div>
