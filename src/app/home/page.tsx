@@ -18,7 +18,7 @@ export default function HomePage() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 text-lg font-semibold" aria-label="Voltar para a página inicial">
             <ArrowLeft className="h-5 w-5" />
-            <LocalizedText pt="Início" en="Home" />
+            <LocalizedText pt="run" en="run" />
           </Link>
         </div>
       </header>
