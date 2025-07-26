@@ -136,6 +136,17 @@
     }
 }
 
+@keyframes scrollX {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+.logo-strip {
+  animation: scrollX 40s linear infinite;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
 
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(10px); }
