@@ -48,7 +48,7 @@ export default function Gpts() {
                   {Icon && <Icon className="h-7 w-7 text-accent-foreground" strokeWidth={1.5} />}
                 </div>
                 <div>
-                  <CardTitle className="text-xl text-foreground">{t(gpt.title)}</CardTitle>
+                  <CardTitle className="text-lg text-foreground">{t(gpt.title)}</CardTitle>
                   <CardDescription className="text-sm mt-1">{t(gpt.description)}</CardDescription>
                 </div>
               </CardHeader>
