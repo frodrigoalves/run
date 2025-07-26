@@ -1,4 +1,3 @@
-// This file has been renamed to idea-drawer.tsx
 'use client';
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';

@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Linkedin, Lightbulb } from 'lucide-react';
-import { ContactDrawer } from '@/components/contact-drawer';
+import { IdeaDrawer } from '@/components/idea-drawer';
 import { SocialDrawer } from '@/components/social-drawer';
 
 export default function FloatingButtons() {
-  const [isContactOpen, setContactOpen] = useState(false);
+  const [isIdeaOpen, setIdeaOpen] = useState(false);
   const [isSocialOpen, setSocialOpen] = useState(false);
 
   return (
@@ -22,7 +22,7 @@ export default function FloatingButtons() {
           <Linkedin size={20} />
         </Button>
         <Button
-          onClick={() => setContactOpen(true)}
+          onClick={() => setIdeaOpen(true)}
           size="icon"
           className="bg-primary hover:bg-primary/90 text-primary-foreground w-12 h-12 rounded-full shadow-lg transition-transform hover:scale-110"
           aria-label="Abrir mural de ideias"
@@ -30,7 +30,7 @@ export default function FloatingButtons() {
           <Lightbulb size={20} />
         </Button>
       </div>
-      <ContactDrawer isOpen={isContactOpen} onOpenChange={setContactOpen} />
+      <IdeaDrawer isOpen={isIdeaOpen} onOpenChange={setIdeaOpen} />
       <SocialDrawer isOpen={isSocialOpen} onOpenChange={setSocialOpen} />
     </>
   );
