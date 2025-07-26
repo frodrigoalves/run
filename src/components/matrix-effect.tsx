@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 
 interface MatrixEffectProps {
@@ -29,8 +29,8 @@ const ScrambledChar = ({ char, isRevealed }: { char: string; isRevealed: boolean
   return (
     <span
       className={cn(
-        'transition-opacity duration-300',
-        isRevealed ? 'opacity-100' : 'opacity-60'
+        'transition-opacity duration-500',
+        isRevealed ? 'opacity-100' : 'opacity-20'
       )}
     >
       {displayChar}
@@ -41,37 +41,29 @@ const ScrambledChar = ({ char, isRevealed }: { char: string; isRevealed: boolean
 export const MatrixEffect = ({ strings }: MatrixEffectProps) => {
   const [stringIndex, setStringIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(true);
 
   const currentString = useMemo(() => strings[stringIndex] || '', [strings, stringIndex]);
 
   useEffect(() => {
-    if (!isAnimating) return;
-
     const revealTimer = setTimeout(() => {
       if (revealedCount < currentString.length) {
         setRevealedCount((prev) => prev + 1);
       } else {
-        // Pause at the end of the string
+        // When done revealing, wait a bit then reset for the next string
         setTimeout(() => {
-          setIsAnimating(false);
-          // Start hiding after a pause
-          setTimeout(() => {
-             setRevealedCount(0);
-             setStringIndex((prev) => (prev + 1) % strings.length);
-             setIsAnimating(true);
-          }, 2000); // Pause before switching to the next string
-        }, 1000); // Pause when fully revealed
+          setRevealedCount(0);
+          setStringIndex((prev) => (prev + 1) % strings.length);
+        }, 2000); // Pause before switching to the next string
       }
     }, 75); // Speed of character reveal
 
     return () => clearTimeout(revealTimer);
-  }, [revealedCount, isAnimating, currentString.length, strings.length]);
+  }, [revealedCount, currentString.length, strings.length]);
 
 
   return (
     <div className="font-code text-center">
-      <h2 className="text-2xl tracking-wider">
+      <h2 className="text-lg tracking-wider">
         {currentString.split('').map((char, index) => (
           <ScrambledChar key={index} char={char} isRevealed={index < revealedCount} />
         ))}
@@ -79,3 +71,5 @@ export const MatrixEffect = ({ strings }: MatrixEffectProps) => {
     </div>
   );
 };
+
+    

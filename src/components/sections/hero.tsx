@@ -39,29 +39,32 @@ export default function Hero() {
   };
 
   const handleThemeChange = (newTheme: Theme) => {
-    setTheme(newTheme);
+    const themeOrder: Theme[] = ['light', 'dark', 'cyberpunk'];
+    const currentIndex = themeOrder.indexOf(activeTheme);
+    const newIndex = (currentIndex + 1) % themeOrder.length;
+    setTheme(themeOrder[newIndex]);
   }
   
-  const themeOrder: Theme[] = ['light', 'dark', 'cyberpunk'];
-  
   const getThemeClasses = (buttonTheme: Theme) => {
-    const currentIndex = themeOrder.indexOf(activeTheme);
+    const themeOrder: Theme[] = ['light', 'dark', 'cyberpunk'];
+    const activeIndex = themeOrder.indexOf(activeTheme);
     const buttonIndex = themeOrder.indexOf(buttonTheme);
-    let position = (buttonIndex - currentIndex + 3) % 3; // 0: active, 1: next, 2: prev
 
-    const baseClasses = "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out absolute";
-    
-    // Position 0 is the active theme, which should be at the back
+    let position = (buttonIndex - activeIndex + 3) % 3;
+
+    const baseClasses = "absolute flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out";
+
+    // Posição 0: Ativo (na frente)
     if (position === 0) {
-        return cn(baseClasses, "w-6 h-6 z-10 transform scale-80 opacity-50 translate-y-12");
-    } 
-    // Position 1 is the next theme, which should be at the front
+        return cn(baseClasses, "w-6 h-6 z-30 transform scale-100 opacity-100 translate-y-0");
+    }
+    // Posição 1: Próximo (atrás)
     else if (position === 1) {
-        return cn(baseClasses, "w-10 h-10 z-30 transform scale-100 opacity-100 translate-y-0");
-    } 
-    // Position 2 is the previous theme, which is in the middle
+        return cn(baseClasses, "w-6 h-6 z-20 transform scale-90 opacity-75 translate-y-5");
+    }
+    // Posição 2: Último (mais atrás)
     else {
-        return cn(baseClasses, "w-8 h-8 z-20 transform scale-90 opacity-75 translate-y-6");
+        return cn(baseClasses, "w-6 h-6 z-10 transform scale-80 opacity-50 translate-y-10");
     }
   };
 
@@ -119,15 +122,15 @@ export default function Hero() {
           </Button>
         </div>
         
-        <div className="fixed top-24 right-5 md:right-8 z-50 h-28 w-12 flex items-center justify-center group">
-            <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className={cn(getThemeClasses('light'))}>
-                <Sun className="h-4 w-4 md:h-5 md:w-5 text-foreground" />
+        <div className="fixed top-24 right-5 md:right-8 z-50 h-16 w-10 flex flex-col items-center justify-center group" onClick={() => handleThemeChange(activeTheme)}>
+            <button aria-label='Switch to light theme' className={cn(getThemeClasses('light'))}>
+                <Sun className="h-4 w-4 text-foreground" />
             </button>
-            <button onClick={() => handleThemeChange('dark')} aria-label='Switch to dark theme' className={cn(getThemeClasses('dark'))}>
-                <Moon className="h-4 w-4 md:h-5 md:w-5 text-foreground" />
+            <button aria-label='Switch to dark theme' className={cn(getThemeClasses('dark'))}>
+                <Moon className="h-4 w-4 text-foreground" />
             </button>
-            <button onClick={() => handleThemeChange('cyberpunk')} aria-label='Switch to cyberpunk theme' className={cn(getThemeClasses('cyberpunk'))}>
-                <Ghost className="h-4 w-4 md:h-5 md:w-5 text-foreground" />
+            <button aria-label='Switch to cyberpunk theme' className={cn(getThemeClasses('cyberpunk'))}>
+                <Ghost className="h-4 w-4 text-foreground" />
             </button>
         </div>
 
@@ -135,3 +138,5 @@ export default function Hero() {
     </header>
   );
 }
+
+    
