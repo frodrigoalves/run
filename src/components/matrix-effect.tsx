@@ -6,11 +6,12 @@ import { cn } from '@/lib/utils';
 interface MatrixEffectProps {
   strings: string[];
   className?: string;
+  isFeatured?: boolean;
 }
 
 const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*&^%$#@!';
 
-const ScrambledChar = ({ char, isRevealed }: { char: string; isRevealed: boolean }) => {
+const ScrambledChar = ({ char, isRevealed, isFeatured }: { char: string; isRevealed: boolean; isFeatured: boolean }) => {
   const [displayChar, setDisplayChar] = useState('');
 
   useEffect(() => {
@@ -19,23 +20,19 @@ const ScrambledChar = ({ char, isRevealed }: { char: string; isRevealed: boolean
       return;
     }
 
-    let revealTimeout: NodeJS.Timeout;
     const interval = setInterval(() => {
       const randomChar = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
       setDisplayChar(randomChar);
     }, 100);
 
-    return () => {
-      clearInterval(interval);
-      clearTimeout(revealTimeout);
-    };
+    return () => clearInterval(interval);
   }, [isRevealed, char]);
 
   return (
     <span
       className={cn(
         'transition-opacity duration-500',
-        isRevealed ? 'opacity-100' : 'opacity-20'
+        isRevealed && isFeatured ? 'opacity-100' : 'opacity-20'
       )}
     >
       {displayChar}
@@ -43,7 +40,7 @@ const ScrambledChar = ({ char, isRevealed }: { char: string; isRevealed: boolean
   );
 };
 
-export const MatrixEffect = ({ strings, className }: MatrixEffectProps) => {
+export const MatrixEffect = ({ strings, className, isFeatured = false }: MatrixEffectProps) => {
   const [stringIndex, setStringIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
 
@@ -54,13 +51,12 @@ export const MatrixEffect = ({ strings, className }: MatrixEffectProps) => {
       if (revealedCount < currentString.length) {
         setRevealedCount((prev) => prev + 1);
       } else {
-        // When done revealing, wait a bit then reset for the next string
         setTimeout(() => {
           setRevealedCount(0);
           setStringIndex((prev) => (prev + 1) % strings.length);
-        }, 2000); // Pause before switching to the next string
+        }, 2000); 
       }
-    }, 75); // Speed of character reveal
+    }, 75);
 
     return () => clearTimeout(revealTimer);
   }, [revealedCount, currentString, strings.length]);
@@ -70,7 +66,7 @@ export const MatrixEffect = ({ strings, className }: MatrixEffectProps) => {
     <div className={cn("font-code text-center", className)}>
       <h2 className="text-lg tracking-wider">
         {currentString.split('').map((char, index) => (
-          <ScrambledChar key={index} char={char} isRevealed={index < revealedCount} />
+          <ScrambledChar key={index} char={char} isRevealed={index < revealedCount} isFeatured={isFeatured} />
         ))}
       </h2>
     </div>
