@@ -9,7 +9,7 @@ import { useLocalization } from '@/hooks/use-localization';
 import Link from 'next/link';
 
 function LandingPageContent() {
-  const { t, lang } = useLocalization();
+  const { lang } = useLocalization();
 
   const buttonText = {
     pt: 'Explorar Portfólio',
@@ -22,7 +22,7 @@ function LandingPageContent() {
     <div className="flex min-h-screen flex-col relative overflow-hidden">
        <GlobalControls />
       <Hero />
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
         <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground animate-fade-in-delay-4 opacity-0 px-6 h-12 w-48 justify-center">
           <Link href="/home" className="flex items-center gap-2">
             <MatrixEffect 
