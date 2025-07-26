@@ -29,8 +29,8 @@ export default function Hero() {
   };
   
   const intro = {
-      pt: 'Sou Rodrigo, desenvolvedor Web3 com background jurídico e visão criativa. Este é o meu portfólio interativo, onde você pode explorar projetos reais, soluções com IA e blockchain, e experiências desenvolvidas com propósito e tecnologia.',
-      en: 'I\'m Rodrigo, a Web3 developer with a legal background and a creative vision. This is my interactive portfolio, where you can explore real projects, solutions with AI and blockchain, and experiences developed with purpose and technology.'
+      pt: 'Este é o meu portfólio interativo, onde você pode explorar projetos reais, soluções com IA e blockchain, e experiências desenvolvidas com propósito e tecnologia.',
+      en: 'This is my interactive portfolio, where you can explore real projects, AI and blockchain solutions, and experiences developed with purpose and technology.'
   }
 
   const handleLangChange = (newLang: Language) => {
@@ -48,18 +48,17 @@ export default function Hero() {
   const getThemeClasses = (buttonTheme: Theme) => {
     const baseClasses = "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out absolute";
     
-    const buttonIndex = themeOrder.indexOf(buttonTheme);
-    let displayIndex = (buttonIndex - activeIndex + 3) % 3;
+    let displayIndex = (themeOrder.indexOf(buttonTheme) - activeIndex + 3) % 3;
 
     if (displayIndex === 0) {
         // Current theme: front and largest
         return cn(baseClasses, "w-10 h-10 z-30 transform scale-100 opacity-100 translate-y-0");
     } else if (displayIndex === 1) {
         // Next theme
-        return cn(baseClasses, "w-9 h-9 z-20 transform scale-90 opacity-75 translate-y-8");
+        return cn(baseClasses, "w-9 h-9 z-20 transform scale-90 opacity-75 translate-y-12");
     } else {
         // Previous theme
-        return cn(baseClasses, "w-8 h-8 z-10 transform scale-80 opacity-50 translate-y-16");
+        return cn(baseClasses, "w-8 h-8 z-10 transform scale-80 opacity-50 translate-y-24");
     }
   };
 
@@ -77,7 +76,7 @@ export default function Hero() {
           data-ai-hint="profile photo"
           className="w-32 h-32 rounded-full mx-auto border-4 border-border shadow-xl mb-4 object-cover"
         />
-        <h1 className="text-4xl md:text-5xl font-bold text-foreground">Rodrigo Alves Ferreira</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-foreground">Rodrigo</h1>
         <div className="text-lg md:text-xl text-primary mt-2">
           <TypedEffect strings={titles[lang]} />
         </div>
@@ -102,14 +101,14 @@ export default function Hero() {
         </div>
         
         <div className="fixed top-24 right-8 z-50 h-28 w-12 flex items-center justify-center">
-            <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className={getThemeClasses('light')}>
-                <Sun className="h-[1.2rem] w-[1.2rem] text-foreground" />
+            <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className={cn(getThemeClasses('light'), 'w-6 h-6')}>
+                <Sun className="h-[1.0rem] w-[1.0rem] text-foreground" />
             </button>
-            <button onClick={() => handleThemeChange('dark')} aria-label='Switch to dark theme' className={getThemeClasses('dark')}>
-                <Moon className="h-[1.2rem] w-[1.2rem] text-foreground" />
+            <button onClick={() => handleThemeChange('dark')} aria-label='Switch to dark theme' className={cn(getThemeClasses('dark'), 'w-6 h-6')}>
+                <Moon className="h-[1.0rem] w-[1.0rem] text-foreground" />
             </button>
-            <button onClick={() => handleThemeChange('cyberpunk')} aria-label='Switch to cyberpunk theme' className={getThemeClasses('cyberpunk')}>
-                <Ghost className="h-[1.2rem] w-[1.2rem] text-foreground" />
+            <button onClick={() => handleThemeChange('cyberpunk')} aria-label='Switch to cyberpunk theme' className={cn(getThemeClasses('cyberpunk'), 'w-6 h-6')}>
+                <Ghost className="h-[1.0rem] w-[1.0rem] text-foreground" />
             </button>
         </div>
 
