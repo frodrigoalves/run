@@ -10,7 +10,7 @@ import { Moon, Sun, Ghost } from 'lucide-react';
 
 export default function Hero() {
   const { lang, changeLang, t } = useLocalization();
-  const { setTheme, theme } = useTheme();
+  const { setTheme } = useTheme();
 
   const titles = {
     pt: ["Desenvolvedor Web3", "Especialista em IA", "Advogado & Criador do SingulAI"],
@@ -66,35 +66,21 @@ export default function Hero() {
             🇬🇧 English
           </Button>
         </div>
-        <div className="absolute top-5 right-5 flex gap-2">
-            <Button
-                variant="outline"
-                size="icon"
-                onClick={() => handleThemeChange('light')}
-                className='rounded-full'
-                aria-label='Switch to light theme'
-            >
-                <Sun className="h-[1.2rem] w-[1.2rem]" />
-            </Button>
-            <Button
-                variant="outline"
-                size="icon"
-                onClick={() => handleThemeChange('dark')}
-                className='rounded-full'
-                aria-label='Switch to dark theme'
-            >
-                <Moon className="h-[1.2rem] w-[1.2rem]" />
-            </Button>
-            <Button
-                variant="outline"
-                size="icon"
-                onClick={() => handleThemeChange('cyberpunk')}
-                className='rounded-full'
-                aria-label='Switch to cyberpunk theme'
-            >
-                <Ghost className="h-[1.2rem] w-[1.2rem]" />
-            </Button>
+        
+        <div className="group fixed top-5 right-5 z-50 flex flex-col items-center gap-1">
+          <div className="relative flex flex-col items-center gap-2">
+              <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className="group/button relative flex h-12 w-12 items-center justify-center rounded-full bg-card/50 backdrop-blur-sm border border-border/50 transition-all duration-300 ease-in-out hover:scale-110 group-hover:translate-x-0 -translate-x-20 opacity-0 group-hover:opacity-100">
+                  <Sun className="h-[1.4rem] w-[1.4rem] text-foreground" />
+              </button>
+              <button onClick={() => handleThemeChange('dark')} aria-label='Switch to dark theme' className="group/button relative flex h-14 w-14 items-center justify-center rounded-full bg-card/50 backdrop-blur-md border border-border/50 transition-all duration-500 ease-in-out hover:scale-110 group-hover:translate-x-0 -translate-x-20 opacity-0 group-hover:opacity-100">
+                  <Moon className="h-[1.5rem] w-[1.5rem] text-foreground" />
+              </button>
+              <button onClick={() => handleThemeChange('cyberpunk')} aria-label='Switch to cyberpunk theme' className="group/button relative flex h-12 w-12 items-center justify-center rounded-full bg-card/50 backdrop-blur-sm border border-border/50 transition-all duration-700 ease-in-out hover:scale-110 group-hover:translate-x-0 -translate-x-20 opacity-0 group-hover:opacity-100">
+                  <Ghost className="h-[1.4rem] w-[1.4rem] text-foreground" />
+              </button>
+          </div>
         </div>
+
       </div>
     </header>
   );

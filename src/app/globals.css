@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-    --card: 210 40% 98%;
+    --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-    --popover: 210 40% 98%;
+    --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
@@ -27,7 +27,7 @@
     --chart-1: 222.2 47.4% 11.2%;
     --chart-2: 215.4 16.3% 46.9%;
     --chart-3: 210 40% 96.1%;
-    --chart-4: 210 40% 98%;
+    --chart-4: 0 0% 98%;
     --chart-5: 210 40% 98%;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -75,31 +75,31 @@
   }
 
   .cyberpunk {
-    --background: 240 100% 2%; /* Deep blue/black */
-    --foreground: 180 100% 95%; /* Light cyan */
-    --card: 255 100% 10%; /* Dark purple/blue */
-    --card-foreground: 180 100% 95%;
-    --popover: 240 100% 2%;
-    --popover-foreground: 180 100% 95%;
-    --primary: 300 100% 50%; /* Neon magenta */
-    --primary-foreground: 0 0% 100%; /* White */
-    --secondary: 180 100% 50%; /* Neon cyan */
-    --secondary-foreground: 240 100% 2%;
-    --muted: 255 100% 15%;
-    --muted-foreground: 180 100% 80%;
-    --accent: 180 100% 50%; /* Neon cyan */
-    --accent-foreground: 240 100% 2%;
-    --destructive: 0 100% 50%; /* Neon red */
-    --destructive-foreground: 0 0% 100%;
-    --border: 300 100% 50%; /* Neon magenta */
-    --input: 255 100% 15%;
-    --ring: 180 100% 50%; /* Neon cyan */
+    --background: 230 20% 7%;
+    --foreground: 210 40% 98%;
+    --card: 230 15% 12%;
+    --card-foreground: 210 40% 98%;
+    --popover: 230 20% 7%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 260 85% 65%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 190 85% 55%;
+    --secondary-foreground: 230 20% 7%;
+    --muted: 230 15% 15%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 190 85% 55%;
+    --accent-foreground: 230 20% 7%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 260 85% 45%;
+    --input: 230 15% 15%;
+    --ring: 190 85% 65%;
     --radius: 0.5rem;
-    --chart-1: 300 100% 50%;
-    --chart-2: 180 100% 50%;
-    --chart-3: 80 100% 50%;
-    --chart-4: 0 100% 50%;
-    --chart-5: 240 100% 50%;
+    --chart-1: 260 85% 65%;
+    --chart-2: 190 85% 55%;
+    --chart-3: 215 20.2% 65.1%;
+    --chart-4: 230 15% 12%;
+    --chart-5: 210 40% 98%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
