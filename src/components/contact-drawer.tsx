@@ -4,7 +4,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { FileText } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { useLocalization } from '@/hooks/use-localization';
 
 interface ContactDrawerProps {
@@ -37,12 +37,18 @@ export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
               {t({ pt: 'Enviar Solicitação', en: 'Send Request' })}
             </Button>
           </form>
-          <div className="mt-8 border-t border-slate-700 pt-6">
-            <h3 className="text-lg font-semibold mb-4">{t({ pt: 'Currículo', en: 'Resume' })}</h3>
+          <div className="mt-8 border-t border-slate-700 pt-6 text-center">
+            <h3 className="text-lg font-semibold mb-2">{t({ pt: 'Vamos conversar?', en: 'Let\'s talk?' })}</h3>
+            <p className="text-sm text-slate-400 mb-4">
+              {t({ 
+                pt: 'Estou aqui para ajudar a quebrar barreiras no seu negócio, sem custo inicial. Agendar uma chamada é a melhor forma de começarmos.', 
+                en: 'I\'m here to help break down barriers in your business, at no initial cost. Scheduling a call is the best way for us to start.' 
+              })}
+            </p>
             <Button asChild variant="secondary" className="w-full transition-colors">
-              <a href="#">
-                <FileText className="mr-2 h-4 w-4" />
-                {t({ pt: 'Ver CV Online', en: 'View Online CV' })}
+              <a href="https://cal.com/rodrigo-alves-w3ai/15min" target="_blank" rel="noopener noreferrer">
+                <Phone className="mr-2 h-4 w-4" />
+                {t({ pt: 'Agendar Chamada Gratuita', en: 'Schedule Free Call' })}
               </a>
             </Button>
           </div>
