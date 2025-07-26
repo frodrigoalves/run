@@ -50,19 +50,18 @@ export default function Hero() {
       return cn(baseClasses, "w-16 h-16 z-30 transform scale-100 opacity-100");
     }
     
-    // Determine the order for the other themes
     const themeOrder: Theme[] = ['light', 'dark', 'cyberpunk'];
     const activeIndex = themeOrder.indexOf(activeTheme);
     
     const nextThemeIndex = (activeIndex + 1) % 3;
-    const prevThemeIndex = (activeIndex + 2) % 3;
+    const prevThemeIndex = (activeIndex + 2) % 3; // This is the theme at the back
 
     if (buttonTheme === themeOrder[nextThemeIndex]) {
-       return cn(baseClasses, "w-14 h-14 z-20 transform scale-90 -translate-y-10 opacity-80");
+       return cn(baseClasses, "w-14 h-14 z-20 transform scale-90 -translate-y-12 opacity-70");
     }
     
     if (buttonTheme === themeOrder[prevThemeIndex]) {
-        return cn(baseClasses, "w-12 h-12 z-10 transform scale-75 -translate-y-20 opacity-60");
+        return cn(baseClasses, "w-12 h-12 z-10 transform scale-75 -translate-y-24 opacity-40");
     }
     
     return baseClasses;
@@ -106,7 +105,7 @@ export default function Hero() {
           </Button>
         </div>
         
-        <div className="fixed top-24 right-8 z-50 h-32 w-20 flex items-center justify-center">
+        <div className="fixed top-24 right-8 z-50 h-40 w-20 flex items-center justify-center">
             <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className={getThemeClasses('light')}>
                 <Sun className="h-[1.6rem] w-[1.6rem] text-foreground" />
             </button>
