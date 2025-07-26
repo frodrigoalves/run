@@ -4,8 +4,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'Rodrigo Alves Ferreira | Web3 & AI Developer',
-  description: 'Portfolio of Rodrigo Alves Ferreira, a specialist in Web3 and AI, showcasing projects, skills, and certifications.',
+  title: 'Rodrigo',
+  description: 'Portfólio interativo, onde você pode explorar projetos reais, soluções com IA e blockchain, e experiências desenvolvidas com propósito e tecnologia.',
 };
 
 export default function RootLayout({
