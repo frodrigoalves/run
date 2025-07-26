@@ -5,9 +5,10 @@ import { cn } from '@/lib/utils';
 
 interface MatrixEffectProps {
   strings: string[];
+  className?: string;
 }
 
-const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*&^%$#@!';
 
 const ScrambledChar = ({ char, isRevealed }: { char: string; isRevealed: boolean }) => {
   const [displayChar, setDisplayChar] = useState('');
@@ -18,12 +19,16 @@ const ScrambledChar = ({ char, isRevealed }: { char: string; isRevealed: boolean
       return;
     }
 
+    let revealTimeout: NodeJS.Timeout;
     const interval = setInterval(() => {
       const randomChar = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
       setDisplayChar(randomChar);
     }, 100);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(revealTimeout);
+    };
   }, [isRevealed, char]);
 
   return (
@@ -38,7 +43,7 @@ const ScrambledChar = ({ char, isRevealed }: { char: string; isRevealed: boolean
   );
 };
 
-export const MatrixEffect = ({ strings }: MatrixEffectProps) => {
+export const MatrixEffect = ({ strings, className }: MatrixEffectProps) => {
   const [stringIndex, setStringIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
 
@@ -58,11 +63,11 @@ export const MatrixEffect = ({ strings }: MatrixEffectProps) => {
     }, 75); // Speed of character reveal
 
     return () => clearTimeout(revealTimer);
-  }, [revealedCount, currentString.length, strings.length]);
+  }, [revealedCount, currentString, strings.length]);
 
 
   return (
-    <div className="font-code text-center">
+    <div className={cn("font-code text-center", className)}>
       <h2 className="text-lg tracking-wider">
         {currentString.split('').map((char, index) => (
           <ScrambledChar key={index} char={char} isRevealed={index < revealedCount} />
@@ -71,5 +76,3 @@ export const MatrixEffect = ({ strings }: MatrixEffectProps) => {
     </div>
   );
 };
-
-    
