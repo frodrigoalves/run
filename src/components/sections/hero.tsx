@@ -31,11 +31,6 @@ export default function Hero() {
     en: ["Web3 Developer", "AI Specialist", "Lawyer & Creator of SingulAI"]
   };
   
-  const intro = {
-      pt: 'Este é o meu portfólio interativo, onde você pode explorar projetos reais, soluções com IA e blockchain, e experiências desenvolvidas com propósito e tecnologia.',
-      en: 'This is my interactive portfolio, where you can explore real projects, AI and blockchain solutions, and experiences developed with purpose and technology.'
-  }
-
   useEffect(() => {
     document.body.dataset.theme = theme;
     if (theme) {
@@ -84,22 +79,6 @@ export default function Hero() {
     return cn(baseClasses, size, "z-10 transform translate-y-6 scale-80 opacity-50");
   };
 
-  const getLangClasses = (buttonLang: Language) => {
-    const langOrder: Language[] = ['pt', 'en'];
-    const activeIndex = langOrder.indexOf(lang);
-    const buttonIndex = langOrder.indexOf(buttonLang);
-    let position = (buttonIndex - activeIndex + 2) % 2;
-
-    const baseClasses = "absolute flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out cursor-pointer";
-    const size = 'w-6 h-6';
-
-    if (position === 0) { // Active language
-        return cn(baseClasses, size, "z-20 transform translate-y-3 scale-90 opacity-75");
-    }
-    return cn(baseClasses, size, "z-30 transform -translate-y-0 scale-100 opacity-100");
-  }
-
-
   return (
     <header className="py-24 md:py-32 text-center relative overflow-hidden border-b border-border min-h-[500px] md:min-h-[450px]">
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background opacity-80"></div>
@@ -116,12 +95,6 @@ export default function Hero() {
         <MatrixEffect 
           strings={allMatrixStrings[1]}
           isFeatured={activeMatrixIndex === 1}
-        />
-      </div>
-      <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in-delay-3 w-64 text-primary">
-         <MatrixEffect 
-          strings={[titles[lang][activeSubtitleIndex]]}
-          isFeatured={true}
         />
       </div>
        <div className="absolute bottom-24 right-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
@@ -142,15 +115,35 @@ export default function Hero() {
           isFeatured={activeMatrixIndex === 4}
         />
       </div>
+      <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in-delay-3 w-64 text-primary">
+         <MatrixEffect 
+          strings={[titles[lang][activeSubtitleIndex]]}
+          isFeatured={true}
+        />
+      </div>
 
 
       <div className="relative z-20 max-w-4xl mx-auto px-4 flex flex-col items-center">
         
-        <div className="fixed top-5 left-5 md:left-8 z-50 h-8 w-6 flex flex-col items-center justify-start group pt-2">
-            <div onClick={() => handleLangChange('pt')} aria-label='Mudar para Português' className={cn(getLangClasses('pt'))}>
+        <div className="fixed top-5 left-5 md:left-8 z-50 flex items-center space-x-2">
+            <div 
+                onClick={() => handleLangChange('pt')} 
+                aria-label='Mudar para Português' 
+                className={cn(
+                    "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-opacity duration-300 w-6 h-6 cursor-pointer",
+                    lang === 'pt' ? 'opacity-100' : 'opacity-50 hover:opacity-100'
+                )}
+            >
                 <span>🇧🇷</span>
             </div>
-            <div onClick={() => handleLangChange('en')} aria-label='Switch to English' className={cn(getLangClasses('en'))}>
+            <div 
+                onClick={() => handleLangChange('en')} 
+                aria-label='Switch to English' 
+                className={cn(
+                    "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-opacity duration-300 w-6 h-6 cursor-pointer",
+                    lang === 'en' ? 'opacity-100' : 'opacity-50 hover:opacity-100'
+                )}
+            >
                 <span>🇬🇧</span>
             </div>
         </div>
