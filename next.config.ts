@@ -18,6 +18,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  webpack: (config, { isServer }) => {
+    // Suppress warnings for these optional modules
+    config.resolve.alias['@opentelemetry/exporter-jaeger'] = false;
+    config.resolve.alias['@genkit-ai/firebase'] = false;
+    
+    return config;
+  },
 };
 
 export default nextConfig;
