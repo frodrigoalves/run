@@ -34,7 +34,7 @@ export default function Certifications() {
                   </div>
                   <div className="flex-grow">
                     <h4 className="font-semibold text-foreground text-base">{t(cert.title)}</h4>
-                    <p className="text-sm text-muted-foreground">{cert.issuer} - {cert.year}</p>
+                    <p className="text-sm text-muted-foreground">{cert.issuer} {cert.issuer !== 'Desde' ? '-' : ''} {cert.year}</p>
                   </div>
                   <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
                 </CardContent>
