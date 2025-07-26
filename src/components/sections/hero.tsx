@@ -44,7 +44,7 @@ export default function Hero() {
   }
   
   const getThemeClasses = (buttonTheme: Theme) => {
-    const baseClasses = "flex items-center justify-center rounded-full bg-card/50 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out absolute";
+    const baseClasses = "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out absolute";
     
     if (buttonTheme === activeTheme) {
       return cn(baseClasses, "w-16 h-16 z-30 transform scale-100 opacity-100");
@@ -54,14 +54,14 @@ export default function Hero() {
     const activeIndex = themeOrder.indexOf(activeTheme);
     
     const nextThemeIndex = (activeIndex + 1) % 3;
-    const prevThemeIndex = (activeIndex + 2) % 3; // This is the theme at the back
+    const prevThemeIndex = (activeIndex + 2) % 3; 
 
     if (buttonTheme === themeOrder[nextThemeIndex]) {
-       return cn(baseClasses, "w-14 h-14 z-20 transform scale-90 -translate-y-12 opacity-70");
+       return cn(baseClasses, "w-14 h-14 z-20 transform scale-90 -translate-y-14 opacity-80");
     }
     
     if (buttonTheme === themeOrder[prevThemeIndex]) {
-        return cn(baseClasses, "w-12 h-12 z-10 transform scale-75 -translate-y-24 opacity-40");
+        return cn(baseClasses, "w-12 h-12 z-10 transform scale-80 -translate-y-28 opacity-60");
     }
     
     return baseClasses;
@@ -105,7 +105,7 @@ export default function Hero() {
           </Button>
         </div>
         
-        <div className="fixed top-24 right-8 z-50 h-40 w-20 flex items-center justify-center">
+        <div className="fixed top-24 right-8 z-50 h-48 w-20 flex items-center justify-center">
             <button onClick={() => handleThemeChange('light')} aria-label='Switch to light theme' className={getThemeClasses('light')}>
                 <Sun className="h-[1.6rem] w-[1.6rem] text-foreground" />
             </button>
