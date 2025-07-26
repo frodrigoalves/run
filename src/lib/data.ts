@@ -1,8 +1,8 @@
 export const projectsData = [
-  { id: 'singulai', title: { pt: 'SingulAI - Legado Digital', en: 'SingulAI - Digital Legacy' }, embedId: 'URqnOXDsc0Y' },
-  { id: 'mentor', title: { pt: 'Projeto Internacional', en: 'International Project' }, embedId: 'YOTgISedhN0' },
-  { id: 'bot-juridico', title: { pt: 'Destaque na Faculdade', en: 'College Highlight' }, embedId: 'HW9EqHiobSo' },
-  { id: 'grupo-win', title: { pt: 'Desenvolvimento Grupo Win', en: 'Grupo Win Development' }, embedId: 'qgFuxq6TS68' }
+  { id: 'mentor', title: { pt: 'Mentor der neuen Zeit', en: 'Mentor der neuen Zeit' }, embedId: 'YOTgISedhN0' },
+  { id: 'bot-juridico', title: { pt: 'Bot Jurídico', en: 'Legal Bot' }, embedId: 'HW9EqHiobSo' },
+  { id: 'grupo-win', title: { pt: 'Grupo Win Chatbot', en: 'Grupo Win Chatbot' }, embedId: 'qgFuxq6TS68' },
+  { id: 'singulai', title: { pt: 'SingulAI - Legado Digital', en: 'SingulAI - Digital Legacy' }, embedId: 'URqnOXDsc0Y' }
 ];
 
 export const gptsData = [
@@ -18,14 +18,15 @@ export const certificationsData = [
     { id: 'direito', title: { pt: 'Bacharel em Direito', en: 'Bachelor of Laws (LLB)' }, issuer: 'UNISUL', year: '2025', link: '#', icon: 'graduation-cap' },
     { id: 'fullstack', title: { pt: 'Desenvolvedor Full Stack', en: 'Full Stack Developer' }, issuer: 'EBAC', year: '2024', link: '#', icon: 'code' },
     { id: 'smart-contracts', title: { pt: 'Smart Contracts', en: 'Smart Contracts' }, issuer: 'University at Buffalo', year: '2023', link: 'https://coursera.org/verify/23BWBKN652JZ', icon: 'file-text' },
-    { id: 'blockchain', title: { pt: 'Blockchain Basics', en: 'Blockchain Basics' }, issuer: 'University at Buffalo', year: '2023', link: '#', icon: 'link' }
+    { id: 'blockchain', title: { pt: 'Blockchain Basics', en: 'Blockchain Basics' }, issuer: 'University at Buffalo', year: '2023', link: 'https://coursera.org/verify/23BWBKN652JZ', icon: 'link' }
 ];
 
 export const technologies = [
+    { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+    { name: 'TailwindCSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
+    { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
     { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
     { name: 'Solidity', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg' },
-    { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
-    { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
     { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' }
 ];
 

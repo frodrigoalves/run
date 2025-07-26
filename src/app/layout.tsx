@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Rodrigo Alves Ferreira | Desenvolvedor Web3 & IA',
-  description: 'Portfólio de Rodrigo Alves Ferreira, especialista em Web3 e IA, mostrando projetos, habilidades e certificações.',
+  title: 'Rodrigo Alves Ferreira | Web3 & AI Developer',
+  description: 'Portfolio of Rodrigo Alves Ferreira, a specialist in Web3 and AI, showcasing projects, skills, and certifications.',
 };
 
 export default function RootLayout({
