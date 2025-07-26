@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { submitIdea, IdeaSubmissionInput } from '@/ai/flows/idea-submission-flow';
+import { getIdeasFlow } from '@/ai/flows/get-ideas-flow';
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,4 +21,14 @@ export async function POST(req: NextRequest) {
     console.error('Error in idea submission API:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
+}
+
+export async function GET() {
+    try {
+        const ideas = await getIdeasFlow();
+        return NextResponse.json(ideas, { status: 200 });
+    } catch (error) {
+        console.error('Error fetching ideas:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    }
 }

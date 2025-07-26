@@ -9,6 +9,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
+import { addIdea } from '@/services/idea-service';
 
 const IdeaSubmissionInputSchema = z.object({
   idea: z.string().describe('The user\'s project idea or query.'),
@@ -32,11 +33,8 @@ const ideaSubmissionFlow = ai.defineFlow(
     outputSchema: IdeaSubmissionOutputSchema,
   },
   async (input) => {
-    // In a real application, you would save the idea to a database here.
-    // For now, we'll just log it to the console.
-    console.log('New idea submitted:', input.idea);
-
-    // You could also perform AI-based analysis or categorization of the idea here.
+    
+    addIdea(input.idea);
     
     return {
       success: true,

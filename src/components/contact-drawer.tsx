@@ -5,17 +5,44 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useLocalization } from '@/hooks/use-localization';
 import { useToast } from '@/hooks/use-toast';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Card, CardContent } from '@/components/ui/card';
 
 interface ContactDrawerProps {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
 
+interface Idea {
+    id: string;
+    text: string;
+    timestamp: string;
+}
+
 export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
   const { t } = useLocalization();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [ideas, setIdeas] = useState<Idea[]>([]);
+
+  const fetchIdeas = async () => {
+    try {
+        const response = await fetch('/api/ideas');
+        if (response.ok) {
+            const data = await response.json();
+            setIdeas(data);
+        }
+    } catch (error) {
+        console.error("Failed to fetch ideas", error);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchIdeas();
+    }
+  }, [isOpen]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,7 +69,7 @@ export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
       
       const form = event.target as HTMLFormElement;
       form.reset();
-      onOpenChange(false);
+      fetchIdeas(); // Refresh ideas list
 
     } catch (error) {
       toast({
@@ -69,11 +96,42 @@ export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
             })}
           </p>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <Textarea name="idea" rows={8} placeholder={t({ pt: 'Descreva sua ideia, necessidade ou projeto...', en: 'Describe your idea, need, or project...' })} required className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
+            <Textarea name="idea" rows={5} placeholder={t({ pt: 'Descreva sua ideia, necessidade ou projeto...', en: 'Describe your idea, need, or project...' })} required className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
             <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/90 text-white w-full transition-transform hover:scale-105">
               {isSubmitting ? t({ pt: 'Enviando...', en: 'Submitting...' }) : t({ pt: 'Enviar Ideia Anônima', en: 'Submit Anonymous Idea' })}
             </Button>
           </form>
+
+          {ideas.length > 0 && (
+            <div className="mt-8">
+                <h3 className="text-lg font-semibold text-white mb-4">{t({pt: "Ideias Recentes", en: "Recent Ideas"})}</h3>
+                <Carousel
+                    opts={{
+                        align: "start",
+                    }}
+                    className="w-full"
+                >
+                    <CarouselContent>
+                        {ideas.map((idea) => (
+                            <CarouselItem key={idea.id} className="md:basis-1/1 lg:basis-1/1">
+                                <div className="p-1">
+                                    <Card className='glass-effect'>
+                                        <CardContent className="flex flex-col items-start justify-center p-4 gap-2">
+                                            <p className="text-sm text-slate-300">{idea.text}</p>
+                                            <span className='text-xs text-slate-500'>
+                                                {new Date(idea.timestamp).toLocaleDateString(t({pt: 'pt-BR', en: 'en-US'}))}
+                                            </span>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                    <CarouselPrevious className='-left-4 text-white' />
+                    <CarouselNext className='-right-4 text-white' />
+                </Carousel>
+            </div>
+          )}
         </div>
       </SheetContent>
     </Sheet>
