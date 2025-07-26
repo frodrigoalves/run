@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { Home, ArrowLeft } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { LocalizedText } from '@/components/localized-text';
+import Partners from '@/components/sections/partners';
 
 export default function HomePage() {
   return (
@@ -29,6 +30,8 @@ export default function HomePage() {
             <Projects />
             <Separator className="my-16 md:my-24" />
             <Gpts />
+            <Separator className="my-16 md:my-24" />
+            <Partners />
             <Separator className="my-16 md:my-24" />
             <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-24">
                 <Technologies />

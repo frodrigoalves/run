@@ -128,6 +128,9 @@
     .glass-effect {
         @apply bg-card/50 backdrop-blur-lg border border-border/50;
     }
+    .logo-strip {
+        @apply flex w-max animate-scroll;
+    }
 }
 
 @layer utilities {
@@ -140,6 +143,12 @@
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 
 .animate-fade-in-delay-1 {
   animation: fade-in 0.5s ease-out forwards;
@@ -156,4 +165,8 @@
 .animate-fade-in-delay-4 {
   animation: fade-in 0.5s ease-out forwards;
   animation-delay: 2s;
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
 }
