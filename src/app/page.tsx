@@ -2,7 +2,6 @@
 import { LocalizationProvider } from '@/components/localization-provider';
 import { MatrixEffect } from '@/components/matrix-effect';
 import Hero from '@/components/sections/hero';
-import Partners from '@/components/sections/partners';
 import { Button } from '@/components/ui/button';
 import { useLocalization } from '@/hooks/use-localization';
 import Link from 'next/link';
@@ -20,7 +19,6 @@ function LandingPageContent() {
   return (
     <div className="flex min-h-screen flex-col relative overflow-hidden">
       <Hero />
-      <Partners />
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
         <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground animate-fade-in-delay-4 opacity-0 px-6 h-12 w-48 justify-center">
           <Link href="/home" className="flex items-center gap-2">

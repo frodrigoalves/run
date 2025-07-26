@@ -134,45 +134,7 @@
     .aspect-video {
         aspect-ratio: 16 / 9;
     }
-
-    .blur-fade-edges {
-      position: relative;
-    }
-    .blur-fade-edges::before,
-    .blur-fade-edges::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 15%;
-      pointer-events: none;
-      z-index: 2;
-    }
-    .blur-fade-edges::before {
-      left: 0;
-      background: linear-gradient(to right, hsl(var(--background)), transparent);
-      -webkit-backdrop-filter: blur(4px);
-      backdrop-filter: blur(4px);
-    }
-    .blur-fade-edges::after {
-      right: 0;
-      background: linear-gradient(to left, hsl(var(--background)), transparent);
-      -webkit-backdrop-filter: blur(4px);
-      backdrop-filter: blur(4px);
-    }
 }
-
-@keyframes scrollX {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
-}
-
-.logo-strip {
-  animation: scrollX 40s linear infinite;
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-
 
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(10px); }
