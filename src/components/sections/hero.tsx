@@ -5,9 +5,12 @@ import { Button } from '@/components/ui/button';
 import TypedEffect from '@/components/typed-effect';
 import { useLocalization } from '@/hooks/use-localization';
 import type { Language } from '@/components/localization-provider';
+import { useTheme } from 'next-themes';
+import { Moon, Sun } from 'lucide-react';
 
 export default function Hero() {
   const { lang, changeLang, t } = useLocalization();
+  const { setTheme, theme } = useTheme();
 
   const titles = {
     pt: ["Desenvolvedor Web3", "Especialista em IA", "Advogado & Criador do SingulAI"],
@@ -58,6 +61,18 @@ export default function Hero() {
           >
             🇬🇧 English
           </Button>
+        </div>
+        <div className="absolute top-5 right-5 flex gap-2">
+            <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className='rounded-full'
+                aria-label='Toggle theme'
+            >
+                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            </Button>
         </div>
       </div>
     </header>
