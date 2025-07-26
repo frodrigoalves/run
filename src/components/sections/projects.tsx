@@ -1,8 +1,16 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 import { useLocalization } from '@/hooks/use-localization';
 import { projectsData } from '@/lib/data';
+import { PlayCircle } from 'lucide-react';
 
 export default function Projects() {
   const { t } = useLocalization();
@@ -13,30 +21,45 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="py-8">
+    <section id="projects" className="py-12 md:py-20">
       <div className="text-center max-w-3xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{t(sectionTitle)}</h2>
+        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-12">{t(sectionTitle)}</h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-        {projectsData.map((project) => (
-          <Card key={project.id} className="glass-effect overflow-hidden group transform hover:-translate-y-2 transition-transform duration-300 border-transparent hover:border-primary">
-            <CardContent className="p-0">
-              <div className="aspect-video">
-                <iframe
-                  className="w-full h-full"
-                  src={`https://www.youtube.com/embed/${project.embedId}`}
-                  title={t(project.title)}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
+      <Carousel
+        opts={{
+          align: 'start',
+          loop: true,
+        }}
+        className="w-full max-w-5xl mx-auto"
+      >
+        <CarouselContent>
+          {projectsData.map((project) => (
+            <CarouselItem key={project.id} className="md:basis-1/2">
+              <div className="p-1">
+                <Card className="overflow-hidden group border-0 glass-effect">
+                  <CardContent className="p-0 relative aspect-video">
+                    <iframe
+                      className="w-full h-full"
+                      src={`https://www.youtube.com/embed/${project.embedId}?showinfo=0&controls=1&rel=0`}
+                      title={t(project.title)}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                     <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-all duration-300 flex flex-col justify-end p-4">
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                           <PlayCircle className="w-16 h-16 text-white/70" />
+                        </div>
+                        <h3 className="text-lg font-semibold text-white drop-shadow-md truncate">{t(project.title)}</h3>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
-            </CardContent>
-            <CardHeader>
-              <CardTitle className="text-foreground font-semibold truncate text-xl">{t(project.title)}</CardTitle>
-            </CardHeader>
-          </Card>
-        ))}
-      </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 fill-foreground/50 stroke-background/50" />
+        <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 fill-foreground/50 stroke-background/50" />
+      </Carousel>
     </section>
   );
 }
