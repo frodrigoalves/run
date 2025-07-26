@@ -49,16 +49,16 @@ export default function Hero() {
     const baseClasses = "flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-border/50 transition-all duration-500 ease-in-out absolute";
     
     const buttonIndex = themeOrder.indexOf(buttonTheme);
-    const relativeIndex = (buttonIndex - activeIndex + 3) % 3;
+    let displayIndex = (buttonIndex - activeIndex + 3) % 3;
 
-    if (relativeIndex === 1) {
-        // Next theme: front and largest
+    if (displayIndex === 0) {
+        // Current theme: front and largest
         return cn(baseClasses, "w-16 h-16 z-30 transform scale-100 opacity-100 translate-y-0");
-    } else if (relativeIndex === 2) {
-        // Theme after next: middle
+    } else if (displayIndex === 1) {
+        // Next theme
         return cn(baseClasses, "w-14 h-14 z-20 transform scale-90 opacity-75 translate-y-12");
     } else {
-        // Current theme: back and smallest
+        // Previous theme
         return cn(baseClasses, "w-12 h-12 z-10 transform scale-80 opacity-50 translate-y-24");
     }
   };
