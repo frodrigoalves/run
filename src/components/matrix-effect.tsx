@@ -51,18 +51,16 @@ export const MatrixEffect = ({ strings, className, isFeatured = false }: MatrixE
       if (revealedCount < currentString.length) {
         setRevealedCount((prev) => prev + 1);
       } else {
-        // Only loop if there's more than one string
-        if (strings.length > 1) {
-            setTimeout(() => {
-              setRevealedCount(0);
-              setStringIndex((prev) => (prev + 1) % strings.length);
-            }, 2000); 
-        }
+        // Always loop after a delay
+        setTimeout(() => {
+          setRevealedCount(0);
+          setStringIndex((prev) => (prev + 1) % strings.length);
+        }, 2000); 
       }
     }, 50);
 
     return () => clearTimeout(revealTimer);
-  }, [revealedCount, currentString, strings.length]);
+  }, [revealedCount, currentString, strings, stringIndex]);
   
   // Reset animation when strings change (e.g., language switch)
   useEffect(() => {

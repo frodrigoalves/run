@@ -86,13 +86,13 @@ export default function Hero() {
       {/* Matrix Effects */}
        <div className="absolute top-10 left-8 opacity-0 animate-fade-in-delay-1">
         <MatrixEffect 
-          strings={allMatrixStrings[0]} 
+          strings={activeMatrixIndex === 0 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[0]}
           isFeatured={activeMatrixIndex === 0}
         />
       </div>
        <div className="absolute top-1/3 right-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
-          strings={allMatrixStrings[1]}
+          strings={activeMatrixIndex === 1 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[1]}
           isFeatured={activeMatrixIndex === 1}
         />
       </div>
@@ -104,13 +104,13 @@ export default function Hero() {
       </div>
        <div className="absolute top-3/4 left-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
-          strings={allMatrixStrings[2]}
+          strings={activeMatrixIndex === 2 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[2]}
           isFeatured={activeMatrixIndex === 2}
         />
       </div>
        <div className="absolute top-1/2 left-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
-          strings={allMatrixStrings[4]}
+          strings={activeMatrixIndex === 4 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[4]}
           isFeatured={activeMatrixIndex === 4}
         />
       </div>
