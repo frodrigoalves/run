@@ -51,24 +51,33 @@ export const MatrixEffect = ({ strings, className, isFeatured = false }: MatrixE
       if (revealedCount < currentString.length) {
         setRevealedCount((prev) => prev + 1);
       } else {
-        setTimeout(() => {
-          setRevealedCount(0);
-          setStringIndex((prev) => (prev + 1) % strings.length);
-        }, 2000); 
+        // Only loop if there's more than one string
+        if (strings.length > 1) {
+            setTimeout(() => {
+              setRevealedCount(0);
+              setStringIndex((prev) => (prev + 1) % strings.length);
+            }, 2000); 
+        }
       }
     }, 50);
 
     return () => clearTimeout(revealTimer);
   }, [revealedCount, currentString, strings.length]);
+  
+  // Reset animation when strings change (e.g., language switch)
+  useEffect(() => {
+    setRevealedCount(0);
+    setStringIndex(0);
+  }, [strings]);
 
 
   return (
-    <div className={cn("font-code text-center", className)}>
-      <h2 className="text-lg tracking-wider">
+    <div className={cn("font-code", className)}>
+      <div className="tracking-wider">
         {currentString.split('').map((char, index) => (
           <ScrambledChar key={index} char={char} isRevealed={index < revealedCount} isFeatured={isFeatured} />
         ))}
-      </h2>
+      </div>
     </div>
   );
 };
