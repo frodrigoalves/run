@@ -47,7 +47,6 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [lang, titles]);
 
-
   const handleLangChange = (newLang: Language) => {
     changeLang(newLang);
   };
@@ -83,40 +82,39 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background opacity-80"></div>
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
       
-      {/* Matrix Effects */}
-       <div className="absolute top-10 left-8 opacity-0 animate-fade-in-delay-1">
+       <div className="absolute top-1/4 left-8 opacity-0 animate-fade-in-delay-1 md:left-16">
         <MatrixEffect 
-          strings={activeMatrixIndex === 0 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[0]}
+          strings={[titles[lang][activeSubtitleIndex]]}
           isFeatured={activeMatrixIndex === 0}
         />
       </div>
-       <div className="absolute top-1/3 right-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
+       <div className="absolute top-1/2 right-12 opacity-0 animate-fade-in-delay-2 hidden md:block md:right-24">
         <MatrixEffect 
-          strings={activeMatrixIndex === 1 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[1]}
+          strings={allMatrixStrings[1]}
           isFeatured={activeMatrixIndex === 1}
         />
       </div>
-       <div className="absolute bottom-24 right-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
+       <div className="absolute bottom-16 right-1/2 opacity-0 animate-fade-in-delay-4 hidden md:block md:right-1/3">
         <MatrixEffect 
-          strings={activeMatrixIndex === 3 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[3]}
+          strings={allMatrixStrings[3]}
           isFeatured={activeMatrixIndex === 3}
         />
       </div>
-       <div className="absolute top-3/4 left-12 opacity-0 animate-fade-in-delay-2 hidden md:block">
+       <div className="absolute bottom-1/3 left-12 opacity-0 animate-fade-in-delay-2 hidden md:block md:left-24">
         <MatrixEffect 
-          strings={activeMatrixIndex === 2 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[2]}
+          strings={allMatrixStrings[2]}
           isFeatured={activeMatrixIndex === 2}
         />
       </div>
-       <div className="absolute top-1/2 left-1/4 opacity-0 animate-fade-in-delay-4 hidden md:block">
+       <div className="absolute top-16 left-1/3 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
-          strings={activeMatrixIndex === 4 ? [titles[lang][activeSubtitleIndex]] : allMatrixStrings[4]}
+          strings={allMatrixStrings[4]}
           isFeatured={activeMatrixIndex === 4}
         />
       </div>
-      <div className="absolute top-1/4 left-1/2 opacity-0 animate-fade-in-delay-3">
+      <div className="absolute top-2/3 right-1/4 opacity-0 animate-fade-in-delay-3">
          <MatrixEffect 
-          strings={activeMatrixIndex === 5 ? [titles[lang][(activeSubtitleIndex + 1) % titles[lang].length]] : allMatrixStrings[5]}
+          strings={[titles[lang][(activeSubtitleIndex + 1) % titles[lang].length]]}
           isFeatured={activeMatrixIndex === 5}
         />
       </div>
@@ -145,7 +143,6 @@ export default function Hero() {
                 <span>🇬🇧</span>
             </div>
         </div>
-
         
         <div className="fixed top-5 right-5 md:right-8 z-50 h-8 w-6 flex flex-col items-center justify-start group pt-2" onClick={handleThemeChange}>
             <div aria-label='Switch to light theme' className={cn(getThemeClasses('light'))}>

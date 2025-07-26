@@ -7,6 +7,7 @@ interface MatrixEffectProps {
   strings: string[];
   className?: string;
   isFeatured?: boolean;
+  stopAfter?: number; // Time in ms to stop the animation
 }
 
 const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*&^%$#@!';
@@ -40,18 +41,30 @@ const ScrambledChar = ({ char, isRevealed, isFeatured }: { char: string; isRevea
   );
 };
 
-export const MatrixEffect = ({ strings, className, isFeatured = false }: MatrixEffectProps) => {
+export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter }: MatrixEffectProps) => {
   const [stringIndex, setStringIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
+  const [isAnimationStopped, setAnimationStopped] = useState(false);
 
   const currentString = useMemo(() => strings[stringIndex] || '', [strings, stringIndex]);
 
   useEffect(() => {
+    if (stopAfter) {
+      const stopTimer = setTimeout(() => {
+        setRevealedCount(currentString.length);
+        setAnimationStopped(true);
+      }, stopAfter);
+      return () => clearTimeout(stopTimer);
+    }
+  }, [stopAfter, currentString.length]);
+
+  useEffect(() => {
+    if (isAnimationStopped) return;
+
     const revealTimer = setTimeout(() => {
       if (revealedCount < currentString.length) {
         setRevealedCount((prev) => prev + 1);
       } else {
-        // Always loop after a delay
         setTimeout(() => {
           setRevealedCount(0);
           setStringIndex((prev) => (prev + 1) % strings.length);
@@ -60,13 +73,14 @@ export const MatrixEffect = ({ strings, className, isFeatured = false }: MatrixE
     }, 50);
 
     return () => clearTimeout(revealTimer);
-  }, [revealedCount, currentString, strings, stringIndex]);
+  }, [revealedCount, currentString, strings, stringIndex, isAnimationStopped]);
   
-  // Reset animation when strings change (e.g., language switch)
   useEffect(() => {
-    setRevealedCount(0);
-    setStringIndex(0);
-  }, [strings]);
+    if (!isAnimationStopped) {
+      setRevealedCount(0);
+      setStringIndex(0);
+    }
+  }, [strings, isAnimationStopped]);
 
 
   return (

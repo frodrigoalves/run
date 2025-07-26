@@ -24,6 +24,7 @@ function LandingPageContent() {
             <MatrixEffect 
               strings={buttonText[lang]}
               isFeatured={true}
+              stopAfter={5000}
               className="text-base font-sans"
             />
             <ArrowRight className="ml-2 h-4 w-4" />
