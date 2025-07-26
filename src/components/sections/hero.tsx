@@ -48,31 +48,31 @@ export default function Hero() {
           isFeatured={featuredMatrixIndex === 0}
         />
       </div>
-       <div className="absolute top-2/3 right-1/4 opacity-0 animate-fade-in-delay-2 hidden md:block">
+       <div className="absolute top-1/3 right-1/4 opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
           strings={allMatrixStrings[1]}
           isFeatured={featuredMatrixIndex === 1}
         />
       </div>
-       <div className="absolute bottom-16 right-1/3 opacity-0 animate-fade-in-delay-4 hidden md:block">
+       <div className="absolute bottom-1/4 right-1/3 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
           strings={allMatrixStrings[3]}
           isFeatured={featuredMatrixIndex === 3}
         />
       </div>
-       <div className="absolute bottom-1/4 left-16 opacity-0 animate-fade-in-delay-2 hidden md:block">
+       <div className="absolute bottom-1/3 left-16 opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
           strings={allMatrixStrings[2]}
           isFeatured={featuredMatrixIndex === 2}
         />
       </div>
-       <div className="absolute top-16 right-24 opacity-0 animate-fade-in-delay-4 hidden md:block">
+       <div className="absolute top-1/4 right-24 opacity-0 animate-fade-in-delay-4 hidden md:block">
         <MatrixEffect 
           strings={allMatrixStrings[4]}
           isFeatured={featuredMatrixIndex === 4}
         />
       </div>
-      <div className="absolute top-1/2 left-1/3 opacity-0 animate-fade-in-delay-3">
+      <div className="absolute bottom-1/4 left-1/3 opacity-0 animate-fade-in-delay-3">
          <MatrixEffect 
           strings={[titles[lang][(activeSubtitleIndex + 1) % titles[lang].length]]}
           isFeatured={featuredMatrixIndex === 5}
