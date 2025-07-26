@@ -23,14 +23,14 @@ export default function Projects() {
   return (
     <section id="projects" className="py-12 md:py-20">
       <div className="text-center max-w-3xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-12">{t(sectionTitle)}</h2>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-12">{t(sectionTitle)}</h2>
       </div>
       <Carousel
         opts={{
           align: 'start',
           loop: true,
         }}
-        className="w-full max-w-5xl mx-auto"
+        className="w-full max-w-sm sm:max-w-xl md:max-w-3xl lg:max-w-5xl mx-auto"
       >
         <CarouselContent>
           {projectsData.map((project) => (
@@ -57,8 +57,8 @@ export default function Projects() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 fill-foreground/50 stroke-background/50" />
-        <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 fill-foreground/50 stroke-background/50" />
+        <CarouselPrevious className="absolute left-0 sm:left-[-50px] top-1/2 -translate-y-1/2 fill-foreground/50 stroke-background/50 z-10" />
+        <CarouselNext className="absolute right-0 sm:right-[-50px] top-1/2 -translate-y-1/2 fill-foreground/50 stroke-background/50 z-10" />
       </Carousel>
     </section>
   );
