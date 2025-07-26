@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Linkedin, Lightbulb } from 'lucide-react';
+import { Contact, Lightbulb } from 'lucide-react';
 import { IdeaDrawer } from '@/components/idea-drawer';
 import { SocialDrawer } from '@/components/social-drawer';
 
@@ -19,7 +19,7 @@ export default function FloatingButtons() {
           className="bg-secondary hover:bg-accent text-white w-12 h-12 rounded-full shadow-lg transition-transform hover:scale-110"
           aria-label="Abrir redes sociais"
         >
-          <Linkedin size={20} />
+          <Contact size={20} />
         </Button>
         <Button
           onClick={() => setIdeaOpen(true)}
