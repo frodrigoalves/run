@@ -4,8 +4,9 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Phone } from 'lucide-react';
 import { useLocalization } from '@/hooks/use-localization';
+import { useToast } from '@/hooks/use-toast';
+import { useState } from 'react';
 
 interface ContactDrawerProps {
   isOpen: boolean;
@@ -14,44 +15,66 @@ interface ContactDrawerProps {
 
 export function ContactDrawer({ isOpen, onOpenChange }: ContactDrawerProps) {
   const { t } = useLocalization();
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    
+    const formData = new FormData(event.currentTarget);
+    const idea = formData.get('idea');
+
+    try {
+      const response = await fetch('/api/ideas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idea }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit idea');
+      }
+
+      toast({
+        title: t({ pt: 'Ideia Enviada!', en: 'Idea Submitted!' }),
+        description: t({ pt: 'Sua ideia foi enviada com sucesso. Obrigado!', en: 'Your idea has been successfully submitted. Thank you!' }),
+      });
+      
+      const form = event.target as HTMLFormElement;
+      form.reset();
+
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: t({ pt: 'Ocorreu um erro', en: 'An error occurred' }),
+        description: t({ pt: 'Não foi possível enviar sua ideia. Tente novamente.', en: 'Could not submit your idea. Please try again.' }),
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetContent className="bg-slate-800/95 backdrop-blur-lg text-white border-l-slate-700 w-full max-w-md overflow-y-auto">
         <SheetHeader>
-          <SheetTitle className="text-xl font-semibold text-primary">{t({ pt: 'Contato & Orçamentos', en: 'Contact & Quotes' })}</SheetTitle>
+          <SheetTitle className="text-xl font-semibold text-primary">{t({ pt: 'Mural de Ideias', en: 'Idea Mural' })}</SheetTitle>
         </SheetHeader>
         <div className="p-1 py-6">
-          <h3 className="text-lg font-semibold mb-2">{t({ pt: 'Vamos criar juntos?', en: 'Let\'s build together?' })}</h3>
+          <h3 className="text-lg font-semibold mb-2">{t({ pt: 'Compartilhe sua Ideia', en: 'Share Your Idea' })}</h3>
           <p className="text-sm text-slate-400 mb-4">
             {t({ 
-              pt: 'Este é um espaço para solicitações de ideias, criação, aprimoramento e ampliações para qualquer tipo de projeto digital, Web3, consultorias e orientações.', 
-              en: 'This is a space for requesting ideas, creation, improvement, and expansion for any type of digital project, Web3, consulting, and guidance.' 
+              pt: 'Tem uma ideia para um projeto digital, Web3, ou precisa de consultoria? Descreva-a anonimamente abaixo. Interagiremos com as propostas, e quando sentir que podemos ajudar, você decide o próximo passo.', 
+              en: 'Have an idea for a digital project, Web3, or need consulting? Describe it anonymously below. We will interact with the proposals, and when you feel we can help, you decide the next step.' 
             })}
           </p>
-          <form action="https://formspree.io/f/mayvzjga" method="POST" className="space-y-4">
-            <Input type="text" name="name" placeholder={t({ pt: 'Nome', en: 'Name' })} required className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
-            <Input type="email" name="email" placeholder={t({ pt: 'Email', en: 'Email' })} required className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
-            <Textarea name="message" rows={5} placeholder={t({ pt: 'Descreva sua ideia, necessidade ou projeto...', en: 'Describe your idea, need, or project...' })} required className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
-            <Button type="submit" className="bg-primary hover:bg-primary/90 text-white w-full transition-transform hover:scale-105">
-              {t({ pt: 'Enviar Solicitação', en: 'Send Request' })}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <Textarea name="idea" rows={5} placeholder={t({ pt: 'Descreva sua ideia, necessidade ou projeto...', en: 'Describe your idea, need, or project...' })} required className="bg-slate-700 border-slate-600 placeholder:text-slate-400 focus:ring-primary" />
+            <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/90 text-white w-full transition-transform hover:scale-105">
+              {isSubmitting ? t({ pt: 'Enviando...', en: 'Submitting...' }) : t({ pt: 'Enviar Ideia Anônima', en: 'Submit Anonymous Idea' })}
             </Button>
           </form>
-          <div className="mt-8 border-t border-slate-700 pt-6 text-center">
-            <h3 className="text-lg font-semibold mb-2">{t({ pt: 'Vamos conversar?', en: 'Let\'s talk?' })}</h3>
-            <p className="text-sm text-slate-400 mb-4">
-              {t({ 
-                pt: 'Estou aqui para ajudar a quebrar barreiras no seu negócio, sem custo inicial. Agendar uma chamada é a melhor forma de começarmos.', 
-                en: 'I\'m here to help break down barriers in your business, at no initial cost. Scheduling a call is the best way for us to start.' 
-              })}
-            </p>
-            <Button asChild variant="secondary" className="w-full transition-colors">
-              <a href="https://cal.com/rodrigo-alves-w3ai/15min" target="_blank" rel="noopener noreferrer">
-                <Phone className="mr-2 h-4 w-4" />
-                {t({ pt: 'Agendar Chamada Gratuita', en: 'Schedule Free Call' })}
-              </a>
-            </Button>
-          </div>
         </div>
       </SheetContent>
     </Sheet>
