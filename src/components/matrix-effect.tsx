@@ -128,6 +128,7 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
     };
   }, [isAnimating, currentString, activeStrings, stringIndex, loopAfter, isSyncing]);
 
+  // This effect resets the animation when the source strings change.
   useEffect(() => {
     setRevealedCount(0);
     setIsFullyRevealed(false);
