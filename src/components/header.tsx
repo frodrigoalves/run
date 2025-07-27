@@ -4,7 +4,6 @@ import Link from 'next/link';
 import {
   User,
   LayoutGrid,
-  Bot,
   Cpu,
 } from 'lucide-react';
 import { useLocalization } from '@/hooks/use-localization';
@@ -14,7 +13,7 @@ import { MatrixEffect } from './matrix-effect';
 const navLinks = [
   { id: 'about', icon: User, label: { pt: 'Sobre', en: 'About' } },
   { id: 'projects', icon: LayoutGrid, label: { pt: 'Projetos', en: 'Projects' } },
-  { id: 'gpts', icon: Bot, label: { pt: 'GPTs', en: 'GPTs' } },
+  { id: 'gpts', icon: Cpu, label: { pt: 'GPTs', en: 'GPTs' } },
   { id: 'tech', icon: Cpu, label: { pt: 'Habilidades', en: 'Skills' } },
 ];
 
