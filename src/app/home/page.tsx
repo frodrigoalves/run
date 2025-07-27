@@ -10,6 +10,7 @@ import { Separator } from '@/components/ui/separator';
 import { LocalizedText } from '@/components/localized-text';
 import Partners from '@/components/sections/partners';
 import { TypebotEmbed } from '@/components/typebot-embed';
+import FloatingButtons from '@/components/floating-buttons';
 
 export default function HomePage() {
   return (
@@ -42,6 +43,7 @@ export default function HomePage() {
 
       <Footer />
       <TypebotEmbed />
+      <FloatingButtons />
     </div>
   );
 }
