@@ -4,28 +4,20 @@ import Gpts from '@/components/sections/gpts';
 import Projects from '@/components/sections/projects';
 import Technologies from '@/components/sections/technologies';
 import Footer from '@/components/footer';
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { LocalizedText } from '@/components/localized-text';
 import Partners from '@/components/sections/partners';
 import { TypebotEmbed } from '@/components/typebot-embed';
 import FloatingButtons from '@/components/floating-buttons';
+import Header from '@/components/header';
 
 export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-40 w-full border-b border-border/50 bg-background/95 backdrop-blur-sm">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-          <Link href="/" className="flex items-center gap-2 text-lg font-semibold" aria-label="Voltar para a página inicial">
-            <ArrowLeft className="h-5 w-5" />
-            <LocalizedText pt="run" en="run" />
-          </Link>
-        </div>
-      </header>
+      <Header />
 
       <main className="flex-1">
-        <div className="container mx-auto px-4 py-12 md:px-6 md:py-20 lg:py-24">
+        <div className="container mx-auto px-4 py-12 pt-32 md:px-6 md:py-20 lg:py-24">
             <About />
             <Separator className="my-16 md:my-24" />
             <Projects />
