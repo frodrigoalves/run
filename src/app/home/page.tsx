@@ -10,8 +10,9 @@ import { Separator } from '@/components/ui/separator';
 import Partners from '@/components/sections/partners';
 import FloatingButtons from '@/components/floating-buttons';
 import Header from '@/components/header';
+import { HeroAnimationProvider } from '@/contexts/hero-animation-context';
 
-export default function HomePage() {
+function HomePageContent() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <Header />
@@ -42,5 +43,13 @@ export default function HomePage() {
       <Footer />
       <FloatingButtons />
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <HeroAnimationProvider>
+      <HomePageContent />
+    </HeroAnimationProvider>
   );
 }
