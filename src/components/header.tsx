@@ -6,6 +6,7 @@ import {
   LayoutGrid,
   Cpu,
   AtSign,
+  Bot,
 } from 'lucide-react';
 import { useLocalization } from '@/hooks/use-localization';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -21,8 +22,23 @@ const navLinksRight = [
     { id: 'footer', icon: AtSign, label: { pt: 'Contato', en: 'Contact' } },
 ];
 
+declare global {
+    interface Window {
+      typebot: {
+        open: () => void;
+        close: () => void;
+      }
+    }
+}
+
 export default function Header() {
   const { t } = useLocalization();
+
+  const handleChatOpen = () => {
+    if (window.typebot) {
+      window.typebot.open();
+    }
+  };
 
   return (
       <TooltipProvider delayDuration={0}>
@@ -57,6 +73,21 @@ export default function Header() {
               />
             </Link>
           </div>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+                <button
+                onClick={handleChatOpen}
+                className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-accent/50"
+                >
+                <Bot className="h-5 w-5 text-foreground" strokeWidth={1.5} />
+                <span className="sr-only">{t({pt: 'Abrir Chat', en: 'Open Chat'})}</span>
+                </button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>{t({pt: 'Abrir Chat', en: 'Open Chat'})}</p>
+            </TooltipContent>
+          </Tooltip>
 
           {navLinksRight.map((link) => {
             const Icon = link.icon;
