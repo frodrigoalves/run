@@ -17,6 +17,7 @@ function PortfolioChatbot() {
   return (
     <Bubble
       typebot="rodrigoalves"
+      apiHost="https://painelapi.respostainteligente.online"
       theme={{
         placement: 'right',
         button: {
