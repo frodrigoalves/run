@@ -45,7 +45,7 @@ export default function Hero() {
       
        <div className="absolute top-[20%] md:top-[35%] left-[10%] md:left-1/4 opacity-0 animate-fade-in-delay-1">
         <MatrixEffect 
-          strings={allMatrixStrings[activeMatrixIndex]}
+          strings={allMatrixStrings[2]}
           isFeatured={true}
           showOnlyWhenComplete={true}
           loopAfter={4000}
