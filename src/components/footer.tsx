@@ -1,8 +1,16 @@
 'use client';
 import Image from 'next/image';
+import { useLocalization } from '@/hooks/use-localization';
+import { LocalizedText } from './localized-text';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useLocalization();
+
+  const quote = {
+    pt: 'Esforço é o nome do meu talento.',
+    en: 'Effort is the name of my talent.',
+  };
 
   return (
     <footer className="border-t border-border mt-16 py-8 bg-background/50">
@@ -18,12 +26,12 @@ export default function Footer() {
           />
           <div>
             <h3 className="text-lg font-bold text-foreground">Rodrigo</h3>
-            <p className="mt-1 text-muted-foreground text-sm">
-              Esforço é o nome do meu talento.
-            </p>
+            <span className="mt-1 text-muted-foreground text-sm">
+              {t(quote)}
+            </span>
           </div>
         </div>
-        <p className="text-xs text-muted-foreground">&copy; {currentYear} rodrigo.run - Todos os direitos reservados.</p>
+        <p className="text-xs text-muted-foreground">&copy; {currentYear} rodrigo.run - <LocalizedText pt="Todos os direitos reservados." en="All rights reserved." /></p>
       </div>
     </footer>
   );
