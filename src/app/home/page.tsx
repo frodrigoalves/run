@@ -7,9 +7,7 @@ import Projects from '@/components/sections/projects';
 import Technologies from '@/components/sections/technologies';
 import Footer from '@/components/footer';
 import { Separator } from '@/components/ui/separator';
-import { LocalizedText } from '@/components/localized-text';
 import Partners from '@/components/sections/partners';
-import { TypebotEmbed } from '@/components/typebot-embed';
 import FloatingButtons from '@/components/floating-buttons';
 import Header from '@/components/header';
 
@@ -36,7 +34,6 @@ export default function HomePage() {
       </main>
 
       <Footer />
-      <TypebotEmbed />
       <FloatingButtons />
     </div>
   );

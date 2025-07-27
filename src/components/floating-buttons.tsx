@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Contact, Lightbulb } from 'lucide-react';
+import { Contact } from 'lucide-react';
 import { SocialDrawer } from '@/components/social-drawer';
 
 export default function FloatingButtons() {
