@@ -20,6 +20,17 @@ const nextConfig: NextConfig = {
     
     return config;
   },
+  // Add this to allow requests from the development environment
+  experimental: {
+    allowedDevOrigins: ["*.cloudworkstations.dev"],
+  },
+  // Add this to provide the same aliases for Turbopack
+  turbo: {
+    resolveAliases: {
+      '@opentelemetry/exporter-jaeger': false,
+      '@genkit-ai/firebase': false,
+    },
+  },
 };
 
 export default nextConfig;
