@@ -11,6 +11,7 @@ import Partners from '@/components/sections/partners';
 import FloatingButtons from '@/components/floating-buttons';
 import { HeroAnimationProvider } from '@/contexts/hero-animation-context';
 import TopBar from '@/components/top-bar';
+import { TypebotEmbed } from '@/components/typebot-embed';
 
 
 function HomePageContent() {
@@ -43,6 +44,7 @@ function HomePageContent() {
 
       <Footer />
       <FloatingButtons />
+      <TypebotEmbed />
     </div>
   );
 }
