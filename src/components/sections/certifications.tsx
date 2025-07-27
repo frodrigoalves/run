@@ -21,7 +21,7 @@ export default function Certifications() {
 
   return (
     <section id="certifications" className="py-8">
-      <h2 className="text-3xl font-bold text-foreground text-left mb-8">{t(sectionTitle)}</h2>
+      <h2 className="text-3xl font-bold text-foreground text-center mb-8">{t(sectionTitle)}</h2>
       <div className="grid grid-cols-1 gap-4">
         {certificationsData.map((cert) => {
           const Icon = icons[cert.icon];

@@ -13,7 +13,7 @@ export default function Technologies() {
 
   return (
     <section id="tech" className="py-8">
-      <h2 className="text-3xl font-bold text-foreground text-left mb-8">{t(title)}</h2>
+      <h2 className="text-3xl font-bold text-foreground text-center mb-8">{t(title)}</h2>
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {technologies.map((tech) => (
           <div key={tech.name} className="flex flex-col items-center gap-2 text-center transition-transform hover:scale-110 group">
