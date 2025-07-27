@@ -24,29 +24,30 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-border/50 mt-16 py-8 bg-background/50 glass-effect">
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
+    <footer className="relative border-t border-border/50 mt-16 py-8 pb-16 md:pb-8 bg-background/50 glass-effect">
+      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
         
-        {/* Left Column */}
-        <div className="flex flex-col items-center md:items-start gap-4">
+        {/* Left Side */}
+        <div className="flex items-center gap-4">
             <Image 
                 src="/images/perfil.png"
                 alt="Rodrigo Alves Ferreira"
-                width={80}
-                height={80}
-                className='rounded-2xl mb-2'
+                width={64}
+                height={64}
+                className='rounded-2xl'
             />
-            <h3 className="text-xl font-bold text-foreground">Rodrigo Alves Ferreira</h3>
-            <span className="text-muted-foreground text-sm italic">
-                "{t(quote)}"
-            </span>
-            <p className="text-xs text-muted-foreground mt-4">&copy; {currentYear} rodrigo.run - <LocalizedText pt="Todos os direitos reservados." en="All rights reserved." /></p>
+            <div>
+              <h3 className="text-lg font-bold text-foreground">Rodrigo Alves Ferreira</h3>
+              <span className="text-muted-foreground text-sm italic">
+                  "{t(quote)}"
+              </span>
+            </div>
         </div>
 
-        {/* Right Column */}
-        <div className="flex flex-col items-center md:items-end">
-            <h4 className='text-lg font-semibold text-foreground mb-4'>{t(connectTitle)}</h4>
-            <div className="flex items-center gap-4">
+        {/* Right Side */}
+        <div className="flex flex-col items-center md:items-end gap-2">
+            <h4 className='text-md font-semibold text-foreground'>{t(connectTitle)}</h4>
+            <div className="flex items-center gap-3">
                 {socialLinks.map(link => (
                     <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" 
                        aria-label={link.name}
@@ -56,7 +57,11 @@ export default function Footer() {
                 ))}
             </div>
         </div>
-
+      </div>
+      
+      {/* Copyright - Absolute Position */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+        <p className="text-xs text-muted-foreground">&copy; {currentYear} rodrigo.run - <LocalizedText pt="Todos os direitos reservados." en="All rights reserved." /></p>
       </div>
     </footer>
   );
