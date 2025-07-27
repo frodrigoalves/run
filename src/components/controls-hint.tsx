@@ -17,12 +17,12 @@ const hintContent = {
     theme: {
         pt: 'Mudar Tema',
         en: 'Change Theme',
-        arrow: '↖',
+        arrow: '↑',
         position: 'right-[55px]'
     }
 };
 
-const arrowChars = ['/', '\\', '↗', '↖', '|', '-'];
+const arrowChars = ['/', '\\', '↗', '↖', '|', '-', '↑'];
 
 export function ControlsHint() {
     const { t } = useLocalization();
@@ -37,18 +37,21 @@ export function ControlsHint() {
     }, []);
 
     const currentHint = hintContent[state];
+    const isLanguageHint = state === 'language';
 
     return (
         <div className={cn("absolute z-50 top-16 w-auto transition-all duration-500", currentHint.position)}>
             <div className="flex items-center justify-center gap-2">
-                 <MatrixEffect
-                    key={`${state}-arrow`}
-                    strings={[currentHint.arrow]}
-                    isFeatured={true}
-                    className="text-xs opacity-70"
-                    loopAfter={4000}
-                    characterSet={arrowChars}
-                 />
+                 {isLanguageHint && (
+                     <MatrixEffect
+                        key={`${state}-arrow`}
+                        strings={[currentHint.arrow]}
+                        isFeatured={true}
+                        className="text-xs opacity-70"
+                        loopAfter={4000}
+                        characterSet={arrowChars}
+                     />
+                 )}
                  <MatrixEffect
                     key={`${state}-text`}
                     strings={[t(currentHint)]}
@@ -56,6 +59,16 @@ export function ControlsHint() {
                     className="text-xs opacity-70"
                     loopAfter={4000}
                 />
+                 {!isLanguageHint && (
+                     <MatrixEffect
+                        key={`${state}-arrow`}
+                        strings={[currentHint.arrow]}
+                        isFeatured={true}
+                        className="text-xs opacity-70"
+                        loopAfter={4000}
+                        characterSet={arrowChars}
+                     />
+                 )}
             </div>
         </div>
     );
