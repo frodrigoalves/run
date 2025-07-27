@@ -17,7 +17,7 @@ export default function Footer() {
       <div className="container mx-auto px-4 flex flex-col items-center justify-center text-center gap-6">
         <div className="flex flex-col items-center gap-4">
           <Image
-            src="https://placehold.co/80x80.png"
+            src="/images/perfil.png"
             alt="Rodrigo"
             width={80}
             height={80}

@@ -39,12 +39,13 @@ export const technologies = [
 ];
 
 export const partners = [
-    { name: "Partner 1", logo: "https://placehold.co/160x96.png", hint: "company logo" },
-    { name: "Partner 2", logo: "https://placehold.co/160x96.png", hint: "company logo" },
-    { name: "Partner 3", logo: "https://placehold.co/160x96.png", hint: "company logo" },
-    { name: "Partner 4", logo: "https://placehold.co/160x96.png", hint: "company logo" },
-    { name: "Partner 5", logo: "https://placehold.co/160x96.png", hint: "company logo" },
-    { name: "Partner 6", logo: "https://placehold.co/160x96.png", hint: "company logo" },
-    { name: "Partner 7", logo: "https://placehold.co/160x96.png", hint: "company logo" },
-    { name: "Partner 8", logo: "https://placehold.co/160x96.png", hint: "company logo" },
+    { name: "Assessoria e Consultoria", logo: "/images/logo1.png", hint: "company logo" },
+    { name: "Grupo Win", logo: "/images/logo2.png", hint: "company logo" },
+    { name: "Pexaria", logo: "/images/logo3.png", hint: "company logo" },
+    { name: "Equânime", logo: "/images/logo4.png", hint: "company logo" },
+    { name: "Alape", logo: "/images/logo5.png", hint: "company logo" },
+    { name: "Colman Motos", logo: "/images/logo6.png", hint: "company logo" },
+    { name: "See Bier", logo: "/images/logo7.png", hint: "company logo" },
+    { name: "SingulAI", logo: "/images/logo8.png", hint: "company logo" },
+    { name: "Resposta Inteligente", logo: "/images/logo9.png", hint: "company logo" },
 ];
