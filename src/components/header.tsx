@@ -5,6 +5,7 @@ import {
   User,
   LayoutGrid,
   Cpu,
+  Bot,
 } from 'lucide-react';
 import { useLocalization } from '@/hooks/use-localization';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -17,8 +18,25 @@ const navLinks = [
   { id: 'tech', icon: Cpu, label: { pt: 'Habilidades', en: 'Skills' } },
 ];
 
+declare global {
+  interface Window {
+    typebot: {
+      open: () => void;
+      close: () => void;
+    }
+  }
+}
+
 export default function Header() {
   const { t } = useLocalization();
+
+  const handleChatOpen = () => {
+    if (window.typebot) {
+      window.typebot.open();
+    }
+  }
+
+  const chatLabel = { pt: 'Abrir Chat', en: 'Open Chat' };
 
   return (
       <TooltipProvider delayDuration={0}>
@@ -56,7 +74,42 @@ export default function Header() {
             </Link>
           </div>
 
-          {navLinks.slice(2).map((link) => {
+          {navLinks.slice(2, 3).map((link) => {
+            const Icon = link.icon;
+            return (
+              <Tooltip key={link.id}>
+                <TooltipTrigger asChild>
+                  <a
+                    href={`#${link.id}`}
+                    className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-accent/50"
+                  >
+                    <Icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
+                    <span className="sr-only">{t(link.label)}</span>
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{t(link.label)}</p>
+                </TooltipContent>
+              </Tooltip>
+            );
+          })}
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={handleChatOpen}
+                className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-accent/50"
+                aria-label={t(chatLabel)}
+              >
+                <Bot className="h-5 w-5 text-foreground" strokeWidth={1.5} />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{t(chatLabel)}</p>
+            </TooltipContent>
+          </Tooltip>
+          
+          {navLinks.slice(3).map((link) => {
             const Icon = link.icon;
             return (
               <Tooltip key={link.id}>
