@@ -20,9 +20,9 @@ export default function Partners() {
                     src={partner.logo}
                     alt={partner.name}
                     width={160}
-                    height={80}
+                    height={96}
                     data-ai-hint={partner.hint}
-                    className="h-20 w-auto object-contain transition-opacity duration-300"
+                    className="h-24 w-auto object-contain transition-all duration-300 partner-logo"
                 />
             </div>
           ))}

@@ -131,6 +131,9 @@
     .logo-strip {
         @apply flex w-max animate-scroll;
     }
+    html.light .partner-logo {
+        filter: invert(1);
+    }
 }
 
 @layer utilities {
