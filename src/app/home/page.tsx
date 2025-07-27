@@ -34,7 +34,7 @@ function HomePageContent() {
             </div>
             <Separator className="my-16 md:my-24" />
             <Partners />
-            <Separator className="my-16 md:my-24" />
+            <Separator className="my-8 md:my-12" />
             <div id="tech" className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-24">
                 <Technologies />
                 <Certifications />

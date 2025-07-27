@@ -22,7 +22,7 @@ export default function Partners() {
                     width={160}
                     height={80}
                     data-ai-hint={partner.hint}
-                    className="h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                    className="h-20 w-auto object-contain transition-opacity duration-300"
                 />
             </div>
           ))}
