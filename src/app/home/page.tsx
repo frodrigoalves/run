@@ -29,12 +29,12 @@ function HomePageContent() {
               <About />
             </div>
             <Separator className="my-4" />
-            <div id="projects">
-              <Projects />
-            </div>
-            <Separator className="my-4" />
             <div id="gpts">
               <Gpts />
+            </div>
+            <Separator className="my-4" />
+            <div id="projects">
+              <Projects />
             </div>
             <Separator className="my-4" />
             <Partners />
