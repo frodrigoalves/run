@@ -18,7 +18,7 @@ function PortfolioChatbot() {
     <Bubble
       typebot="rodrigoalves"
       theme={{
-        placement: 'left',
+        placement: 'right',
         button: {
           backgroundColor: '#FFFFFF',
           customIconSrc:
