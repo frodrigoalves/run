@@ -40,8 +40,6 @@ const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisib
             strings={[arrow]}
             isFeatured={true}
             className="text-xs opacity-70"
-            loopAfter={7000}
-            stopAfter={6000}
             characterSet={arrowChars}
         />
     </div>
@@ -65,7 +63,7 @@ export function ControlsHint() {
     return (
         <div className="absolute z-50 top-16 right-0 w-full h-6 pointer-events-none">
             {/* Hint for Theme switcher - positioned to point at it */}
-            <div className="absolute right-[20px] w-[140px]">
+            <div className="absolute right-[40px] w-[140px]">
                 <Hint
                     text={themeHintText}
                     arrow={hintContent.theme.arrow}
@@ -73,7 +71,7 @@ export function ControlsHint() {
                 />
             </div>
             {/* Hint for Language switcher - positioned to point at it */}
-            <div className="absolute right-[110px] w-[140px]">
+            <div className="absolute right-[112px] w-[140px]">
                  <Hint
                     text={languageHintText}
                     arrow={hintContent.language.arrow}
