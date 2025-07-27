@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Contact, Lightbulb } from 'lucide-react';
 import { SocialDrawer } from '@/components/social-drawer';
-import { IdeaDrawer } from './idea-drawer';
+import { IdeaDrawer } from '@/components/idea-drawer';
 
 export default function FloatingButtons() {
   const [isSocialOpen, setSocialOpen] = useState(false);
