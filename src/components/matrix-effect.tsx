@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { useHeroAnimation } from '@/contexts/hero-animation-context';
 
@@ -59,26 +59,26 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
   const animationIntervalRef = useRef<NodeJS.Timeout>();
   const loopIntervalRef = useRef<NodeJS.Timeout>();
   
-  const resetAnimation = () => {
+  const resetAnimation = useCallback(() => {
     setStringIndex(0);
     setRevealedCount(0);
     setIsFullyRevealed(false);
     setIsAnimating(true);
     if(loopIntervalRef.current) clearInterval(loopIntervalRef.current);
     if(animationIntervalRef.current) clearInterval(animationIntervalRef.current);
-  };
+  }, []);
   
   // Effect to handle synchronization state change
   useEffect(() => {
     if (isSyncing) {
       resetAnimation();
     }
-  }, [isSyncing]);
+  }, [isSyncing, resetAnimation]);
 
   // This effect resets the animation when the source strings change.
   useEffect(() => {
     resetAnimation();
-  }, [strings]);
+  }, [strings, resetAnimation]);
 
 
   useEffect(() => {
