@@ -18,7 +18,7 @@ const socialLinks = [
 const wallets = [
     { network: 'ETH/BSC', address: '0x043bd4333C85288258d30546856ed891ee4644e3' },
     { network: 'Solana', address: 'CeXKRdgoVfz1VZ8fuWHiG3igLmf3xnK2MpocVtB4WqZi' },
-    { network: 'TON', address: 'TON_ADDRESS_PLACEHOLDER' },
+    { network: 'Guivos (GVS)', address: 'em breve' },
 ];
 
 
@@ -39,6 +39,7 @@ export default function Footer() {
   }, []);
 
   const activeWallet = wallets[currentWalletIndex];
+  const isWalletActive = activeWallet.address !== 'em breve';
 
   const quote = {
     pt: 'Esforço é o nome do meu talento.',
@@ -56,6 +57,8 @@ export default function Footer() {
   }
 
   const handleCopy = () => {
+    if (!isWalletActive) return;
+
     navigator.clipboard.writeText(activeWallet.address);
     toast({
         title: t(copySuccess),
@@ -111,18 +114,21 @@ export default function Footer() {
                     />
                 </h4>
                 <div 
-                    className="flex items-center gap-2 p-2 rounded-md bg-muted/50 cursor-pointer hover:bg-muted h-8"
+                    className={cn(
+                        "flex items-center gap-2 p-2 rounded-md bg-muted/50 h-8",
+                        isWalletActive && "cursor-pointer hover:bg-muted"
+                    )}
                     onClick={handleCopy}
                 >
                     <MatrixEffect 
                         key={`${activeWallet.network}-address`}
-                        strings={[`${activeWallet.address.substring(0, 10)}...${activeWallet.address.substring(activeWallet.address.length - 4)}`]}
+                        strings={[isWalletActive ? `${activeWallet.address.substring(0, 10)}...${activeWallet.address.substring(activeWallet.address.length - 4)}` : activeWallet.address]}
                         isFeatured={false}
                         stopAfter={4500}
                         loopAfter={5000}
                         className="text-xs font-mono text-muted-foreground"
                     />
-                    <Copy size={14} className={cn('transition-colors', isCopied ? 'text-green-500' : 'text-muted-foreground')}/>
+                    {isWalletActive && <Copy size={14} className={cn('transition-colors', isCopied ? 'text-green-500' : 'text-muted-foreground')}/>}
                 </div>
             </div>
         </div>
@@ -134,3 +140,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+    
