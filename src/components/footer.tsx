@@ -34,7 +34,7 @@ export default function Footer() {
                 alt="Rodrigo Alves Ferreira"
                 width={64}
                 height={64}
-                className='rounded-2xl'
+                className='rounded-full'
             />
             <div>
               <h3 className="text-lg font-bold text-foreground">Rodrigo Alves Ferreira</h3>
