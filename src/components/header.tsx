@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {
   User,
   LayoutGrid,
-  Sparkles,
+  Bot,
   Cpu,
 } from 'lucide-react';
 import { useLocalization } from '@/hooks/use-localization';
@@ -14,7 +14,7 @@ import { MatrixEffect } from './matrix-effect';
 const navLinks = [
   { id: 'about', icon: User, label: { pt: 'Sobre', en: 'About' } },
   { id: 'projects', icon: LayoutGrid, label: { pt: 'Projetos', en: 'Projects' } },
-  { id: 'gpts', icon: Sparkles, label: { pt: 'GPTs', en: 'GPTs' } },
+  { id: 'gpts', icon: Bot, label: { pt: 'GPTs', en: 'GPTs' } },
   { id: 'tech', icon: Cpu, label: { pt: 'Habilidades', en: 'Skills' } },
 ];
 
@@ -33,7 +33,7 @@ export default function Header() {
                     href={`#${link.id}`}
                     className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-accent/50"
                   >
-                    <Icon className="h-5 w-5 text-foreground" />
+                    <Icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
                     <span className="sr-only">{t(link.label)}</span>
                   </a>
                 </TooltipTrigger>
@@ -66,7 +66,7 @@ export default function Header() {
                     href={`#${link.id}`}
                     className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-accent/50"
                   >
-                    <Icon className="h-5 w-5 text-foreground" />
+                    <Icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
                     <span className="sr-only">{t(link.label)}</span>
                   </a>
                 </TooltipTrigger>
