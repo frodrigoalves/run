@@ -102,7 +102,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className="flex flex-col items-center md:items-end gap-2 text-sm">
-                <h4 className='text-md font-semibold text-foreground flex items-center gap-2'>
+                <div className='flex items-center justify-end gap-2 h-8 min-w-[150px]'>
                     <Wallet size={16}/> 
                      <MatrixEffect 
                         key={`${activeWallet.network}-network`}
@@ -112,10 +112,10 @@ export default function Footer() {
                         loopAfter={5000}
                         className="text-base font-sans"
                     />
-                </h4>
+                </div>
                 <div 
                     className={cn(
-                        "flex items-center gap-2 p-2 rounded-md bg-muted/50 h-8",
+                        "flex items-center justify-end gap-2 p-2 rounded-md bg-muted/50 h-8 min-w-[150px]",
                         isWalletActive && "cursor-pointer hover:bg-muted"
                     )}
                     onClick={handleCopy}
