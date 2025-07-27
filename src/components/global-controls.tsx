@@ -43,12 +43,12 @@ export default function GlobalControls() {
     const size = 'w-6 h-6';
 
     if (position === 0) {
-      return cn(baseClasses, size, "z-30 transform -translate-y-0 scale-100 opacity-100");
+      return cn(baseClasses, size, "z-30 transform -translate-x-0 scale-100 opacity-100");
     }
     if (position === 1) {
-      return cn(baseClasses, size, "z-20 transform translate-y-3 scale-90 opacity-75");
+      return cn(baseClasses, size, "z-20 transform translate-x-7 scale-90 opacity-75");
     }
-    return cn(baseClasses, size, "z-10 transform translate-y-6 scale-80 opacity-50");
+    return cn(baseClasses, size, "z-10 transform translate-x-14 scale-80 opacity-50");
   };
 
   const getLangClasses = (buttonLang: Language) => {
@@ -76,7 +76,7 @@ export default function GlobalControls() {
           </div>
       </div>
       
-      <div className="fixed top-5 right-5 md:right-8 z-50 h-8 w-6 flex flex-col items-center justify-start group pt-2" onClick={handleThemeChange}>
+      <div className="fixed top-5 right-5 md:right-8 z-50 h-6 w-8 flex items-center justify-start group" onClick={handleThemeChange}>
           <div aria-label='Switch to light theme' className={cn(getThemeClasses('light'))}>
               <Sun className="h-3 w-3 text-foreground" />
           </div>

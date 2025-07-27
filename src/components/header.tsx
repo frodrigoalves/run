@@ -2,11 +2,9 @@
 
 import Link from 'next/link';
 import {
-  Home,
   User,
   LayoutGrid,
   Sparkles,
-  Handshake,
   Cpu,
   GraduationCap,
   ArrowLeft
@@ -18,9 +16,7 @@ const navLinks = [
   { id: 'about', icon: User, label: { pt: 'Sobre', en: 'About' } },
   { id: 'projects', icon: LayoutGrid, label: { pt: 'Projetos', en: 'Projects' } },
   { id: 'gpts', icon: Sparkles, label: { pt: 'GPTs', en: 'GPTs' } },
-  { id: 'partners', icon: Handshake, label: { pt: 'Parceiros', en: 'Partners' } },
-  { id: 'tech', icon: Cpu, label: { pt: 'Tecnologias', en: 'Tech' } },
-  { id: 'certifications', icon: GraduationCap, label: { pt: 'Certificações', en: 'Certs' } },
+  { id: 'tech', icon: Cpu, label: { pt: 'Habilidades', en: 'Skills' } },
 ];
 
 export default function Header() {
