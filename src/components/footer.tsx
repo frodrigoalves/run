@@ -72,7 +72,7 @@ export default function Footer() {
     <footer className="relative border-t border-border/50 mt-12 py-10 pb-16 md:pb-10 bg-background/50 glass-effect">
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
         
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
             <Image 
                 src="/images/perfil.png"
                 alt="Rodrigo"

@@ -23,7 +23,7 @@ export default function Projects() {
   return (
     <section id="projects" className="py-12 md:py-20">
       <div className="text-center max-w-3xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-12">{t(sectionTitle)}</h2>
+        <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-12">{t(sectionTitle)}</h2>
       </div>
       <Carousel
         opts={{
