@@ -10,12 +10,12 @@ import { Separator } from '@/components/ui/separator';
 import Partners from '@/components/sections/partners';
 import { HeroAnimationProvider } from '@/contexts/hero-animation-context';
 import TopBar from '@/components/top-bar';
-import { Typebot } from '@typebot.io/nextjs';
+import { Standard } from '@typebot.io/nextjs';
 
 
 function PortfolioChatbot() {
   return (
-    <Typebot
+    <Standard
       typebot="rodrigoalves"
       apiHost="https://painelapi.respostainteligente.online"
       className="h-full w-full"
