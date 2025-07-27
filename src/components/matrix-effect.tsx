@@ -53,23 +53,32 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
   const [isFullyRevealed, setIsFullyRevealed] = useState(false);
 
   const activeStrings = useMemo(() => (isSyncing ? [syncText] : strings), [isSyncing, syncText, strings]);
-  const currentString = useMemo(() => activeStrings[stringIndex] || '', [activeStrings, stringIndex]);
+  const currentString = useMemo(() => (activeStrings && activeStrings.length > 0) ? activeStrings[stringIndex] || '' : '', [activeStrings, stringIndex]);
   const characterSet = useMemo(() => customCharSet || DEFAULT_CHARACTERS.split(''), [customCharSet]);
   
   const animationIntervalRef = useRef<NodeJS.Timeout>();
   const loopIntervalRef = useRef<NodeJS.Timeout>();
   
+  const resetAnimation = () => {
+    setStringIndex(0);
+    setRevealedCount(0);
+    setIsFullyRevealed(false);
+    setIsAnimating(true);
+    if(loopIntervalRef.current) clearInterval(loopIntervalRef.current);
+    if(animationIntervalRef.current) clearInterval(animationIntervalRef.current);
+  };
+  
   // Effect to handle synchronization state change
   useEffect(() => {
     if (isSyncing) {
-        setRevealedCount(0);
-        setIsFullyRevealed(false);
-        setStringIndex(0);
-        setIsAnimating(true);
-        if(loopIntervalRef.current) clearInterval(loopIntervalRef.current);
-        if(animationIntervalRef.current) clearInterval(animationIntervalRef.current);
+      resetAnimation();
     }
   }, [isSyncing]);
+
+  // This effect resets the animation when the source strings change.
+  useEffect(() => {
+    resetAnimation();
+  }, [strings]);
 
 
   useEffect(() => {
@@ -86,17 +95,19 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
 
   useEffect(() => {
     // Loop logic (animating/paused)
-    if (loopAfter && !isSyncing) {
+    if (loopAfter && !isSyncing && activeStrings && activeStrings.length > 1) {
         if (loopIntervalRef.current) clearInterval(loopIntervalRef.current);
         loopIntervalRef.current = setInterval(() => {
             setIsAnimating(prev => !prev);
         }, loopAfter);
         return () => clearInterval(loopIntervalRef.current);
     }
-  }, [loopAfter, isSyncing]);
+  }, [loopAfter, isSyncing, activeStrings]);
 
 
   useEffect(() => {
+    if (!currentString) return;
+
     if (isAnimating) {
         if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
         animationIntervalRef.current = setInterval(() => {
@@ -106,12 +117,12 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
                     return prev + 1;
                 } else {
                     setIsFullyRevealed(true);
-                    if (!isSyncing) { // Only loop if not in sync mode
+                    if (!isSyncing && activeStrings && activeStrings.length > 1) { // Only loop if not in sync mode
                          setTimeout(() => {
                             setRevealedCount(0);
                             setIsFullyRevealed(false);
                             setStringIndex(prevIdx => (prevIdx + 1) % activeStrings.length);
-                         }, loopAfter ? 0 : 2000);
+                         }, loopAfter ? loopAfter/2 : 2000); // Wait before switching to the next string
                     }
                     return currentString.length;
                 }
@@ -127,14 +138,6 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
         if (animationIntervalRef.current) clearInterval(animationIntervalRef.current)
     };
   }, [isAnimating, currentString, activeStrings, stringIndex, loopAfter, isSyncing]);
-
-  // This effect resets the animation when the source strings change.
-  useEffect(() => {
-    setRevealedCount(0);
-    setIsFullyRevealed(false);
-    setStringIndex(0);
-    setIsAnimating(true);
-  }, [strings]);
 
 
   return (

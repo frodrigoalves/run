@@ -7,12 +7,13 @@ import { useState, useEffect } from 'react';
 const allMatrixStrings = [
   ["system.init()", "usr/bin/security"],
   ["load: /blockchain/modules", "booting: SingulAI"],
-  ["Pedro|Laura", "Leticia"],
   ["0x5a2e...c8a4", "eth_send"],
   ["running diagnostics", "kernel_panic: false"],
   ["decrypting_data", "auth_success"],
   ["Web3", "AI Specialist"],
 ];
+
+const names = ["Pedro|Laura", "Leticia"];
 
 export default function Hero() {
   const { lang } = useLocalization();
@@ -45,7 +46,7 @@ export default function Hero() {
       
        <div className="absolute top-[20%] md:top-[35%] left-[10%] md:left-1/4 opacity-0 animate-fade-in-delay-1">
         <MatrixEffect 
-          strings={allMatrixStrings[2]}
+          strings={names}
           isFeatured={true}
           showOnlyWhenComplete={true}
           loopAfter={4000}
@@ -65,7 +66,7 @@ export default function Hero() {
       </div>
        <div className="absolute top-1/3 left-[10%] md:left-[15%] opacity-0 animate-fade-in-delay-2 hidden md:block">
         <MatrixEffect 
-          strings={allMatrixStrings[activeMatrixIndex === 2 ? 0 : activeMatrixIndex]}
+          strings={allMatrixStrings[activeMatrixIndex === 2 ? 0 : 2]}
           isFeatured={featuredMatrixIndex === 2}
         />
       </div>
@@ -83,8 +84,8 @@ export default function Hero() {
       </div>
        <div className="absolute top-1/2 left-[30%] -translate-y-1/2 opacity-0 animate-fade-in-delay-3 hidden md:block">
         <MatrixEffect 
-          strings={allMatrixStrings[6]}
-          isFeatured={featuredMatrixIndex === 6}
+          strings={allMatrixStrings[5]}
+          isFeatured={featuredMatrixIndex === 5}
         />
       </div>
       <div className="absolute top-1/2 right-1/2 md:right-[30%] translate-x-1/2 md:translate-x-0 -translate-y-1/2 opacity-0 animate-fade-in-delay-1">
