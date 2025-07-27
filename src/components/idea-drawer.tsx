@@ -30,20 +30,20 @@ export function IdeaDrawer({ isOpen, onOpenChange }: IdeaDrawerProps) {
   const [ideas, setIdeas] = useState<Idea[]>([]);
 
   const fetchIdeas = async () => {
-    try {
-        const response = await fetch('/api/ideas');
-        if (response.ok) {
-            const data = await response.json();
-            setIdeas(data);
-        }
-    } catch (error) {
-        console.error("Failed to fetch ideas", error);
-    }
+    // try {
+    //     const response = await fetch('/api/ideas');
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         setIdeas(data);
+    //     }
+    // } catch (error) {
+    //     console.error("Failed to fetch ideas", error);
+    // }
   };
 
   useEffect(() => {
     if (isOpen) {
-      fetchIdeas();
+      // fetchIdeas();
     }
   }, [isOpen]);
 
@@ -51,40 +51,46 @@ export function IdeaDrawer({ isOpen, onOpenChange }: IdeaDrawerProps) {
     event.preventDefault();
     setIsSubmitting(true);
     
-    const formData = new FormData(event.currentTarget);
-    const idea = formData.get('idea') as string;
-    const isPublic = formData.get('isPublic') === 'on';
-    const contact = formData.get('contact') as string;
+    // const formData = new FormData(event.currentTarget);
+    // const idea = formData.get('idea') as string;
+    // const isPublic = formData.get('isPublic') === 'on';
+    // const contact = formData.get('contact') as string;
 
-    try {
-      const response = await fetch('/api/ideas', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idea, isPublic, contact }),
-      });
+    // try {
+    //   const response = await fetch('/api/ideas', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ idea, isPublic, contact }),
+    //   });
 
-      if (!response.ok) {
-        throw new Error('Failed to submit idea');
-      }
+    //   if (!response.ok) {
+    //     throw new Error('Failed to submit idea');
+    //   }
 
-      toast({
-        title: t({ pt: 'Ideia Enviada!', en: 'Idea Submitted!' }),
-        description: t({ pt: 'Sua ideia foi enviada com sucesso. Obrigado!', en: 'Your idea has been successfully submitted. Thank you!' }),
-      });
+    //   toast({
+    //     title: t({ pt: 'Ideia Enviada!', en: 'Idea Submitted!' }),
+    //     description: t({ pt: 'Sua ideia foi enviada com sucesso. Obrigado!', en: 'Your idea has been successfully submitted. Thank you!' }),
+    //   });
       
-      const form = event.target as HTMLFormElement;
-      form.reset();
-      fetchIdeas(); // Refresh ideas list
+    //   const form = event.target as HTMLFormElement;
+    //   form.reset();
+    //   fetchIdeas(); // Refresh ideas list
 
-    } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: t({ pt: 'Ocorreu um erro', en: 'An error occurred' }),
-        description: t({ pt: 'Não foi possível enviar sua ideia. Tente novamente.', en: 'Could not submit your idea. Please try again.' }),
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    // } catch (error) {
+    //   toast({
+    //     variant: 'destructive',
+    //     title: t({ pt: 'Ocorreu um erro', en: 'An error occurred' }),
+    //     description: t({ pt: 'Não foi possível enviar sua ideia. Tente novamente.', en: 'Could not submit your idea. Please try again.' }),
+    //   });
+    // } finally {
+    //   setIsSubmitting(false);
+    // }
+
+    toast({
+        title: t({ pt: 'Função Desativada', en: 'Feature Disabled' }),
+        description: t({ pt: 'O envio de ideias está temporariamente desativado.', en: 'Idea submission is temporarily disabled.' }),
+    });
+    setIsSubmitting(false);
   };
 
   return (

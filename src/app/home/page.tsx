@@ -4,7 +4,6 @@ import Gpts from '@/components/sections/gpts';
 import Projects from '@/components/sections/projects';
 import Technologies from '@/components/sections/technologies';
 import Footer from '@/components/footer';
-import FloatingButtons from '@/components/floating-buttons';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
@@ -42,7 +41,6 @@ export default function HomePage() {
       </main>
 
       <Footer />
-      <FloatingButtons />
       <TypebotEmbed />
     </div>
   );
