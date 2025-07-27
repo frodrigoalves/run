@@ -1,17 +1,57 @@
 'use client';
 
+import { useEffect, useState } from "react";
 import { MatrixEffect } from "./matrix-effect";
 import { cn } from "@/lib/utils";
+import { useLocalization } from "@/hooks/use-localization";
 
-const hintText = { pt: 'Controles', en: 'Controls' };
+type HintState = 'language' | 'theme';
+
+const hintContent = {
+    language: {
+        pt: 'Mudar Idioma',
+        en: 'Switch Language',
+        arrow: '↗',
+        position: 'right-[150px]' 
+    },
+    theme: {
+        pt: 'Mudar Tema',
+        en: 'Change Theme',
+        arrow: '↖',
+        position: 'right-[60px]'
+    }
+};
+
+const arrowChars = ['/', '\\', '↗', '↖', '|', '-'];
 
 export function ControlsHint() {
+    const { t } = useLocalization();
+    const [state, setState] = useState<HintState>('language');
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setState(prevState => (prevState === 'language' ? 'theme' : 'language'));
+        }, 4000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    const currentHint = hintContent[state];
 
     return (
-        <div className={cn("absolute z-50 top-12 right-0 left-0 mx-auto w-max")}>
-            <div className="flex items-center justify-center">
-                <MatrixEffect
-                    strings={[hintText.pt, hintText.en]}
+        <div className={cn("absolute z-50 top-14 w-auto", currentHint.position)}>
+            <div className="flex items-center justify-center gap-2">
+                 <MatrixEffect
+                    key={`${state}-arrow`}
+                    strings={[currentHint.arrow]}
+                    isFeatured={true}
+                    className="text-xs opacity-70"
+                    loopAfter={4000}
+                    characterSet={arrowChars}
+                 />
+                 <MatrixEffect
+                    key={`${state}-text`}
+                    strings={[t(currentHint)]}
                     isFeatured={true}
                     className="text-xs opacity-70"
                     loopAfter={4000}
