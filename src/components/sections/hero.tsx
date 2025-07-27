@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 const allMatrixStrings = [
   ["system.init()", "usr/bin/security"],
   ["load: /blockchain/modules", "booting: SingulAI"],
-  ["Pedro/Laura", "Leticia"],
+  ["Pedro | Laura", "Leticia"],
   ["0x5a2e...c8a4", "eth_send"],
   ["running diagnostics", "kernel_panic: false"],
   ["decrypting_data", "auth_success"],
