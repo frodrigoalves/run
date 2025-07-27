@@ -42,17 +42,17 @@ function HomePageContent() {
             <div id="about">
               <About />
             </div>
-            <Separator className="my-8 md:my-12" />
+            <Separator className="my-8" />
             <div id="projects">
               <Projects />
             </div>
-            <Separator className="my-8 md:my-12" />
+            <Separator className="my-8" />
             <div id="gpts">
               <Gpts />
             </div>
-            <Separator className="my-8 md:my-12" />
+            <Separator className="my-8" />
             <Partners />
-            <Separator className="my-8 md:my-12" />
+            <Separator className="my-8" />
             <div id="tech" className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-24">
                 <Technologies />
                 <Certifications />
