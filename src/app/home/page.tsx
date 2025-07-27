@@ -9,13 +9,13 @@ import Footer from '@/components/footer';
 import { Separator } from '@/components/ui/separator';
 import Partners from '@/components/sections/partners';
 import FloatingButtons from '@/components/floating-buttons';
-import Header from '@/components/header';
 import { HeroAnimationProvider } from '@/contexts/hero-animation-context';
+import TopBar from '@/components/top-bar';
 
 function HomePageContent() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <Header />
+      <TopBar showNav />
 
       <main className="flex-1">
         <div className="container mx-auto px-4 py-12 pt-32 md:px-6 md:py-20 lg:py-24">

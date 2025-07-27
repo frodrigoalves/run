@@ -66,8 +66,8 @@ export default function GlobalControls() {
 
 
   return (
-    <>
-      <div className="fixed top-5 left-5 md:left-8 z-50 h-8 w-6 flex items-center justify-start" onClick={handleLangChange}>
+    <div className='flex items-center gap-10 pl-2'>
+      <div className="relative h-8 w-6 flex items-center justify-start" onClick={handleLangChange}>
           <div aria-label='Mudar para Português' className={cn(getLangClasses('pt'))}>
               <span>🇧🇷</span>
           </div>
@@ -76,7 +76,7 @@ export default function GlobalControls() {
           </div>
       </div>
       
-      <div className="fixed top-5 right-5 md:right-8 z-50 h-6 w-8 flex items-center justify-start group" onClick={handleThemeChange}>
+      <div className="relative h-6 w-8 flex items-center justify-start group" onClick={handleThemeChange}>
           <div aria-label='Switch to light theme' className={cn(getThemeClasses('light'))}>
               <Sun className="h-3 w-3 text-foreground" />
           </div>
@@ -87,6 +87,6 @@ export default function GlobalControls() {
               <Ghost className="h-3 w-3 text-foreground" />
           </div>
       </div>
-    </>
+    </div>
   );
 }

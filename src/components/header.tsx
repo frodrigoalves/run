@@ -22,9 +22,8 @@ export default function Header() {
   const { t } = useLocalization();
 
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
       <TooltipProvider delayDuration={0}>
-        <nav className="glass-effect flex items-center justify-center gap-2 rounded-full p-2">
+        <nav className="flex items-center justify-center gap-2">
           {navLinks.slice(0, 2).map((link) => {
             const Icon = link.icon;
             return (
@@ -79,6 +78,5 @@ export default function Header() {
           })}
         </nav>
       </TooltipProvider>
-    </header>
   );
 }
