@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    unoptimized: true,
+    unoptimized: false,
   },
   webpack: (config, { isServer }) => {
     // Suppress warnings for these optional modules

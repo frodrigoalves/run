@@ -22,7 +22,6 @@ export default function Footer() {
             width={80}
             height={80}
             className="rounded-full object-cover border-2 border-primary/50 shadow-lg"
-            data-ai-hint="profile picture"
           />
           <div>
             <h3 className="text-lg font-bold text-foreground">Rodrigo</h3>
