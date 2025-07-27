@@ -16,7 +16,7 @@ const socialLinks = [
 ];
 
 const wallets = [
-    { network: 'ETH/BSC', address: '0x043bd4333C85288258d30546856ed891ee4644e3' },
+    { network: 'BNB', address: '0x043bd4333C85288258d30546856ed891ee4644e3' },
     { network: 'Solana', address: 'CeXKRdgoVfz1VZ8fuWHiG3igLmf3xnK2MpocVtB4WqZi' },
     { network: 'Guivos (GVS)', address: 'em breve' },
 ];
@@ -140,5 +140,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-    
