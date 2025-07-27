@@ -69,19 +69,19 @@ export default function Footer() {
 
 
   return (
-    <footer className="relative border-t border-border/50 mt-16 py-8 pb-16 md:pb-8 bg-background/50 glass-effect">
+    <footer className="relative border-t border-border/50 mt-12 py-10 pb-16 md:pb-10 bg-background/50 glass-effect">
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
         
         <div className="flex items-center gap-4">
             <Image 
                 src="/images/perfil.png"
-                alt="Rodrigo Alves Ferreira"
+                alt="Rodrigo"
                 width={64}
                 height={64}
                 className='rounded-full'
             />
             <div>
-              <h3 className="text-lg font-bold text-foreground">Rodrigo Alves Ferreira</h3>
+              <h3 className="text-lg font-bold text-foreground">Rodrigo</h3>
               <span className="text-muted-foreground text-sm italic">
                   "{t(quote)}"
               </span>
