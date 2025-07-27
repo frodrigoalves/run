@@ -3,6 +3,7 @@
 import { MatrixEffect } from '@/components/matrix-effect';
 import { useLocalization } from '@/hooks/use-localization';
 import { useState, useEffect } from 'react';
+import { useHeroAnimation } from '@/contexts/hero-animation-context';
 
 const allMatrixStrings = [
   ["system.init()", "usr/bin/security"],
@@ -17,6 +18,7 @@ const names = ["Pedro|Laura", "Leticia"];
 
 export default function Hero() {
   const { lang } = useLocalization();
+  const { isSyncing } = useHeroAnimation();
   
   const [activeMatrixIndex, setActiveMatrixIndex] = useState(0);
   const [activeSubtitleIndex, setActiveSubtitleIndex] = useState(0);
@@ -29,6 +31,7 @@ export default function Hero() {
   };
   
   useEffect(() => {
+    if (isSyncing) return; // Stop the interval when syncing
     const interval = setInterval(() => {
       setActiveMatrixIndex(prev => (prev + 1) % allMatrixStrings.length);
       setActiveSubtitleIndex(prev => (prev + 1) % titles[lang].length);
@@ -36,7 +39,7 @@ export default function Hero() {
     }, 1500); 
 
     return () => clearInterval(interval);
-  }, [lang, titles]);
+  }, [lang, titles, isSyncing]);
 
 
   return (
