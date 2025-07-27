@@ -12,13 +12,13 @@ const hintContent = {
         pt: 'Mudar Idioma',
         en: 'Switch Language',
         arrow: '↗',
-        position: 'right-[150px]' 
+        position: 'right-[160px]'
     },
     theme: {
         pt: 'Mudar Tema',
         en: 'Change Theme',
         arrow: '↖',
-        position: 'right-[60px]'
+        position: 'right-[55px]'
     }
 };
 
@@ -39,7 +39,7 @@ export function ControlsHint() {
     const currentHint = hintContent[state];
 
     return (
-        <div className={cn("absolute z-50 top-14 w-auto", currentHint.position)}>
+        <div className={cn("absolute z-50 top-16 w-auto transition-all duration-500", currentHint.position)}>
             <div className="flex items-center justify-center gap-2">
                  <MatrixEffect
                     key={`${state}-arrow`}
