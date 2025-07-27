@@ -1,3 +1,5 @@
+'use client';
+
 import About from '@/components/sections/about';
 import Certifications from '@/components/sections/certifications';
 import Gpts from '@/components/sections/gpts';
