@@ -46,9 +46,9 @@ export default function GlobalControls() {
       return cn(baseClasses, size, "z-30 transform -translate-x-0 scale-100 opacity-100");
     }
     if (position === 1) {
-      return cn(baseClasses, size, "z-20 transform translate-x-7 scale-90 opacity-75");
+      return cn(baseClasses, size, "z-20 transform translate-x-5 scale-90 opacity-75");
     }
-    return cn(baseClasses, size, "z-10 transform translate-x-14 scale-80 opacity-50");
+    return cn(baseClasses, size, "z-10 transform translate-x-10 scale-80 opacity-50");
   };
 
   const getLangClasses = (buttonLang: Language) => {
