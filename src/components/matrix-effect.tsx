@@ -91,6 +91,11 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
       }, stopAfter);
       return () => clearTimeout(stopTimer);
     }
+    // If stopAfter is not defined, we let it animate continuously
+    if(stopAfter === undefined && !isSyncing) {
+        setIsAnimating(true);
+    }
+
   }, [stopAfter, currentString.length, isSyncing]);
 
   useEffect(() => {
@@ -117,12 +122,18 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
                     return prev + 1;
                 } else {
                     setIsFullyRevealed(true);
-                    if (!isSyncing && activeStrings && activeStrings.length > 1) { // Only loop if not in sync mode
+                    if (!isSyncing && activeStrings && activeStrings.length > 1) { 
                          setTimeout(() => {
                             setRevealedCount(0);
                             setIsFullyRevealed(false);
                             setStringIndex(prevIdx => (prevIdx + 1) % activeStrings.length);
-                         }, loopAfter ? loopAfter/2 : 2000); // Wait before switching to the next string
+                         }, loopAfter ? loopAfter/2 : 2000);
+                    }
+                    if (stopAfter === undefined) { // Continuous loop for single strings without stopAfter
+                        setTimeout(() => {
+                            setRevealedCount(0);
+                            setIsFullyRevealed(false);
+                        }, 2000);
                     }
                     return currentString.length;
                 }
@@ -137,7 +148,7 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
     return () => {
         if (animationIntervalRef.current) clearInterval(animationIntervalRef.current)
     };
-  }, [isAnimating, currentString, activeStrings, stringIndex, loopAfter, isSyncing]);
+  }, [isAnimating, currentString, activeStrings, stringIndex, loopAfter, isSyncing, stopAfter]);
 
 
   return (

@@ -22,7 +22,7 @@ const hintContent = {
 
 const arrowChars = ['/', '\\', '|', '-', '↑'];
 
-const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisible: boolean; }) => (
+const Hint = ({ text, arrow, isVisible, alwaysDecodeArrow }: { text: string; arrow: string; isVisible: boolean; alwaysDecodeArrow?: boolean; }) => (
     <div className={cn(
         "flex items-center justify-center gap-2 transition-opacity duration-1000",
         isVisible ? "opacity-100" : "opacity-0"
@@ -41,6 +41,8 @@ const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisib
             isFeatured={true}
             className="text-xs opacity-70"
             characterSet={arrowChars}
+            stopAfter={alwaysDecodeArrow ? undefined : 6000}
+            loopAfter={alwaysDecodeArrow ? undefined : 7000}
         />
     </div>
 );
@@ -52,7 +54,7 @@ export function ControlsHint() {
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveHint(prevState => (prevState === 'language' ? 'theme' : 'language'));
-        }, 7000); // Cycle every 7 seconds to match animation
+        }, 7000); 
 
         return () => clearInterval(interval);
     }, []);
@@ -62,20 +64,20 @@ export function ControlsHint() {
 
     return (
         <div className="absolute z-50 top-16 right-0 w-full h-6 pointer-events-none">
-            {/* Hint for Theme switcher - positioned to point at it */}
-            <div className="absolute right-[40px] w-[140px]">
-                <Hint
-                    text={themeHintText}
-                    arrow={hintContent.theme.arrow}
-                    isVisible={activeHint === 'theme'}
-                />
-            </div>
-            {/* Hint for Language switcher - positioned to point at it */}
             <div className="absolute right-[112px] w-[140px]">
                  <Hint
                     text={languageHintText}
                     arrow={hintContent.language.arrow}
                     isVisible={activeHint === 'language'}
+                    alwaysDecodeArrow={true}
+                />
+            </div>
+            <div className="absolute right-[40px] w-[140px]">
+                <Hint
+                    text={themeHintText}
+                    arrow={hintContent.theme.arrow}
+                    isVisible={activeHint === 'theme'}
+                    alwaysDecodeArrow={true}
                 />
             </div>
         </div>

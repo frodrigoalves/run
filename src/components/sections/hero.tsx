@@ -14,7 +14,7 @@ const allMatrixStrings = [
   ["Web3", "AI Specialist"],
 ];
 
-const names = ["Pedro|Laura", "Leticia"];
+const tributeNames = ["Pedro|Laura", "Leticia"];
 
 export default function Hero() {
   const { lang } = useLocalization();
@@ -49,7 +49,7 @@ export default function Hero() {
       
        <div className="absolute top-[20%] md:top-[35%] left-[10%] md:left-1/4 opacity-0 animate-fade-in-delay-1">
         <MatrixEffect 
-          strings={names}
+          strings={tributeNames}
           isFeatured={true}
           showOnlyWhenComplete={true}
           loopAfter={4000}
