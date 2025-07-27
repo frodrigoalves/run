@@ -40,7 +40,7 @@ function LandingPageContent() {
 
   return (
     <div className="flex min-h-screen flex-col relative overflow-hidden">
-      <div className='relative z-50 pt-2'>
+      <div className='relative z-50 pt-4'>
         <TopBar showNav={false} />
         <ControlsHint />
       </div>
