@@ -22,7 +22,7 @@ export default function Partners() {
                     width={160}
                     height={96}
                     data-ai-hint={partner.hint}
-                    className="h-24 w-auto object-contain transition-all duration-300"
+                    className="h-24 w-auto object-contain transition-all duration-300 dark:invert-0 invert"
                 />
             </div>
           ))}
