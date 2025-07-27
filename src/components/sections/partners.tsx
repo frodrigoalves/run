@@ -19,10 +19,10 @@ export default function Partners() {
                 <Image
                     src={partner.logo}
                     alt={partner.name}
-                    width={160}
-                    height={96}
+                    width={200}
+                    height={120}
                     data-ai-hint={partner.hint}
-                    className="w-40 h-24 object-contain grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                    className="w-48 h-32 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
                 />
             </div>
           ))}
