@@ -41,7 +41,7 @@ export default function TopBar({ showNav }: TopBarProps) {
     }, []);
 
     const navBarClasses = cn(
-        "fixed top-0 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-in-out",
+        "fixed top-0 left-1/2 -translate-x-1/2 z-40 transition-all duration-300 ease-in-out",
         "p-2 flex items-center justify-center",
         "w-auto",
         (isVisible || isScrolled) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full',
