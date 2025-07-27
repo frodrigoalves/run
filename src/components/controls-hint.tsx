@@ -9,8 +9,8 @@ type HintState = 'language' | 'theme';
 
 const hintContent = {
     language: {
-        pt: 'Mudar Idioma', // Displayed when current lang is EN
-        en: 'Switch Language', // Displayed when current lang is PT
+        pt: 'Mudar Idioma',
+        en: 'Switch Language',
         arrow: '↑',
     },
     theme: {
@@ -22,68 +22,60 @@ const hintContent = {
 
 const arrowChars = ['/', '\\', '|', '-', '↑'];
 
+const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisible: boolean; }) => (
+    <div className={cn(
+        "absolute inset-0 flex items-center justify-center gap-2 transition-opacity duration-1000",
+        isVisible ? "opacity-100" : "opacity-0"
+    )}>
+        <MatrixEffect
+            key={`${text}-text`}
+            strings={[text]}
+            isFeatured={true}
+            className="text-xs opacity-70"
+            loopAfter={5000}
+            stopAfter={4000}
+        />
+        <MatrixEffect
+            key={`${text}-arrow`}
+            strings={[arrow]}
+            isFeatured={true}
+            className="text-xs opacity-70"
+            loopAfter={5000}
+            stopAfter={4000}
+            characterSet={arrowChars}
+        />
+    </div>
+);
+
 export function ControlsHint() {
     const { t, lang } = useLocalization();
     const [activeHint, setActiveHint] = useState<HintState>('language');
-    const [isLanguageVisible, setLanguageVisible] = useState(true);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveHint(prevState => {
-                const newState = prevState === 'language' ? 'theme' : 'language';
-                setLanguageVisible(newState === 'language');
-                return newState;
-            });
+            setActiveHint(prevState => (prevState === 'language' ? 'theme' : 'language'));
         }, 5000); // Cycle every 5 seconds
 
         return () => clearInterval(interval);
     }, []);
-
+    
     const languageHintText = lang === 'pt' ? hintContent.language.en : hintContent.language.pt;
     const themeHintText = t(hintContent.theme);
 
-    const Hint = ({ text, arrow, positionClass, isVisible }: { text: string; arrow: string; positionClass: string; isVisible: boolean }) => (
-        <div className={cn(
-            "absolute z-50 top-16 w-auto transition-opacity duration-1000",
-            positionClass,
-            isVisible ? "opacity-100" : "opacity-0"
-        )}>
-            <div className="flex items-center justify-center gap-2">
-                <MatrixEffect
-                    key={`${text}-text`}
-                    strings={[text]}
-                    isFeatured={true}
-                    className="text-xs opacity-70"
-                    loopAfter={5000}
-                    stopAfter={4000}
+    return (
+        <div className="absolute z-50 top-16 right-0 w-[240px] h-6">
+            <div className="relative w-full h-full">
+                <Hint
+                    text={languageHintText}
+                    arrow={hintContent.language.arrow}
+                    isVisible={activeHint === 'language'}
                 />
-                <MatrixEffect
-                    key={`${text}-arrow`}
-                    strings={[arrow]}
-                    isFeatured={true}
-                    className="text-xs opacity-70"
-                    loopAfter={5000}
-                    stopAfter={4000}
-                    characterSet={arrowChars}
+                <Hint
+                    text={themeHintText}
+                    arrow={hintContent.theme.arrow}
+                    isVisible={activeHint === 'theme'}
                 />
             </div>
         </div>
-    );
-
-    return (
-        <>
-            <Hint
-                text={languageHintText}
-                arrow={hintContent.language.arrow}
-                positionClass="right-[160px]"
-                isVisible={isLanguageVisible}
-            />
-            <Hint
-                text={themeHintText}
-                arrow={hintContent.theme.arrow}
-                positionClass="right-[55px]"
-                isVisible={!isLanguageVisible}
-            />
-        </>
     );
 }
