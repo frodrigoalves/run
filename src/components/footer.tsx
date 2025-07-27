@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { Wallet, Copy } from 'lucide-react';
 import { useState } from 'react';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 
 const socialLinks = [
     { name: 'LinkedIn', url: 'https://linkedin.com/in/rodrigoalves2112', icon: <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> },
@@ -12,7 +13,7 @@ const socialLinks = [
     { name: 'Telegram', url: 'https://t.me/RodrigoAlvesF', icon: <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.155 8.232l-1.984 9.31c-.132.623-.466.774-.984.485l-3.008-2.208-1.458 1.401c-.161.161-.297.296-.534.296l.208-3.059 5.619-5.074c.242-.213-.04-.33-.36-.119l-7.019 4.44-2.982-.929c-.616-.192-.626-.632.12-..932l11.416-4.432c.51-.198.924.127.765.845z"/></svg> },
 ];
 
-const WALLET_ADDRESS = '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B';
+const WALLET_ADDRESS = '0xA0fC0e6F7266dD76A811650577bf43340344EEc1';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -88,13 +89,26 @@ export default function Footer() {
             </div>
             <div className="flex flex-col items-center md:items-end gap-2 text-sm">
                 <h4 className='text-md font-semibold text-foreground flex items-center gap-2'><Wallet size={16}/> {t(walletTitle)}</h4>
-                <div 
-                    className="flex items-center gap-2 p-2 rounded-md bg-muted/50 cursor-pointer hover:bg-muted"
-                    onClick={handleCopy}
-                >
-                    <span className="font-mono text-muted-foreground text-xs">{`${WALLET_ADDRESS.substring(0, 6)}...${WALLET_ADDRESS.substring(WALLET_ADDRESS.length - 4)}`}</span>
-                    <Copy size={14} className={isCopied ? 'text-green-500' : 'text-muted-foreground'}/>
-                </div>
+                 <Popover>
+                    <PopoverTrigger asChild>
+                        <div 
+                            className="flex items-center gap-2 p-2 rounded-md bg-muted/50 cursor-pointer hover:bg-muted"
+                            onClick={handleCopy}
+                        >
+                            <span className="font-mono text-muted-foreground text-xs">{`${WALLET_ADDRESS.substring(0, 6)}...${WALLET_ADDRESS.substring(WALLET_ADDRESS.length - 4)}`}</span>
+                            <Copy size={14} className={isCopied ? 'text-green-500' : 'text-muted-foreground'}/>
+                        </div>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-2 bg-background border-primary">
+                        <Image 
+                            src="/images/wallet-qrcode.png"
+                            alt="Wallet QR Code"
+                            width={128}
+                            height={128}
+                            className="rounded-md"
+                        />
+                    </PopoverContent>
+                </Popover>
             </div>
         </div>
       </div>
