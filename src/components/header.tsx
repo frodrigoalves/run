@@ -4,16 +4,21 @@ import Link from 'next/link';
 import {
   User,
   LayoutGrid,
-  Mail,
+  Cpu,
+  AtSign,
 } from 'lucide-react';
 import { useLocalization } from '@/hooks/use-localization';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { MatrixEffect } from './matrix-effect';
 
-const navLinks = [
+const navLinksLeft = [
   { id: 'about', icon: User, label: { pt: 'Sobre', en: 'About' } },
   { id: 'projects', icon: LayoutGrid, label: { pt: 'Projetos', en: 'Projects' } },
-  { id: 'gpts', icon: Mail, label: { pt: 'Contato', en: 'Contact' } },
+];
+
+const navLinksRight = [
+    { id: 'gpts', icon: Cpu, label: { pt: 'Assistentes de IA', en: 'AI Assistants' } },
+    { id: 'footer', icon: AtSign, label: { pt: 'Contato', en: 'Contact' } },
 ];
 
 export default function Header() {
@@ -22,7 +27,7 @@ export default function Header() {
   return (
       <TooltipProvider delayDuration={0}>
         <nav className="flex items-center justify-center gap-2">
-          {navLinks.slice(0, 2).map((link) => {
+          {navLinksLeft.map((link) => {
             const Icon = link.icon;
             return (
               <Tooltip key={link.id}>
@@ -53,7 +58,7 @@ export default function Header() {
             </Link>
           </div>
 
-          {navLinks.slice(2).map((link) => {
+          {navLinksRight.map((link) => {
             const Icon = link.icon;
             return (
               <Tooltip key={link.id}>

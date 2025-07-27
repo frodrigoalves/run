@@ -30,21 +30,21 @@ function HomePageContent() {
       <TopBar showNav={true} />
 
       <main className="flex-1">
-        <div className="container mx-auto px-4 py-12 pt-24 md:px-6 md:py-20 lg:py-24">
+        <div className="container mx-auto px-4 py-12 pt-20 md:px-6 md:py-20 lg:py-24">
             <div id="about">
               <About />
             </div>
-            <Separator className="my-4" />
+            <Separator className="my-8" />
             <div id="projects">
               <Projects />
             </div>
-            <Separator className="my-4" />
+            <Separator className="my-8" />
             <div id="gpts">
               <Gpts />
             </div>
-            <Separator className="my-4" />
+            <Separator className="my-8" />
             <Partners />
-            <Separator className="my-4" />
+            <Separator className="my-8" />
             <div id="tech" className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-24">
                 <Technologies />
                 <Certifications />
@@ -52,8 +52,10 @@ function HomePageContent() {
         </div>
       </main>
 
-      <Footer />
-      <PortfolioChatbot />
+      <div id="footer">
+        <Footer />
+      </div>
+      
     </div>
   );
 }
