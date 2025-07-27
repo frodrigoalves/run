@@ -11,6 +11,7 @@ interface MatrixEffectProps {
   stopAfter?: number;
   loopAfter?: number;
   characterSet?: string[];
+  showOnlyWhenComplete?: boolean;
 }
 
 const DEFAULT_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*&^%$#@!';
@@ -44,11 +45,12 @@ const ScrambledChar = ({ char, isRevealed, isFeatured, characterSet }: { char: s
   );
 };
 
-export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter, loopAfter, characterSet: customCharSet }: MatrixEffectProps) => {
+export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter, loopAfter, characterSet: customCharSet, showOnlyWhenComplete = false }: MatrixEffectProps) => {
   const { isSyncing, syncText } = useHeroAnimation();
   const [stringIndex, setStringIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
+  const [isFullyRevealed, setIsFullyRevealed] = useState(false);
 
   const activeStrings = useMemo(() => (isSyncing ? [syncText] : strings), [isSyncing, syncText, strings]);
   const currentString = useMemo(() => activeStrings[stringIndex] || '', [activeStrings, stringIndex]);
@@ -61,6 +63,7 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
   useEffect(() => {
     if (isSyncing) {
         setRevealedCount(0);
+        setIsFullyRevealed(false);
         setStringIndex(0);
         setIsAnimating(true);
         if(loopIntervalRef.current) clearInterval(loopIntervalRef.current);
@@ -99,11 +102,14 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
         animationIntervalRef.current = setInterval(() => {
             setRevealedCount(prev => {
                 if (prev < currentString.length) {
+                    setIsFullyRevealed(false);
                     return prev + 1;
                 } else {
+                    setIsFullyRevealed(true);
                     if (!isSyncing) { // Only loop if not in sync mode
                          setTimeout(() => {
                             setRevealedCount(0);
+                            setIsFullyRevealed(false);
                             setStringIndex(prevIdx => (prevIdx + 1) % activeStrings.length);
                          }, loopAfter ? 0 : 2000);
                     }
@@ -113,6 +119,7 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
         }, 50);
     } else {
         setRevealedCount(currentString.length);
+        setIsFullyRevealed(true);
         if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
     }
 
@@ -123,13 +130,19 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
 
   useEffect(() => {
     setRevealedCount(0);
+    setIsFullyRevealed(false);
     setStringIndex(0);
     setIsAnimating(true);
   }, [strings]);
 
 
   return (
-    <div className={cn("font-code", className)}>
+    <div className={cn(
+        "font-code", 
+        className,
+        showOnlyWhenComplete && 'transition-opacity duration-300',
+        showOnlyWhenComplete && !isFullyRevealed ? 'opacity-0' : 'opacity-100'
+    )}>
       <div className="tracking-wider">
         {currentString.split('').map((char, index) => (
           <ScrambledChar key={index} char={char} isRevealed={index < revealedCount} isFeatured={isFeatured} characterSet={characterSet} />

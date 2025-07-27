@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 const allMatrixStrings = [
   ["system.init()", "usr/bin/security"],
   ["load: /blockchain/modules", "booting: SingulAI"],
-  ["Pedro | Laura", "Leticia"],
+  ["Pedro|Laura", "Leticia"],
   ["0x5a2e...c8a4", "eth_send"],
   ["running diagnostics", "kernel_panic: false"],
   ["decrypting_data", "auth_success"],
@@ -45,8 +45,9 @@ export default function Hero() {
       
        <div className="absolute top-[20%] md:top-[35%] left-[10%] md:left-1/4 opacity-0 animate-fade-in-delay-1">
         <MatrixEffect 
-          strings={[titles[lang][activeSubtitleIndex]]}
+          strings={allMatrixStrings[2]}
           isFeatured={featuredMatrixIndex === 0}
+          showOnlyWhenComplete={true}
         />
       </div>
        <div className="absolute top-1/4 right-[15%] md:right-1/4 opacity-0 animate-fade-in-delay-2 hidden md:block">
