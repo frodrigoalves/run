@@ -32,16 +32,16 @@ const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisib
             strings={[text]}
             isFeatured={true}
             className="text-xs opacity-70"
-            loopAfter={5000}
-            stopAfter={4000}
+            loopAfter={7000}
+            stopAfter={6000}
         />
         <MatrixEffect
             key={`${text}-arrow`}
             strings={[arrow]}
             isFeatured={true}
             className="text-xs opacity-70"
-            loopAfter={5000}
-            stopAfter={4000}
+            loopAfter={7000}
+            stopAfter={6000}
             characterSet={arrowChars}
         />
     </div>
@@ -54,7 +54,7 @@ export function ControlsHint() {
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveHint(prevState => (prevState === 'language' ? 'theme' : 'language'));
-        }, 5000); // Cycle every 5 seconds
+        }, 7000); // Cycle every 7 seconds to match animation
 
         return () => clearInterval(interval);
     }, []);
