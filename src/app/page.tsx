@@ -10,6 +10,7 @@ import { HeroAnimationProvider, useHeroAnimation } from '@/contexts/hero-animati
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import TopBar from '@/components/top-bar';
+import { ControlsHint } from '@/components/controls-hint';
 
 function LandingPageContent() {
   const { lang } = useLocalization();
@@ -39,7 +40,10 @@ function LandingPageContent() {
 
   return (
     <div className="flex min-h-screen flex-col relative overflow-hidden">
-       <TopBar showNav={false} />
+      <div className='relative z-50 pt-2'>
+        <TopBar showNav={false} />
+        <ControlsHint />
+      </div>
       <Hero />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
         <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground animate-fade-in-delay-4 opacity-0 px-6 h-12 w-48 justify-center">
