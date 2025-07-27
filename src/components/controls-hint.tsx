@@ -9,9 +9,9 @@ type HintState = 'language' | 'theme';
 
 const hintContent = {
     language: {
-        pt: 'Mudar Idioma',
-        en: 'Switch Language',
-        arrow: '↗',
+        pt: 'Mudar Idioma', // Displayed when current lang is EN
+        en: 'Switch Language', // Displayed when current lang is PT
+        arrow: '↑',
         position: 'right-[160px]'
     },
     theme: {
@@ -22,10 +22,10 @@ const hintContent = {
     }
 };
 
-const arrowChars = ['/', '\\', '↗', '↖', '|', '-', '↑'];
+const arrowChars = ['/', '\\', '|', '-', '↑'];
 
 export function ControlsHint() {
-    const { t } = useLocalization();
+    const { t, lang } = useLocalization();
     const [state, setState] = useState<HintState>('language');
 
     useEffect(() => {
@@ -37,38 +37,30 @@ export function ControlsHint() {
     }, []);
 
     const currentHint = hintContent[state];
-    const isLanguageHint = state === 'language';
+    
+    // Inverse logic for language hint
+    const languageHintText = lang === 'pt' ? hintContent.language.en : hintContent.language.pt;
+    const themeHintText = t(hintContent.theme);
+    const hintText = state === 'language' ? languageHintText : themeHintText;
 
     return (
         <div className={cn("absolute z-50 top-16 w-auto transition-all duration-500", currentHint.position)}>
             <div className="flex items-center justify-center gap-2">
-                 {isLanguageHint && (
-                     <MatrixEffect
-                        key={`${state}-arrow`}
-                        strings={[currentHint.arrow]}
-                        isFeatured={true}
-                        className="text-xs opacity-70"
-                        loopAfter={4000}
-                        characterSet={arrowChars}
-                     />
-                 )}
                  <MatrixEffect
                     key={`${state}-text`}
-                    strings={[t(currentHint)]}
+                    strings={[hintText]}
                     isFeatured={true}
                     className="text-xs opacity-70"
                     loopAfter={4000}
                 />
-                 {!isLanguageHint && (
-                     <MatrixEffect
-                        key={`${state}-arrow`}
-                        strings={[currentHint.arrow]}
-                        isFeatured={true}
-                        className="text-xs opacity-70"
-                        loopAfter={4000}
-                        characterSet={arrowChars}
-                     />
-                 )}
+                 <MatrixEffect
+                    key={`${state}-arrow`}
+                    strings={[currentHint.arrow]}
+                    isFeatured={true}
+                    className="text-xs opacity-70"
+                    loopAfter={4000}
+                    characterSet={arrowChars}
+                 />
             </div>
         </div>
     );
