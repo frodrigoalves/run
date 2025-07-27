@@ -18,7 +18,7 @@ const socialLinks = [
 const wallets = [
     { network: 'ETH/BSC', address: '0x043bd4333C85288258d30546856ed891ee4644e3' },
     { network: 'Solana', address: 'CeXKRdgoVfz1VZ8fuWHiG3igLmf3xnK2MpocVtB4WqZi' },
-    { network: 'TON', address: 'TON_ADDRESS_PLACEHOLDER' }, // Example for future
+    { network: 'TON', address: 'TON_ADDRESS_PLACEHOLDER' },
 ];
 
 
@@ -33,7 +33,7 @@ export default function Footer() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWalletIndex((prevIndex) => (prevIndex + 1) % wallets.length);
-    }, 5000); // Change wallet every 5 seconds
+    }, 5000); 
 
     return () => clearInterval(interval);
   }, []);
@@ -69,7 +69,6 @@ export default function Footer() {
     <footer className="relative border-t border-border/50 mt-16 py-8 pb-16 md:pb-8 bg-background/50 glass-effect">
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
         
-        {/* Left Side */}
         <div className="flex items-center gap-4">
             <Image 
                 src="/images/perfil.png"
@@ -86,7 +85,6 @@ export default function Footer() {
             </div>
         </div>
 
-        {/* Right Side */}
         <div className="flex flex-col items-center md:items-end gap-4">
             <div className="flex flex-col items-center md:items-end gap-2">
                 <h4 className='text-md font-semibold text-foreground'>{t(connectTitle)}</h4>
@@ -113,7 +111,7 @@ export default function Footer() {
                     />
                 </h4>
                 <div 
-                    className="flex items-center gap-2 p-2 rounded-md bg-muted/50 cursor-pointer hover:bg-muted h-8" // Fixed height
+                    className="flex items-center gap-2 p-2 rounded-md bg-muted/50 cursor-pointer hover:bg-muted h-8"
                     onClick={handleCopy}
                 >
                     <MatrixEffect 
@@ -130,7 +128,6 @@ export default function Footer() {
         </div>
       </div>
       
-      {/* Copyright - Absolute Position */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
         <p className="text-xs text-muted-foreground">&copy; {currentYear} rodrigo.run - <LocalizedText pt="Todos os direitos reservados." en="All rights reserved." /></p>
       </div>

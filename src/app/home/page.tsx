@@ -8,7 +8,6 @@ import Technologies from '@/components/sections/technologies';
 import Footer from '@/components/footer';
 import { Separator } from '@/components/ui/separator';
 import Partners from '@/components/sections/partners';
-import FloatingButtons from '@/components/floating-buttons';
 import { HeroAnimationProvider } from '@/contexts/hero-animation-context';
 import TopBar from '@/components/top-bar';
 import { TypebotEmbed } from '@/components/typebot-embed';
@@ -43,7 +42,6 @@ function HomePageContent() {
       </main>
 
       <Footer />
-      <FloatingButtons />
       <TypebotEmbed />
     </div>
   );
