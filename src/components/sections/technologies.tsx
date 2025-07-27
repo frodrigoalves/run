@@ -22,7 +22,7 @@ export default function Technologies() {
               alt={tech.name}
               width={40}
               height={40}
-              className="h-10 w-10 grayscale group-hover:grayscale-0 transition-all duration-300"
+              className="h-8 w-8 grayscale group-hover:grayscale-0 transition-all duration-300"
             />
             <span className="font-medium text-muted-foreground text-sm">{tech.name}</span>
           </div>

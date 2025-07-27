@@ -21,7 +21,7 @@ export default function Footer() {
             alt="Rodrigo"
             width={80}
             height={80}
-            className="rounded-full object-cover border-2 border-primary/50 shadow-lg"
+            className="rounded-2xl object-cover border-2 border-primary/50 shadow-lg"
           />
           <div>
             <h3 className="text-lg font-bold text-foreground">Rodrigo</h3>
