@@ -52,6 +52,7 @@ export function ControlsHint() {
                     isFeatured={true}
                     className="text-xs opacity-70"
                     loopAfter={4000}
+                    stopAfter={3000}
                 />
                  <MatrixEffect
                     key={`${state}-arrow`}
@@ -59,6 +60,7 @@ export function ControlsHint() {
                     isFeatured={true}
                     className="text-xs opacity-70"
                     loopAfter={4000}
+                    stopAfter={3000}
                     characterSet={arrowChars}
                  />
             </div>
