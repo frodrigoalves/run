@@ -14,7 +14,7 @@ interface LocalizationContextType {
 export const LocalizationContext = createContext<LocalizationContextType | null>(null);
 
 export function LocalizationProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Language>('pt');
+  const [lang, setLang] = useState<Language>('en');
 
   const changeLang = useCallback((newLang: Language) => {
     setLang(newLang);
@@ -24,7 +24,7 @@ export function LocalizationProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const t = useCallback((translations: Record<Language, string>): string => {
-    return translations[lang] || translations['pt'];
+    return translations[lang] || translations['en'];
   }, [lang]);
 
   useEffect(() => {
