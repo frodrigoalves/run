@@ -15,7 +15,7 @@ export default function Footer() {
           />
           <div className="flex-1">
             <h3 className="text-lg font-bold text-foreground">Rodrigo</h3>
-            <p className="mt-1 text-muted-foreground max-w-lg mx-auto md:mx-0 text-sm italic">
+            <p className="mt-1 text-muted-foreground max-w-lg mx-auto md:mx-0 text-sm">
               "Esforço é o nome do meu talento."
             </p>
           </div>
