@@ -10,25 +10,18 @@ import { Separator } from '@/components/ui/separator';
 import Partners from '@/components/sections/partners';
 import { HeroAnimationProvider } from '@/contexts/hero-animation-context';
 import TopBar from '@/components/top-bar';
-import { Standard } from '@typebot.io/nextjs';
-
-
-function PortfolioChatbot() {
-  return (
-    <Standard
-      typebot="rodrigoalves"
-      apiHost="https://painelapi.respostainteligente.online"
-      className="h-full w-full"
-    />
-  );
-}
+import { Bubble } from '@typebot.io/nextjs';
 
 
 function HomePageContent() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <TopBar showNav={true} />
-      <PortfolioChatbot />
+       <Bubble
+        typebot="rodrigoalves"
+        apiHost="https://painelapi.respostainteligente.online"
+        theme={{ button: { backgroundColor: "#06B6D4" }, placement: 'right' }}
+      />
 
       <main className="flex-1">
         <div className="container mx-auto px-4 pt-20 md:px-6 md:py-20 lg:py-24">
