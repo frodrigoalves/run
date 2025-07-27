@@ -24,7 +24,7 @@ const arrowChars = ['/', '\\', '|', '-', '↑'];
 
 const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisible: boolean; }) => (
     <div className={cn(
-        "absolute inset-0 flex items-center justify-center gap-2 transition-opacity duration-1000",
+        "flex items-center justify-center gap-2 transition-opacity duration-1000",
         isVisible ? "opacity-100" : "opacity-0"
     )}>
         <MatrixEffect
@@ -63,17 +63,21 @@ export function ControlsHint() {
     const themeHintText = t(hintContent.theme);
 
     return (
-        <div className="absolute z-50 top-16 right-0 w-[240px] h-6">
-            <div className="relative w-full h-full">
-                <Hint
-                    text={languageHintText}
-                    arrow={hintContent.language.arrow}
-                    isVisible={activeHint === 'language'}
-                />
+        <div className="absolute z-50 top-16 right-0 w-full h-6 pointer-events-none">
+            {/* Hint for Theme switcher - positioned to point at it */}
+            <div className="absolute right-[20px] w-[140px]">
                 <Hint
                     text={themeHintText}
                     arrow={hintContent.theme.arrow}
                     isVisible={activeHint === 'theme'}
+                />
+            </div>
+            {/* Hint for Language switcher - positioned to point at it */}
+            <div className="absolute right-[110px] w-[140px]">
+                 <Hint
+                    text={languageHintText}
+                    arrow={hintContent.language.arrow}
+                    isVisible={activeHint === 'language'}
                 />
             </div>
         </div>
