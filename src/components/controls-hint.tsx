@@ -6,7 +6,7 @@ import { MatrixEffect } from "./matrix-effect";
 import { cn } from "@/lib/utils";
 import { useLocalization } from "@/hooks/use-localization";
 
-type HintState = 'language' | 'theme' | 'both';
+type HintState = 'language' | 'theme' | 'none';
 
 const hintContent = {
     language: {
@@ -25,49 +25,44 @@ const arrowChars = ['/', '\\', '|', '-', '↑'];
 
 const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisible: boolean; }) => (
     <div className={cn(
-        "flex items-center justify-center gap-2 transition-opacity duration-500",
+        "flex items-center justify-center gap-2 transition-opacity duration-1000", // 1s fade in/out
         isVisible ? "opacity-100" : "opacity-0"
     )}>
-        <div className={cn(isVisible ? 'opacity-100' : 'opacity-0', "transition-opacity duration-300")}>
-            <MatrixEffect
-                key={`${text}-text`}
-                strings={[text]}
-                isFeatured={true}
-                className="text-xs opacity-70"
-                loopAfter={4000}
-                stopAfter={3000}
-            />
-        </div>
-        <div className={cn(isVisible ? 'opacity-100' : 'opacity-0', "transition-opacity duration-300")}>
-             <MatrixEffect
-                key={`${text}-arrow`}
-                strings={[arrow]}
-                isFeatured={true}
-                className="text-xs opacity-70"
-                characterSet={arrowChars}
-                loopAfter={4000}
-                stopAfter={3000}
-            />
-        </div>
+         <MatrixEffect
+            key={`${text}-text`}
+            strings={[text]}
+            isFeatured={true}
+            className="text-xs opacity-70"
+            stopAfter={1000} // 1s decoding
+            loopAfter={4000} // 3s display (1s decode + 3s display)
+        />
+        <MatrixEffect
+            key={`${text}-arrow`}
+            strings={[arrow]}
+            isFeatured={true}
+            className="text-xs opacity-70"
+            characterSet={arrowChars}
+            stopAfter={1000} // 1s decoding
+            loopAfter={4000} // 3s display
+        />
     </div>
 );
 
 export function ControlsHint() {
     const { t, lang } = useLocalization();
-    const [hintState, setHintState] = useState<HintState>('language');
+    const [activeHint, setActiveHint] = useState<HintState>('language');
 
     useEffect(() => {
-        const sequence: HintState[] = ['language', 'both', 'theme', 'both'];
+        const sequence: HintState[] = ['language', 'theme'];
         let currentIndex = 0;
 
         const interval = setInterval(() => {
             currentIndex = (currentIndex + 1) % sequence.length;
-            const currentState = sequence[currentIndex];
-            setHintState(currentState);
-        }, hintState === 'both' ? 500 : 3000); 
+            setActiveHint(sequence[currentIndex]);
+        }, 5000); // Total cycle for one item is 1s fade-in/decode + 3s display + 1s fade-out = 5s
 
         return () => clearInterval(interval);
-    }, [hintState]);
+    }, []);
     
     const languageHintText = lang === 'pt' ? hintContent.language.en : hintContent.language.pt;
     const themeHintText = t(hintContent.theme);
@@ -78,14 +73,14 @@ export function ControlsHint() {
                  <Hint
                     text={languageHintText}
                     arrow={hintContent.language.arrow}
-                    isVisible={hintState === 'language' || hintState === 'both'}
+                    isVisible={activeHint === 'language'}
                 />
             </div>
             <div className="absolute right-[40px] w-[140px]">
                 <Hint
                     text={themeHintText}
                     arrow={hintContent.theme.arrow}
-                    isVisible={hintState === 'theme' || hintState === 'both'}
+                    isVisible={activeHint === 'theme'}
                 />
             </div>
         </div>
