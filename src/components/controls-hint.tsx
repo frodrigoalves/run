@@ -6,69 +6,96 @@ import { MatrixEffect } from "./matrix-effect";
 import { cn } from "@/lib/utils";
 import { useLocalization } from "@/hooks/use-localization";
 
-type HintState = 'language' | 'theme' | 'none';
+type HintState = 'language' | 'theme' | 'both' | 'none';
 
 const hintContent = {
     language: {
-        pt: 'Mudar Idioma',
+        pt: 'Mudar idioma',
         en: 'Switch Language',
         arrow: '↑',
     },
     theme: {
-        pt: 'Mudar Tema',
+        pt: 'Mudar Temas',
         en: 'Change Theme',
         arrow: '↑',
     }
 };
 
-const arrowChars = ['/', '\\', '|', '-', '↑'];
+const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisible: boolean; }) => {
+    const [isAnimating, setIsAnimating] = useState(false);
 
-const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisible: boolean; }) => (
-    <div className={cn(
-        "flex items-center justify-center gap-2 transition-opacity duration-1000",
-        isVisible ? "opacity-100" : "opacity-0"
-    )}>
-         <MatrixEffect
-            key={`${text}-text`}
-            strings={[text]}
-            isFeatured={true}
-            className="text-xs opacity-70"
-            stopAfter={1000}
-            loopAfter={4000}
-        />
-        <MatrixEffect
-            key={`${text}-arrow`}
-            strings={[arrow]}
-            isFeatured={true}
-            className="text-xs opacity-70"
-            characterSet={arrowChars}
-            stopAfter={1000}
-            loopAfter={4000}
-        />
-    </div>
-);
+    useEffect(() => {
+        let decodeTimer: NodeJS.Timeout;
+        let displayTimer: NodeJS.Timeout;
+        let fadeOutTimer: NodeJS.Timeout;
+
+        if (isVisible) {
+            setIsAnimating(true); // Start fade-in and decode
+
+            decodeTimer = setTimeout(() => {
+                // Decode finished, now just display
+            }, 1000); // Corresponds to stopAfter in MatrixEffect
+
+            displayTimer = setTimeout(() => {
+                // Start fade-out
+                setIsAnimating(false);
+            }, 4000); // 1s decode + 3s display
+
+        } else {
+           setIsAnimating(false);
+        }
+        
+        return () => {
+            clearTimeout(decodeTimer);
+            clearTimeout(displayTimer);
+            clearTimeout(fadeOutTimer);
+        }
+
+    }, [isVisible]);
+
+    return (
+         <div className={cn(
+            "flex items-center justify-center gap-2 transition-opacity duration-1000",
+            isVisible ? "opacity-100" : "opacity-0"
+        )}>
+             <MatrixEffect
+                key={`${text}-text`}
+                strings={[text]}
+                isFeatured={true}
+                className="text-xs opacity-70"
+                stopAfter={1000} // 1s decode
+                loopAfter={4000} // 1s decode + 3s display
+            />
+            <MatrixEffect
+                key={`${text}-arrow`}
+                strings={[arrow]}
+                isFeatured={true}
+                className="text-xs opacity-70"
+                stopAfter={1000}
+                loopAfter={4000}
+            />
+        </div>
+    )
+};
 
 export function ControlsHint() {
     const { t, lang } = useLocalization();
-    const [activeHint, setActiveHint] = useState<HintState>('language');
+    const [activeHint, setActiveHint] = useState<'language' | 'theme'>('language');
 
-    useEffect(() => {
-        const cycleDuration = 4000; // 1s decode + 3s display
-        const totalCycle = cycleDuration * 2;
-
+     useEffect(() => {
         const interval = setInterval(() => {
             setActiveHint(prev => prev === 'language' ? 'theme' : 'language');
-        }, cycleDuration);
+        }, 5000); // Each hint shows for 1s decode + 3s display + 1s fade = 5s
 
         return () => clearInterval(interval);
     }, []);
     
-    const languageHintText = lang === 'pt' ? hintContent.language.en : hintContent.language.pt;
+    const languageHintText = lang === 'pt' ? hintContent.language.en : t(hintContent.language);
     const themeHintText = t(hintContent.theme);
 
     return (
         <div className="absolute z-50 top-16 right-0 w-full h-6 pointer-events-none">
-            <div className="absolute right-[132px] w-[140px]">
+            <div className="absolute right-[160px] w-[140px]">
                  <Hint
                     text={languageHintText}
                     arrow={hintContent.language.arrow}

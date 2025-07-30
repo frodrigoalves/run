@@ -17,14 +17,14 @@ import { cn } from '@/lib/utils';
 type NamePosition = 'top' | 'bottom';
 
 function LandingPageContent() {
-  const { lang } = useLocalization();
+  const { t } = useLocalization();
   const { startSync, isSyncing } = useHeroAnimation();
   const router = useRouter();
   const [namePosition, setNamePosition] = useState<NamePosition>('top');
   const [arrowChar, setArrowChar] = useState('↑');
   
   const buttonText = {
-    pt: 'Explorar Portfólio',
+    pt: 'Explorar Portifólio',
     en: 'Explore Portfolio',
   };
 
@@ -98,7 +98,7 @@ function LandingPageContent() {
         <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground animate-fade-in-delay-4 opacity-0 px-6 h-12 w-56 justify-center">
           <Link href="/home" onClick={handleClick} className="flex items-center gap-2">
             <MatrixEffect 
-              strings={[buttonText[lang]]}
+              strings={[t(buttonText)]}
               isFeatured={true}
               stopAfter={4000}
               loopAfter={5000}
