@@ -8,21 +8,34 @@ import { useLocalization } from '@/hooks/use-localization';
 import Link from 'next/link';
 import { HeroAnimationProvider, useHeroAnimation } from '@/contexts/hero-animation-context';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import TopBar from '@/components/top-bar';
 import { ControlsHint } from '@/components/controls-hint';
+import { cn } from '@/lib/utils';
+
+type NamePosition = 'top' | 'bottom';
 
 function LandingPageContent() {
   const { lang } = useLocalization();
   const { startSync, isSyncing } = useHeroAnimation();
   const router = useRouter();
+  const [namePosition, setNamePosition] = useState<NamePosition>('top');
 
   const buttonText = {
     pt: 'Explorar Portfólio',
     en: 'Explore Portfolio',
   };
 
-  const arrowChars = ['→', '»', '⇒', '>'];
+  const arrowCharsUp = ['↑', '⇡', '⇧'];
+  const arrowCharsDown = ['→', '»', '⇒', '>'];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNamePosition(prev => (prev === 'top' ? 'bottom' : 'top'));
+    }, 5000); // Change position every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -45,9 +58,12 @@ function LandingPageContent() {
         <ControlsHint />
       </div>
       <Hero />
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex flex-col items-center justify-center gap-8">
+       <div className={cn(
+          "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center gap-8",
+          namePosition === 'top' ? 'flex-col' : 'flex-col-reverse'
+       )}>
         <div className="opacity-0 animate-fade-in-delay-1">
-          <MatrixEffect
+           <MatrixEffect
             strings={["Rodrigo Alves"]}
             isFeatured={true}
             loopAfter={5000}
@@ -59,16 +75,17 @@ function LandingPageContent() {
             <MatrixEffect 
               strings={[buttonText[lang]]}
               isFeatured={true}
-              stopAfter={3000}
+              stopAfter={4000}
               loopAfter={5000}
               className="text-base font-sans"
             />
              <MatrixEffect 
-              strings={['→']}
+              key={namePosition} // Re-trigger animation on position change
+              strings={[namePosition === 'top' ? '↑' : '→']}
               isFeatured={true}
-              stopAfter={3000}
+              stopAfter={4000}
               loopAfter={5000}
-              characterSet={arrowChars}
+              characterSet={namePosition === 'top' ? arrowCharsUp : arrowCharsDown}
               className="text-base font-sans"
             />
           </Link>
