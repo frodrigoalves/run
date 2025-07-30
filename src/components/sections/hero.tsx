@@ -91,7 +91,7 @@ export default function Hero() {
           isFeatured={featuredMatrixIndex === 5}
         />
       </div>
-      <div className="absolute top-1/2 right-1/2 md:right-[30%] translate-x-1/2 md:translate-x-0 -translate-y-1/2 opacity-0 animate-fade-in-delay-1">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[150%] md:-translate-y-1/2 opacity-0 animate-fade-in-delay-1 z-20">
          <MatrixEffect 
           strings={["Rodrigo Alves"]}
           isFeatured={true}
