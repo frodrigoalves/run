@@ -1,3 +1,4 @@
+
 'use client';
 import { LocalizationProvider } from '@/components/localization-provider';
 import { MatrixEffect } from '@/components/matrix-effect';
@@ -27,7 +28,7 @@ function LandingPageContent() {
   };
 
   const arrowCharsUp = ['↑', '⇡', '⇧'];
-  const arrowCharsDown = ['→', '»', '⇒', '>'];
+  const arrowCharsDown = ['↓', '⇣', '⇓', 'V'];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -81,7 +82,7 @@ function LandingPageContent() {
             />
              <MatrixEffect 
               key={namePosition} // Re-trigger animation on position change
-              strings={[namePosition === 'top' ? '↑' : '→']}
+              strings={[namePosition === 'top' ? '↑' : '↓']}
               isFeatured={true}
               stopAfter={4000}
               loopAfter={5000}
