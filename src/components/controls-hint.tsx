@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from "react";
@@ -59,10 +60,10 @@ export function ControlsHint() {
             currentIndex = (currentIndex + 1) % sequence.length;
             const nextState = sequence[currentIndex];
             setHintState(nextState);
-        }, nextState === 'both' ? 500 : 3000); // Short duration for 'both'
+        }, hintState === 'both' ? 500 : 3000); // Short duration for 'both'
 
         return () => clearInterval(interval);
-    }, []);
+    }, [hintState]);
     
     const languageHintText = lang === 'pt' ? hintContent.language.en : hintContent.language.pt;
     const themeHintText = t(hintContent.theme);
