@@ -1,3 +1,4 @@
+
 'use client';
 
 import { MatrixEffect } from '@/components/matrix-effect';
