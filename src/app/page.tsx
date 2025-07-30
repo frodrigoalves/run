@@ -21,8 +21,7 @@ function LandingPageContent() {
   const { startSync, isSyncing } = useHeroAnimation();
   const router = useRouter();
   const [namePosition, setNamePosition] = useState<NamePosition>('top');
-  const [arrowPosition, setArrowPosition] = useState({ top: '50%', left: '50%' });
-
+  
   const buttonText = {
     pt: 'Explorar Portfólio',
     en: 'Explore Portfolio',
@@ -34,10 +33,6 @@ function LandingPageContent() {
   useEffect(() => {
     const interval = setInterval(() => {
       setNamePosition(prev => (prev === 'top' ? 'bottom' : 'top'));
-      // Randomize arrow position
-      const top = `${Math.random() * 60 + 20}%`; // 20% to 80%
-      const left = `${Math.random() * 60 + 20}%`;
-      setArrowPosition({ top, left });
     }, 5000); // Change position every 5 seconds
 
     return () => clearInterval(interval);
@@ -66,8 +61,9 @@ function LandingPageContent() {
       <Hero />
        <div className={cn(
           "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center gap-8 w-full max-w-xs",
-          namePosition === 'top' ? 'flex-col' : 'flex-col-reverse'
+          namePosition === 'top' ? 'flex-col-reverse' : 'flex-col'
        )}>
+        
         <div className="opacity-0 animate-fade-in-delay-1">
            <MatrixEffect
             strings={["Rodrigo Alves"]}
@@ -77,16 +73,15 @@ function LandingPageContent() {
           />
         </div>
         
-        <div className='relative w-full h-10'>
+        <div className='relative w-full h-10 flex items-center justify-center'>
              <MatrixEffect 
               key={namePosition} // Re-trigger animation on position change
-              strings={[namePosition === 'top' ? '↑' : '↓']}
+              strings={[namePosition === 'top' ? '↓' : '↑']}
               isFeatured={true}
               stopAfter={4000}
               loopAfter={5000}
-              characterSet={namePosition === 'top' ? arrowCharsUp : arrowCharsDown}
-              className="text-2xl font-sans absolute"
-              style={arrowPosition}
+              characterSet={namePosition === 'top' ? arrowCharsDown : arrowCharsUp}
+              className="text-2xl font-sans"
             />
         </div>
 
@@ -123,3 +118,4 @@ export default function LandingPage() {
     </LocalizationProvider>
   );
 }
+
