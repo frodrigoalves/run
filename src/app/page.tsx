@@ -21,18 +21,23 @@ function LandingPageContent() {
   const { startSync, isSyncing } = useHeroAnimation();
   const router = useRouter();
   const [namePosition, setNamePosition] = useState<NamePosition>('top');
+  const [arrowPosition, setArrowPosition] = useState({ top: '50%', left: '50%' });
 
   const buttonText = {
     pt: 'Explorar Portfólio',
     en: 'Explore Portfolio',
   };
 
-  const arrowCharsUp = ['↑', '⇡', '⇧'];
-  const arrowCharsDown = ['↓', '⇣', '⇓', 'V'];
+  const arrowCharsUp = ['↑', '⇡', '⇧', '^'];
+  const arrowCharsDown = ['↓', '⇣', '⇓', 'v'];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setNamePosition(prev => (prev === 'top' ? 'bottom' : 'top'));
+      // Randomize arrow position
+      const top = `${Math.random() * 60 + 20}%`; // 20% to 80%
+      const left = `${Math.random() * 60 + 20}%`;
+      setArrowPosition({ top, left });
     }, 5000); // Change position every 5 seconds
 
     return () => clearInterval(interval);
@@ -60,26 +65,19 @@ function LandingPageContent() {
       </div>
       <Hero />
        <div className={cn(
-          "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center gap-8",
+          "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center gap-8 w-full max-w-xs",
           namePosition === 'top' ? 'flex-col' : 'flex-col-reverse'
        )}>
         <div className="opacity-0 animate-fade-in-delay-1">
            <MatrixEffect
             strings={["Rodrigo Alves"]}
             isFeatured={true}
-            loopAfter={5000}
-            stopAfter={4000}
+            loopAfter={10000}
+            stopAfter={9000}
           />
         </div>
-        <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground animate-fade-in-delay-4 opacity-0 px-6 h-12 w-56 justify-center">
-          <Link href="/home" onClick={handleClick} className="flex items-center gap-2">
-            <MatrixEffect 
-              strings={[buttonText[lang]]}
-              isFeatured={true}
-              stopAfter={4000}
-              loopAfter={5000}
-              className="text-base font-sans"
-            />
+        
+        <div className='relative w-full h-10'>
              <MatrixEffect 
               key={namePosition} // Re-trigger animation on position change
               strings={[namePosition === 'top' ? '↑' : '↓']}
@@ -87,6 +85,18 @@ function LandingPageContent() {
               stopAfter={4000}
               loopAfter={5000}
               characterSet={namePosition === 'top' ? arrowCharsUp : arrowCharsDown}
+              className="text-2xl font-sans absolute"
+              style={arrowPosition}
+            />
+        </div>
+
+        <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground animate-fade-in-delay-4 opacity-0 px-6 h-12 w-56 justify-center">
+          <Link href="/home" onClick={handleClick} className="flex items-center gap-2">
+            <MatrixEffect 
+              strings={[buttonText[lang]]}
+              isFeatured={true}
+              stopAfter={4000}
+              loopAfter={5000}
               className="text-base font-sans"
             />
           </Link>
