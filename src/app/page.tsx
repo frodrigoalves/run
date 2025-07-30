@@ -45,8 +45,16 @@ function LandingPageContent() {
         <ControlsHint />
       </div>
       <Hero />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
-        <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground animate-fade-in-delay-4 opacity-0 px-6 h-12 w-48 justify-center">
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex flex-col items-center justify-center gap-8">
+        <div className="opacity-0 animate-fade-in-delay-1">
+          <MatrixEffect
+            strings={["Rodrigo Alves"]}
+            isFeatured={true}
+            loopAfter={5000}
+            stopAfter={4000}
+          />
+        </div>
+        <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground animate-fade-in-delay-4 opacity-0 px-6 h-12 w-56 justify-center">
           <Link href="/home" onClick={handleClick} className="flex items-center gap-2">
             <MatrixEffect 
               strings={[buttonText[lang]]}
