@@ -28,23 +28,27 @@ const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisib
         "flex items-center justify-center gap-2 transition-opacity duration-500",
         isVisible ? "opacity-100" : "opacity-0"
     )}>
-        <MatrixEffect
-            key={`${text}-text`}
-            strings={[text]}
-            isFeatured={true}
-            className="text-xs opacity-70"
-            loopAfter={7000}
-            stopAfter={6000}
-        />
-        <MatrixEffect
-            key={`${text}-arrow`}
-            strings={[arrow]}
-            isFeatured={true}
-            className="text-xs opacity-70"
-            characterSet={arrowChars}
-            stopAfter={6000}
-            loopAfter={7000}
-        />
+        <div className={cn(isVisible ? 'opacity-100' : 'opacity-0', "transition-opacity duration-300")}>
+            <MatrixEffect
+                key={`${text}-text`}
+                strings={[text]}
+                isFeatured={true}
+                className="text-xs opacity-70"
+                loopAfter={4000}
+                stopAfter={3000}
+            />
+        </div>
+        <div className={cn(isVisible ? 'opacity-100' : 'opacity-0', "transition-opacity duration-300")}>
+             <MatrixEffect
+                key={`${text}-arrow`}
+                strings={[arrow]}
+                isFeatured={true}
+                className="text-xs opacity-70"
+                characterSet={arrowChars}
+                loopAfter={4000}
+                stopAfter={3000}
+            />
+        </div>
     </div>
 );
 
