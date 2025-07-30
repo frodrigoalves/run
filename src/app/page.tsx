@@ -21,22 +21,34 @@ function LandingPageContent() {
   const { startSync, isSyncing } = useHeroAnimation();
   const router = useRouter();
   const [namePosition, setNamePosition] = useState<NamePosition>('top');
+  const [arrowChar, setArrowChar] = useState('↑');
   
   const buttonText = {
     pt: 'Explorar Portfólio',
     en: 'Explore Portfolio',
   };
 
-  const arrowCharsUp = ['↑', '⇡', '⇧', '^'];
-  const arrowCharsDown = ['↓', '⇣', '⇓', 'v'];
+  const upwardArrows = ['↖', '↑', '↗'];
+  const downwardArrows = ['↙', '↓', '↘'];
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const positionInterval = setInterval(() => {
       setNamePosition(prev => (prev === 'top' ? 'bottom' : 'top'));
-    }, 5000); // Change position every 5 seconds
+    }, 5000); 
 
-    return () => clearInterval(interval);
+    return () => clearInterval(positionInterval);
   }, []);
+
+  useEffect(() => {
+    const glitchInterval = setInterval(() => {
+      const arrowSet = namePosition === 'top' ? downwardArrows : upwardArrows;
+      const randomArrow = arrowSet[Math.floor(Math.random() * arrowSet.length)];
+      setArrowChar(randomArrow);
+    }, 200); // Glitch effect every 200ms
+
+    return () => clearInterval(glitchInterval);
+  }, [namePosition]);
+
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -75,12 +87,10 @@ function LandingPageContent() {
         
         <div className='relative w-full h-10 flex items-center justify-center'>
              <MatrixEffect 
-              key={namePosition} // Re-trigger animation on position change
-              strings={[namePosition === 'top' ? '↓' : '↑']}
+              key={namePosition + arrowChar} // Re-trigger animation on change
+              strings={[arrowChar]}
               isFeatured={true}
-              stopAfter={4000}
-              loopAfter={5000}
-              characterSet={namePosition === 'top' ? arrowCharsDown : arrowCharsUp}
+              stopAfter={150} // Short decode time for glitch effect
               className="text-2xl font-sans"
             />
         </div>
