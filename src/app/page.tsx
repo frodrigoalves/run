@@ -9,46 +9,21 @@ import { useLocalization } from '@/hooks/use-localization';
 import Link from 'next/link';
 import { HeroAnimationProvider, useHeroAnimation } from '@/contexts/hero-animation-context';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import TopBar from '@/components/top-bar';
 import { ControlsHint } from '@/components/controls-hint';
 import { cn } from '@/lib/utils';
 
-type NamePosition = 'top' | 'bottom';
 
 function LandingPageContent() {
   const { t } = useLocalization();
   const { startSync, isSyncing } = useHeroAnimation();
   const router = useRouter();
-  const [namePosition, setNamePosition] = useState<NamePosition>('top');
-  const [arrowChar, setArrowChar] = useState('↑');
   
   const buttonText = {
     pt: 'Explorar Portifólio',
     en: 'Explore Portfolio',
   };
-
-  const upwardArrows = ['↖', '↑', '↗'];
-  const downwardArrows = ['↙', '↓', '↘'];
-
-  useEffect(() => {
-    const positionInterval = setInterval(() => {
-      setNamePosition(prev => (prev === 'top' ? 'bottom' : 'top'));
-    }, 5000); 
-
-    return () => clearInterval(positionInterval);
-  }, []);
-
-  useEffect(() => {
-    const glitchInterval = setInterval(() => {
-      const arrowSet = namePosition === 'top' ? downwardArrows : upwardArrows;
-      const randomArrow = arrowSet[Math.floor(Math.random() * arrowSet.length)];
-      setArrowChar(randomArrow);
-    }, 200); // Glitch effect every 200ms
-
-    return () => clearInterval(glitchInterval);
-  }, [namePosition]);
-
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -71,41 +46,34 @@ function LandingPageContent() {
         <ControlsHint />
       </div>
       <Hero />
-       <div className={cn(
-          "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center gap-8 w-full max-w-xs",
-          namePosition === 'top' ? 'flex-col-reverse' : 'flex-col'
-       )}>
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex flex-col items-center justify-center gap-8 w-full max-w-xs">
         
         <div className="opacity-0 animate-fade-in-delay-1">
            <MatrixEffect
             strings={["Rodrigo Alves"]}
             isFeatured={true}
-            stopAfter={4000}
-            loopAfter={5000}
           />
         </div>
         
-        <div className='relative w-full h-10 flex items-center justify-center'>
+        <div className='relative w-full h-10 flex items-center justify-center opacity-0 animate-fade-in-delay-2'>
              <MatrixEffect 
-              key={namePosition + arrowChar} // Re-trigger animation on change
-              strings={[arrowChar]}
+              strings={['↓']}
               isFeatured={true}
-              stopAfter={150} // Short decode time for glitch effect
               className="text-2xl font-sans"
             />
         </div>
 
-        <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground animate-fade-in-delay-4 opacity-0 px-6 h-12 w-56 justify-center">
-          <Link href="/home" onClick={handleClick} className="flex items-center gap-2">
-            <MatrixEffect 
-              strings={[t(buttonText)]}
-              isFeatured={true}
-              stopAfter={4000}
-              loopAfter={5000}
-              className="text-base font-sans"
-            />
-          </Link>
-        </Button>
+        <div className="opacity-0 animate-fade-in-delay-3 w-56 h-12">
+            <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground w-full h-full">
+              <Link href="/home" onClick={handleClick} className="flex items-center gap-2">
+                <MatrixEffect 
+                  strings={[t(buttonText)]}
+                  isFeatured={true}
+                  className="text-base font-sans"
+                />
+              </Link>
+            </Button>
+        </div>
       </div>
     </div>
   );
