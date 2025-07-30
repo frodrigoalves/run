@@ -5,7 +5,7 @@ import { MatrixEffect } from "./matrix-effect";
 import { cn } from "@/lib/utils";
 import { useLocalization } from "@/hooks/use-localization";
 
-type HintState = 'language' | 'theme';
+type HintState = 'language' | 'theme' | 'both';
 
 const hintContent = {
     language: {
@@ -24,7 +24,7 @@ const arrowChars = ['/', '\\', '|', '-', '↑'];
 
 const Hint = ({ text, arrow, isVisible, alwaysDecodeArrow }: { text: string; arrow: string; isVisible: boolean; alwaysDecodeArrow?: boolean; }) => (
     <div className={cn(
-        "flex items-center justify-center gap-2 transition-opacity duration-1000",
+        "flex items-center justify-center gap-2 transition-opacity duration-500",
         isVisible ? "opacity-100" : "opacity-0"
     )}>
         <MatrixEffect
@@ -49,12 +49,17 @@ const Hint = ({ text, arrow, isVisible, alwaysDecodeArrow }: { text: string; arr
 
 export function ControlsHint() {
     const { t, lang } = useLocalization();
-    const [activeHint, setActiveHint] = useState<HintState>('language');
+    const [hintState, setHintState] = useState<HintState>('language');
 
     useEffect(() => {
+        const sequence: HintState[] = ['language', 'both', 'theme', 'both'];
+        let currentIndex = 0;
+
         const interval = setInterval(() => {
-            setActiveHint(prevState => (prevState === 'language' ? 'theme' : 'language'));
-        }, 7000); 
+            currentIndex = (currentIndex + 1) % sequence.length;
+            const nextState = sequence[currentIndex];
+            setHintState(nextState);
+        }, nextState === 'both' ? 500 : 3000); // Short duration for 'both'
 
         return () => clearInterval(interval);
     }, []);
@@ -68,7 +73,7 @@ export function ControlsHint() {
                  <Hint
                     text={languageHintText}
                     arrow={hintContent.language.arrow}
-                    isVisible={activeHint === 'language'}
+                    isVisible={hintState === 'language' || hintState === 'both'}
                     alwaysDecodeArrow={true}
                 />
             </div>
@@ -76,7 +81,7 @@ export function ControlsHint() {
                 <Hint
                     text={themeHintText}
                     arrow={hintContent.theme.arrow}
-                    isVisible={activeHint === 'theme'}
+                    isVisible={hintState === 'theme' || hintState === 'both'}
                     alwaysDecodeArrow={true}
                 />
             </div>
