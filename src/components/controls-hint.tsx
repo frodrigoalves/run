@@ -25,7 +25,7 @@ const arrowChars = ['/', '\\', '|', '-', '↑'];
 
 const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisible: boolean; }) => (
     <div className={cn(
-        "flex items-center justify-center gap-2 transition-opacity duration-1000", // 1s fade in/out
+        "flex items-center justify-center gap-2 transition-opacity duration-1000",
         isVisible ? "opacity-100" : "opacity-0"
     )}>
          <MatrixEffect
@@ -33,8 +33,8 @@ const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisib
             strings={[text]}
             isFeatured={true}
             className="text-xs opacity-70"
-            stopAfter={1000} // 1s decoding
-            loopAfter={4000} // 3s display (1s decode + 3s display)
+            stopAfter={1000}
+            loopAfter={4000}
         />
         <MatrixEffect
             key={`${text}-arrow`}
@@ -42,8 +42,8 @@ const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisib
             isFeatured={true}
             className="text-xs opacity-70"
             characterSet={arrowChars}
-            stopAfter={1000} // 1s decoding
-            loopAfter={4000} // 3s display
+            stopAfter={1000}
+            loopAfter={4000}
         />
     </div>
 );
@@ -53,13 +53,12 @@ export function ControlsHint() {
     const [activeHint, setActiveHint] = useState<HintState>('language');
 
     useEffect(() => {
-        const sequence: HintState[] = ['language', 'theme'];
-        let currentIndex = 0;
+        const cycleDuration = 4000; // 1s decode + 3s display
+        const totalCycle = cycleDuration * 2;
 
         const interval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % sequence.length;
-            setActiveHint(sequence[currentIndex]);
-        }, 5000); // Total cycle for one item is 1s fade-in/decode + 3s display + 1s fade-out = 5s
+            setActiveHint(prev => prev === 'language' ? 'theme' : 'language');
+        }, cycleDuration);
 
         return () => clearInterval(interval);
     }, []);
@@ -69,7 +68,7 @@ export function ControlsHint() {
 
     return (
         <div className="absolute z-50 top-16 right-0 w-full h-6 pointer-events-none">
-            <div className="absolute right-[112px] w-[140px]">
+            <div className="absolute right-[132px] w-[140px]">
                  <Hint
                     text={languageHintText}
                     arrow={hintContent.language.arrow}
