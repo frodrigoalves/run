@@ -81,7 +81,7 @@ export default function Hero() {
 
 
       {/* ===== Glitch Effect Texts ===== */}
-      <div className="absolute top-[20%] left-[15%] z-20">
+      <div className="absolute top-[20%] left-[15%] z-20 hidden md:block">
         <MatrixEffect 
           strings={[allMatrixStrings[activeMatrixIndices[0]]]}
           isFeatured={featuredIndex === 0}
@@ -109,14 +109,14 @@ export default function Hero() {
           loopAfter={4000}
         />
       </div>
-      <div className="absolute bottom-[20%] left-[20%] z-20">
+      <div className="absolute bottom-[20%] left-[20%] z-20 hidden md:block">
         <MatrixEffect 
           strings={[allMatrixStrings[activeMatrixIndices[4]]]}
           isFeatured={featuredIndex === 4}
           loopAfter={5000}
         />
       </div>
-      <div className="absolute bottom-[35%] right-[10%] z-20">
+      <div className="absolute bottom-[35%] right-[10%] z-20 hidden md:block">
          <MatrixEffect 
           strings={[allMatrixStrings[activeMatrixIndices[5]]]}
           isFeatured={featuredIndex === 5}
