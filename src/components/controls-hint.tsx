@@ -58,9 +58,9 @@ export function ControlsHint() {
 
         const interval = setInterval(() => {
             currentIndex = (currentIndex + 1) % sequence.length;
-            const nextState = sequence[currentIndex];
-            setHintState(nextState);
-        }, hintState === 'both' ? 500 : 3000); // Short duration for 'both'
+            const currentState = sequence[currentIndex];
+            setHintState(currentState);
+        }, hintState === 'both' ? 500 : 3000); 
 
         return () => clearInterval(interval);
     }, [hintState]);
