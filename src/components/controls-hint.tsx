@@ -23,7 +23,7 @@ const hintContent = {
 
 const arrowChars = ['/', '\\', '|', '-', '↑'];
 
-const Hint = ({ text, arrow, isVisible, alwaysDecodeArrow }: { text: string; arrow: string; isVisible: boolean; alwaysDecodeArrow?: boolean; }) => (
+const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisible: boolean; }) => (
     <div className={cn(
         "flex items-center justify-center gap-2 transition-opacity duration-500",
         isVisible ? "opacity-100" : "opacity-0"
@@ -42,8 +42,8 @@ const Hint = ({ text, arrow, isVisible, alwaysDecodeArrow }: { text: string; arr
             isFeatured={true}
             className="text-xs opacity-70"
             characterSet={arrowChars}
-            stopAfter={alwaysDecodeArrow ? undefined : 6000}
-            loopAfter={alwaysDecodeArrow ? undefined : 7000}
+            stopAfter={6000}
+            loopAfter={7000}
         />
     </div>
 );
@@ -75,7 +75,6 @@ export function ControlsHint() {
                     text={languageHintText}
                     arrow={hintContent.language.arrow}
                     isVisible={hintState === 'language' || hintState === 'both'}
-                    alwaysDecodeArrow={true}
                 />
             </div>
             <div className="absolute right-[40px] w-[140px]">
@@ -83,7 +82,6 @@ export function ControlsHint() {
                     text={themeHintText}
                     arrow={hintContent.theme.arrow}
                     isVisible={hintState === 'theme' || hintState === 'both'}
-                    alwaysDecodeArrow={true}
                 />
             </div>
         </div>

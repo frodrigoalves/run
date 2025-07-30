@@ -68,8 +68,8 @@ function LandingPageContent() {
            <MatrixEffect
             strings={["Rodrigo Alves"]}
             isFeatured={true}
-            loopAfter={10000}
-            stopAfter={9000}
+            stopAfter={4000}
+            loopAfter={5000}
           />
         </div>
         
