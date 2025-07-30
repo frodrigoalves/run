@@ -47,7 +47,7 @@ export default function Hero() {
         newIndices[randomIndexToChange] = nextStringIndex;
         return newIndices;
       });
-    }, 2000);
+    }, 5000); // Changed interval to match loopAfter
 
     const featuredChangeInterval = setInterval(() => {
       setFeaturedIndex(prev => (prev + 1) % activeMatrixIndices.length);
@@ -67,15 +67,15 @@ export default function Hero() {
       
       {/* ===== Depth Effect Decoders ===== */}
       <div className="absolute top-0 left-0 h-full w-20 p-4 hidden md:flex flex-col gap-8 opacity-20 z-0">
-          <MatrixEffect strings={[longCodeStrings[0], longCodeStrings[1]]} className="text-xs" loopAfter={8000} />
-          <MatrixEffect strings={[longCodeStrings[2], longCodeStrings[3]]} className="text-xs" loopAfter={9000} />
+          <MatrixEffect strings={[longCodeStrings[0], longCodeStrings[1]]} className="text-xs" stopAfter={2000} loopAfter={8000} />
+          <MatrixEffect strings={[longCodeStrings[2], longCodeStrings[3]]} className="text-xs" stopAfter={2000} loopAfter={9000} />
       </div>
       <div className="absolute top-0 right-0 h-full w-20 p-4 hidden md:flex flex-col gap-12 opacity-20 z-0">
-          <MatrixEffect strings={[longCodeStrings[4], longCodeStrings[5]]} className="text-xs" loopAfter={8500} />
-          <MatrixEffect strings={[longCodeStrings[6], longCodeStrings[0]]} className="text-xs" loopAfter={9500} />
+          <MatrixEffect strings={[longCodeStrings[4], longCodeStrings[5]]} className="text-xs" stopAfter={2000} loopAfter={8500} />
+          <MatrixEffect strings={[longCodeStrings[6], longCodeStrings[0]]} className="text-xs" stopAfter={2000} loopAfter={9500} />
       </div>
       <div className="absolute bottom-4 left-0 right-0 h-8 flex justify-center items-center opacity-20 z-0">
-          <MatrixEffect strings={[longCodeStrings.join(' ')]} className="text-xs tracking-widest" loopAfter={15000} />
+          <MatrixEffect strings={[longCodeStrings.join(' ')]} className="text-xs tracking-widest" stopAfter={2000} loopAfter={15000} />
       </div>
 
 
@@ -84,34 +84,39 @@ export default function Hero() {
         <MatrixEffect 
           strings={[allMatrixStrings[activeMatrixIndices[0]]]}
           isFeatured={featuredIndex === 0}
-          loopAfter={4000}
+          stopAfter={2000}
+          loopAfter={5000}
         />
       </div>
       <div className="absolute top-[30%] right-[15%] z-20 hidden md:block">
         <MatrixEffect 
           strings={[allMatrixStrings[activeMatrixIndices[1]]]}
           isFeatured={featuredIndex === 1}
-          loopAfter={3000}
+          stopAfter={2000}
+          loopAfter={5000}
         />
       </div>
       <div className="absolute top-1/3 left-[25%] z-20 hidden md:block">
         <MatrixEffect 
           strings={[allMatrixStrings[activeMatrixIndices[2]]]}
           isFeatured={featuredIndex === 2}
-          loopAfter={2500}
+          stopAfter={2000}
+          loopAfter={5000}
         />
       </div>
       <div className="absolute bottom-1/4 right-[20%] z-20 hidden md:block">
         <MatrixEffect 
           strings={[allMatrixStrings[activeMatrixIndices[3]]]}
           isFeatured={featuredIndex === 3}
-          loopAfter={4000}
+          stopAfter={2000}
+          loopAfter={5000}
         />
       </div>
       <div className="absolute bottom-[20%] left-[20%] z-20 hidden md:block">
         <MatrixEffect 
           strings={[allMatrixStrings[activeMatrixIndices[4]]]}
           isFeatured={featuredIndex === 4}
+          stopAfter={2000}
           loopAfter={5000}
         />
       </div>
@@ -119,14 +124,16 @@ export default function Hero() {
          <MatrixEffect 
           strings={[allMatrixStrings[activeMatrixIndices[5]]]}
           isFeatured={featuredIndex === 5}
-          loopAfter={3500}
+          stopAfter={2000}
+          loopAfter={5000}
         />
       </div>
       <div className="absolute top-1/2 left-[30%] -translate-y-1/2 z-20 hidden md:block">
         <MatrixEffect 
           strings={[allMatrixStrings[activeMatrixIndices[6]]]}
           isFeatured={featuredIndex === 6}
-          loopAfter={4500}
+          stopAfter={2000}
+          loopAfter={5000}
         />
       </div>
       

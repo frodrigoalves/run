@@ -36,27 +36,42 @@ function LandingPageContent() {
     }
   }, [isSyncing, router]);
 
-  const [namePosition, setNamePosition] = useState({ top: '30%', left: '50%', transform: 'translateX(-50%)' });
+  const [namePosition, setNamePosition] = useState({ top: '30%', left: '50%' });
   const [arrowStyle, setArrowStyle] = useState({ transform: 'rotate(90deg)' });
-
-  const arrowCharacters = useMemo(() => ['↓', '→', '↘', '↙', '←', '↖', '↗'], []);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const arrowCharacters = useMemo(() => ['↓', '→', '↘', '↙', '←', '↖', '↗', '↓'], []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     const updatePositions = () => {
+      // Center of the screen from which the arrow originates
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      // Random angle and radius to position the name
       const angle = Math.random() * 2 * Math.PI;
-      const radius = Math.min(window.innerWidth, window.innerHeight) * 0.25;
+      const radiusX = window.innerWidth * 0.35; 
+      const radiusY = window.innerHeight * 0.35;
       
-      const top = 50 + (Math.sin(angle) * (radius / window.innerHeight) * 100);
-      const left = 50 + (Math.cos(angle) * (radius / window.innerWidth) * 100);
+      const targetX = centerX + Math.cos(angle) * radiusX;
+      const targetY = centerY + Math.sin(angle) * radiusY;
 
       setNamePosition({
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: 'translate(-50%, -50%)'
+        top: `${targetY}px`,
+        left: `${targetX}px`,
       });
-
-      // Point arrow towards the name
-      const arrowAngle = angle * (180 / Math.PI) + 90; // +90 to point from center
+      
+      // Calculate angle from center to target for the arrow's rotation
+      const deltaX = targetX - centerX;
+      const deltaY = targetY - centerY;
+      const arrowAngle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+      
       setArrowStyle({
         transform: `rotate(${arrowAngle}deg)`
       });
@@ -66,7 +81,7 @@ function LandingPageContent() {
     const interval = setInterval(updatePositions, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isClient]);
 
   return (
     <div className="flex min-h-screen flex-col relative overflow-hidden">
@@ -78,14 +93,14 @@ function LandingPageContent() {
        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex flex-col items-center justify-center gap-8 w-full max-w-xs">
         
         <div 
-           className="absolute z-20 transition-all duration-1000 ease-in-out"
+           className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
            style={{...namePosition}}
         >
            <MatrixEffect
             strings={["Rodrigo Alves"]}
             isFeatured={true}
-            loopAfter={3800}
-            stopAfter={3500}
+            stopAfter={3800}
+            loopAfter={4000}
           />
         </div>
         
@@ -95,8 +110,8 @@ function LandingPageContent() {
                   strings={arrowCharacters}
                   isFeatured={true}
                   className="text-2xl font-sans"
-                  loopAfter={3800}
-                  stopAfter={3500}
+                  stopAfter={3800}
+                  loopAfter={4000}
                 />
              </div>
         </div>
@@ -108,6 +123,8 @@ function LandingPageContent() {
                   strings={[t(buttonText)]}
                   isFeatured={true}
                   className="text-base font-sans"
+                  stopAfter={2000}
+                  loopAfter={5000}
                 />
               </Link>
             </Button>
