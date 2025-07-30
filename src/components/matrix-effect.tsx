@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
@@ -57,98 +58,69 @@ export const MatrixEffect = ({ strings, className, isFeatured = false, stopAfter
   const characterSet = useMemo(() => customCharSet || DEFAULT_CHARACTERS.split(''), [customCharSet]);
   
   const animationIntervalRef = useRef<NodeJS.Timeout>();
-  const loopIntervalRef = useRef<NodeJS.Timeout>();
+  const loopTimeoutRef = useRef<NodeJS.Timeout>();
+  const stopTimeoutRef = useRef<NodeJS.Timeout>();
   
   const resetAnimation = useCallback(() => {
     setStringIndex(0);
     setRevealedCount(0);
     setIsFullyRevealed(false);
     setIsAnimating(true);
-    if(loopIntervalRef.current) clearInterval(loopIntervalRef.current);
-    if(animationIntervalRef.current) clearInterval(animationIntervalRef.current);
+    if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
+    if (loopTimeoutRef.current) clearTimeout(loopTimeoutRef.current);
+    if (stopTimeoutRef.current) clearTimeout(stopTimeoutRef.current);
   }, []);
-  
-  // Effect to handle synchronization state change
-  useEffect(() => {
-    if (isSyncing) {
-      resetAnimation();
-    }
-  }, [isSyncing, resetAnimation]);
 
-  // This effect resets the animation when the source strings change.
+  const startLoop = useCallback(() => {
+    if (loopAfter && !isSyncing) {
+      if (loopTimeoutRef.current) clearTimeout(loopTimeoutRef.current);
+      loopTimeoutRef.current = setTimeout(() => {
+        resetAnimation();
+      }, loopAfter);
+    }
+  }, [loopAfter, isSyncing, resetAnimation]);
+  
   useEffect(() => {
     resetAnimation();
-  }, [strings, resetAnimation]);
-
-
-  useEffect(() => {
-    // Permanent stop logic
-    if (stopAfter && !isSyncing) {
-      const stopTimer = setTimeout(() => {
-        setIsAnimating(false);
-        setRevealedCount(currentString.length);
-        if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
-      }, stopAfter);
-      return () => clearTimeout(stopTimer);
-    }
-    // If stopAfter is not defined, we let it animate continuously
-    if(stopAfter === undefined && !isSyncing) {
-        setIsAnimating(true);
-    }
-
-  }, [stopAfter, currentString.length, isSyncing]);
-
-  useEffect(() => {
-    // Loop logic (animating/paused)
-    if (loopAfter && !isSyncing && activeStrings && activeStrings.length > 1) {
-        if (loopIntervalRef.current) clearInterval(loopIntervalRef.current);
-        loopIntervalRef.current = setInterval(() => {
-            setIsAnimating(prev => !prev);
-        }, loopAfter);
-        return () => clearInterval(loopIntervalRef.current);
-    }
-  }, [loopAfter, isSyncing, activeStrings]);
-
+  }, [strings, isSyncing, resetAnimation]);
 
   useEffect(() => {
     if (!currentString) return;
 
     if (isAnimating) {
-        if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
-        animationIntervalRef.current = setInterval(() => {
-            setRevealedCount(prev => {
-                if (prev < currentString.length) {
-                    setIsFullyRevealed(false);
-                    return prev + 1;
-                } else {
-                    setIsFullyRevealed(true);
-                    if (!isSyncing && activeStrings && activeStrings.length > 1) { 
-                         setTimeout(() => {
-                            setRevealedCount(0);
-                            setIsFullyRevealed(false);
-                            setStringIndex(prevIdx => (prevIdx + 1) % activeStrings.length);
-                         }, loopAfter ? loopAfter/2 : 2000);
-                    }
-                    if (stopAfter === undefined) { // Continuous loop for single strings without stopAfter
-                        setTimeout(() => {
-                            setRevealedCount(0);
-                            setIsFullyRevealed(false);
-                        }, 2000);
-                    }
-                    return currentString.length;
-                }
-            });
-        }, 50);
+      if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
+      animationIntervalRef.current = setInterval(() => {
+        setRevealedCount(prev => prev + 1);
+      }, 50);
     } else {
-        setRevealedCount(currentString.length);
-        setIsFullyRevealed(true);
-        if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
+      setRevealedCount(currentString.length);
+      if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
     }
 
     return () => {
-        if (animationIntervalRef.current) clearInterval(animationIntervalRef.current)
+      if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
     };
-  }, [isAnimating, currentString, activeStrings, stringIndex, loopAfter, isSyncing, stopAfter]);
+  }, [isAnimating, currentString]);
+
+  useEffect(() => {
+    if (revealedCount >= currentString.length) {
+      if (animationIntervalRef.current) clearInterval(animationIntervalRef.current);
+      setIsFullyRevealed(true);
+      startLoop();
+    }
+  }, [revealedCount, currentString.length, startLoop]);
+  
+  useEffect(() => {
+    if (stopAfter && !isSyncing) {
+        if (stopTimeoutRef.current) clearTimeout(stopTimeoutRef.current);
+        stopTimeoutRef.current = setTimeout(() => {
+            setIsAnimating(false);
+        }, stopAfter);
+    }
+    return () => {
+        if(stopTimeoutRef.current) clearTimeout(stopTimeoutRef.current);
+    }
+  }, [stopAfter, isSyncing, strings]);
 
 
   return (
