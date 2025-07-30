@@ -5,21 +5,20 @@ import { MatrixEffect } from '@/components/matrix-effect';
 import { useState, useEffect } from 'react';
 
 const allMatrixStrings = [
-  "system.init()",
-  "usr/bin/security",
-  "load: /blockchain/modules",
-  "booting: SingulAI",
-  "0x5a2e...c8a4",
-  "eth_send",
-  "running diagnostics",
-  "kernel_panic: false",
-  "decrypting_data",
-  "auth_success",
+  "Advogado Direito Digital",
+  "Especialista em IA",
+  "CEO & Founder SingulAI",
   "Web3",
-  "AI Specialist",
+  "Blockchain",
+  "Pedro, Laura & Letícia",
+  "eth_send",
+  "system.init()",
+  "running diagnostics",
+  "auth_success",
+  "decrypting_data",
+  "0x5a2e...c8a4",
 ];
 
-const tributeNames = ["Pedro|Laura", "Leticia"];
 const longCodeStrings = [
     "0x_a8b3_4c1f_e29d_7851_b4a0_c3ff_d6e5",
     "init_neural_net(layers=[784, 128, 128, 10])",
