@@ -51,13 +51,12 @@ function LandingPageContent() {
       if (!isClient || !buttonRef.current) return;
 
       const buttonRect = buttonRef.current.getBoundingClientRect();
-      // Start arrow from the middle-bottom of the button
       const startX = buttonRect.left + buttonRect.width / 2;
-      const startY = buttonRect.top + buttonRect.height;
+      const startY = buttonRect.top + buttonRect.height / 2;
 
-      // Reduced radius to keep the name within viewport, with a 100px buffer
-      const radiusX = (window.innerWidth / 2) - 150; // increased buffer
-      const radiusY = (window.innerHeight / 2) - 100;
+      // Reduced radius to keep the name within viewport, with a larger buffer
+      const radiusX = (window.innerWidth / 2) - 250; 
+      const radiusY = (window.innerHeight / 2) - 150;
       
       const angle = Math.random() * 2 * Math.PI;
       const targetX = window.innerWidth / 2 + Math.cos(angle) * radiusX;
@@ -84,10 +83,8 @@ function LandingPageContent() {
   useEffect(() => {
     if (!isClient) return;
 
-    // Initial position set
     updatePositions();
     
-    // Update position every 4 seconds
     const interval = setInterval(updatePositions, 4000);
 
     return () => clearInterval(interval);
@@ -115,7 +112,6 @@ function LandingPageContent() {
           />
         </div>
         
-        {/* Button container which the arrow will originate from */}
         <div ref={buttonRef} className="relative w-56 h-12">
             <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground w-full h-full">
               <Link href="/home" onClick={handleClick} className="flex items-center gap-2">
@@ -131,8 +127,14 @@ function LandingPageContent() {
         </div>
       </div>
        
-      {/* Arrow element positioned absolutely in the root container */}
-      <div className='absolute h-10 flex items-center' style={{transformOrigin: 'left center', ...arrowStyle}}>
+      <div 
+        className='absolute h-px flex items-center' 
+        style={{
+            transformOrigin: 'left center', 
+            ...arrowStyle,
+            transition: 'width 1s ease-in-out, transform 1s ease-in-out, top 1s ease-in-out, left 1s ease-in-out'
+        }}
+      >
           <MatrixEffect 
             strings={arrowCharacters}
             isFeatured={true}
