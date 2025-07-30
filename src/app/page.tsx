@@ -51,15 +51,14 @@ function LandingPageContent() {
       if (!isClient || !buttonRef.current) return;
 
       const buttonRect = buttonRef.current.getBoundingClientRect();
-      // Start position for the arrow (bottom center of the button)
       const startX = buttonRect.left + buttonRect.width / 2;
       const startY = buttonRect.top + buttonRect.height;
 
-      // Random angle and radius to position the name
-      const angle = Math.random() * 2 * Math.PI;
-      const radiusX = window.innerWidth * 0.35;
-      const radiusY = window.innerHeight * 0.35;
+      // Reduced radius to keep the name within viewport, with a 100px buffer
+      const radiusX = (window.innerWidth / 2) - 100;
+      const radiusY = (window.innerHeight / 2) - 100;
       
+      const angle = Math.random() * 2 * Math.PI;
       const targetX = window.innerWidth / 2 + Math.cos(angle) * radiusX;
       const targetY = window.innerHeight / 2 + Math.sin(angle) * radiusY;
 
@@ -68,7 +67,6 @@ function LandingPageContent() {
         left: `${targetX}px`,
       });
       
-      // Calculate angle and distance for the arrow
       const deltaX = targetX - startX;
       const deltaY = targetY - startY;
       const arrowAngle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
@@ -107,6 +105,7 @@ function LandingPageContent() {
             isFeatured={true}
             stopAfter={3800}
             loopAfter={4000}
+            showOnlyWhenComplete={true}
           />
         </div>
         
