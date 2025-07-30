@@ -51,11 +51,12 @@ function LandingPageContent() {
       if (!isClient || !buttonRef.current) return;
 
       const buttonRect = buttonRef.current.getBoundingClientRect();
+      // Start arrow from the middle-bottom of the button
       const startX = buttonRect.left + buttonRect.width / 2;
       const startY = buttonRect.top + buttonRect.height;
 
       // Reduced radius to keep the name within viewport, with a 100px buffer
-      const radiusX = (window.innerWidth / 2) - 100;
+      const radiusX = (window.innerWidth / 2) - 150; // increased buffer
       const radiusY = (window.innerHeight / 2) - 100;
       
       const angle = Math.random() * 2 * Math.PI;
@@ -75,13 +76,18 @@ function LandingPageContent() {
       setArrowStyle({
         width: `${arrowLength}px`,
         transform: `rotate(${arrowAngle}deg)`,
+        top: `${startY}px`,
+        left: `${startX}px`,
       });
   }, [isClient]);
 
   useEffect(() => {
     if (!isClient) return;
 
+    // Initial position set
     updatePositions();
+    
+    // Update position every 4 seconds
     const interval = setInterval(updatePositions, 4000);
 
     return () => clearInterval(interval);
@@ -98,7 +104,7 @@ function LandingPageContent() {
         
         <div 
            className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
-           style={{...namePosition}}
+           style={{...namePosition, transition: 'top 1s ease-in-out, left 1s ease-in-out'}}
         >
            <MatrixEffect
             strings={["Rodrigo Alves"]}
@@ -109,6 +115,7 @@ function LandingPageContent() {
           />
         </div>
         
+        {/* Button container which the arrow will originate from */}
         <div ref={buttonRef} className="relative w-56 h-12">
             <Button asChild variant="outline" className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent/70 hover:text-accent-foreground w-full h-full">
               <Link href="/home" onClick={handleClick} className="flex items-center gap-2">
@@ -121,16 +128,18 @@ function LandingPageContent() {
                 />
               </Link>
             </Button>
-            <div className='absolute top-full left-1/2 w-0 h-10 flex items-center' style={{transformOrigin: 'left center', ...arrowStyle}}>
-                <MatrixEffect 
-                  strings={arrowCharacters}
-                  isFeatured={true}
-                  className="text-2xl font-sans w-full"
-                  stopAfter={3800}
-                  loopAfter={4000}
-                />
-            </div>
         </div>
+      </div>
+       
+      {/* Arrow element positioned absolutely in the root container */}
+      <div className='absolute h-10 flex items-center' style={{transformOrigin: 'left center', ...arrowStyle}}>
+          <MatrixEffect 
+            strings={arrowCharacters}
+            isFeatured={true}
+            className="text-2xl font-sans w-full"
+            stopAfter={3800}
+            loopAfter={4000}
+          />
       </div>
     </div>
   );
