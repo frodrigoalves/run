@@ -36,6 +36,7 @@
     "genkit": "^1.15.5",
     "lucide-react": "^0.475.0",
     "next": "15.3.3",
+    "next-intl": "^3.19.0",
     "next-themes": "^0.3.0",
     "patch-package": "^8.0.0",
     "react": "^18.3.1",
