@@ -1,0 +1,39 @@
+
+> nextn@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, using available port 3001 instead.
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:3001
+   - Network:      http://10.88.0.3:3001
+
+ ✓ Starting...
+ ✓ Ready in 3.2s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 9.1s (183 modules)
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 25.9s (1020 modules)
+ ✓ Compiled in 2.6s (400 modules)
+Error: Route "/[locale]" used `params.locale`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at RootLayout (src/app/[locale]/layout.tsx:16:11)
+  14 | export default async function RootLayout({
+  15 |   children,
+> 16 |   params: {locale}
+     |           ^
+  17 | }: Readonly<{
+  18 |   children: React.ReactNode;
+  19 |   params: {locale: string};
+ ⨯ Error: Couldn't find next-intl config file. Please follow the instructions at https://next-intl.dev/docs/getting-started/app-router
+    at RootLayout (src/app/[locale]/layout.tsx:21:36)
+  19 |   params: {locale: string};
+  20 | }>) {
+> 21 |   const messages = await getMessages();
+     |                                    ^
+  22 |
+  23 |   return (
+  24 |     <html lang={locale} suppressHydrationWarning> {
+  digest: '1938806074'
+}
+ GET /pt-BR 500 in 34361ms
+ ⚠ Cross origin request detected from 3001-firebase-run-1756611921021.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
