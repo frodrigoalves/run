@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Toaster } from '@/components/ui/toaster';
-import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
     title: 'Rodrigo Alves Ferreira | Desenvolvedor Web3 & Especialista em IA',
@@ -14,19 +12,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html>
-      <body>
-          <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem
-              disableTransitionOnChange
-          >
-              {children}
-              <Toaster />
-          </ThemeProvider>
-      </body>
-    </html>
-  );
+  // This layout is required by Next.js, but since we have a
+  // `[locale]` layout, we can just render the children here.
+  return children;
 }

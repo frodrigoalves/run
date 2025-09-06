@@ -11,6 +11,7 @@ import Partners from '@/components/sections/partners';
 import { HeroAnimationProvider } from '@/contexts/hero-animation-context';
 import TopBar from '@/components/top-bar';
 import { Bubble } from '@typebot.io/nextjs';
+import { LocalizationProvider } from '@/components/localization-provider';
 
 
 function HomePageContent() {
@@ -57,7 +58,9 @@ function HomePageContent() {
 export default function HomePage() {
   return (
     <HeroAnimationProvider>
-      <HomePageContent />
+      <LocalizationProvider>
+        <HomePageContent />
+      </LocalizationProvider>
     </HeroAnimationProvider>
   );
 }
