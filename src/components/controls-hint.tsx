@@ -27,7 +27,6 @@ const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisib
     useEffect(() => {
         let decodeTimer: NodeJS.Timeout;
         let displayTimer: NodeJS.Timeout;
-        let fadeOutTimer: NodeJS.Timeout;
 
         if (isVisible) {
             setIsAnimating(true); // Start fade-in and decode
@@ -48,7 +47,6 @@ const Hint = ({ text, arrow, isVisible }: { text: string; arrow: string; isVisib
         return () => {
             clearTimeout(decodeTimer);
             clearTimeout(displayTimer);
-            clearTimeout(fadeOutTimer);
         }
 
     }, [isVisible]);

@@ -2,6 +2,7 @@ const withNextIntl = require('next-intl/plugin')('./i18n.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -11,11 +12,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  webpack: (config, { isServer }) => {
+  webpack: (config: any) => {
     // Suppress warnings for these optional modules
     config.resolve.alias['@opentelemetry/exporter-jaeger'] = false;
     config.resolve.alias['@genkit-ai/firebase'] = false;
-    
+
     return config;
   },
 };

@@ -15,14 +15,14 @@ export const metadata: Metadata = {
     keywords: ['Desenvolvedor Web3', 'Especialista em IA', 'Blockchain', 'Advogado', 'Rodrigo Alves Ferreira', 'Portfólio', 'Inteligência Artificial', 'Smart Contracts'],
 };
 
-export default async function RootLayout({ 
+export default async function RootLayout({
   children,
   params
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
 
