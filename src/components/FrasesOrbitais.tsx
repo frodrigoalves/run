@@ -3,14 +3,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
-type Position = { top: string; left: string };
-
 const CHARSET = '█░▒▓<>/\\|*#=+~-';
 const DECODE_DURATION = 3000;
 const HOLD_DURATION = 3000;
-const SLOT_COUNT = 4;
-const MIN_DELAY = 900;
-const MAX_DELAY = 1800;
 
 function scramble(length: number) {
   if (length <= 0) return '';
@@ -21,36 +16,6 @@ function scramble(length: number) {
   }
   return out;
 }
-
-function randomBetween(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function randomPosition() {
-  let attempts = 0;
-  while (attempts < 8) {
-    const top = Math.random() * 80 + 10; // 10% - 90%
-    const left = Math.random() * 80 + 10;
-    const nearCenter = top > 38 && top < 62 && left > 32 && left < 68;
-    if (!nearCenter) {
-      return {
-        top: `${top.toFixed(2)}%`,
-        left: `${left.toFixed(2)}%`,
-      } satisfies Position;
-    }
-    attempts += 1;
-  }
-  return {
-    top: `${Math.random() * 10 + 5}%`,
-    left: `${Math.random() * 60 + 20}%`,
-  } satisfies Position;
-}
-
-type PhraseNodeProps = {
-  phrases: string[];
-  prefersReduced: boolean;
-  seedDelay: number;
-};
 
 function PhraseNode({ phrases, prefersReduced, seedDelay }: PhraseNodeProps) {
   const [display, setDisplay] = useState('');
@@ -160,9 +125,6 @@ export default function FrasesOrbitais() {
   const t = useTranslations('landing');
   const phrases = useMemo(() => (t.raw('phrases') as string[]) ?? [], [t]);
   const [prefersReduced, setPrefersReduced] = useState(false);
-  const [seeds] = useState(() =>
-    Array.from({ length: SLOT_COUNT }, (_, index) => index * 700 + Math.floor(Math.random() * 600)),
-  );
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -187,18 +149,86 @@ export default function FrasesOrbitais() {
     return () => media.removeListener(listener);
   }, []);
 
-  if (!phrases.length) return null;
+  const [index, setIndex] = useState(() => (phrases.length ? Math.floor(Math.random() * phrases.length) : 0));
+  const [display, setDisplay] = useState('');
+  const rafRef = useRef<number>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => {
+    if (!phrases.length) {
+      setDisplay('');
+      return;
+    }
+
+    setIndex((current) => {
+      if (current < phrases.length) return current;
+      return Math.min(current, phrases.length - 1);
+    });
+  }, [phrases]);
+
+  useEffect(() => {
+    if (!phrases.length) return;
+
+    if (prefersReduced) {
+      setDisplay(phrases[index] ?? '');
+      const nextTimeout = setTimeout(() => {
+        if (phrases.length <= 1) return;
+        let nextIndex = Math.floor(Math.random() * phrases.length);
+        while (nextIndex === index && phrases.length > 1) {
+          nextIndex = Math.floor(Math.random() * phrases.length);
+        }
+        setIndex(nextIndex);
+      }, HOLD_DURATION);
+      timeoutRef.current = nextTimeout;
+      return () => clearTimeout(nextTimeout);
+    }
+
+    const phrase = phrases[index] ?? '';
+    const start = performance.now();
+
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      if (elapsed < DECODE_DURATION) {
+        const progress = Math.min(1, elapsed / DECODE_DURATION);
+        const revealed = Math.floor(progress * phrase.length);
+        const decoded = phrase.slice(0, revealed) + scramble(phrase.length - revealed);
+        setDisplay(decoded);
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        setDisplay(phrase);
+        timeoutRef.current = setTimeout(() => {
+          if (phrases.length <= 1) return;
+          let nextIndex = Math.floor(Math.random() * phrases.length);
+          if (phrases.length > 1) {
+            while (nextIndex === index) {
+              nextIndex = Math.floor(Math.random() * phrases.length);
+            }
+          }
+          setIndex(nextIndex);
+        }, HOLD_DURATION);
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [index, phrases, prefersReduced]);
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   return (
-    <div className="pointer-events-none absolute inset-0">
-      {seeds.map((seed, index) => (
-        <PhraseNode
-          key={`phrase-node-${index}`}
-          phrases={phrases}
-          prefersReduced={prefersReduced}
-          seedDelay={seed}
-        />
-      ))}
+    <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 text-center">
+      <span className="font-mono text-sm tracking-[0.35em] text-foreground/70 md:text-base lg:text-lg">
+        {display}
+      </span>
     </div>
   );
 }
