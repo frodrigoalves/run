@@ -30,26 +30,30 @@ export default function Projects() {
           align: 'start',
           loop: true,
         }}
-        className="w-full max-w-sm sm:max-w-xl md:max-w-3xl lg:max-w-5xl mx-auto"
+        className="mx-auto w-full max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-5xl"
       >
         <CarouselContent>
           {projectsData.map((project) => (
-            <CarouselItem key={project.id} className="md:basis-1/2">
+            <CarouselItem key={project.id} className="sm:basis-3/4 md:basis-1/2 xl:basis-1/3">
               <div className="p-1">
-                <Card className="overflow-hidden group border-0 glass-effect">
-                  <CardContent className="p-0 relative aspect-video">
+                <Card className="group overflow-hidden border-0 glass-effect">
+                  <CardContent className="relative aspect-video overflow-hidden rounded-2xl bg-black/30 p-0">
                     <iframe
-                      className="w-full h-full"
+                      className="h-full w-full rounded-2xl"
                       src={`https://www.youtube.com/embed/${project.embedId}?showinfo=0&controls=1&rel=0`}
                       title={t(project.title)}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
+                      loading="lazy"
                     ></iframe>
-                     <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-all duration-300 flex flex-col justify-end p-4">
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                           <PlayCircle className="w-16 h-16 text-white/70" />
-                        </div>
-                        <h3 className="text-lg font-semibold text-white drop-shadow-md truncate">{t(project.title)}</h3>
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent transition-opacity duration-300 group-hover:from-black/40 group-hover:via-black/5" />
+                    <div className="pointer-events-none absolute inset-3 rounded-2xl border border-white/5" aria-hidden="true" />
+                    <div className="pointer-events-none absolute inset-0 flex flex-col justify-end gap-3 p-4 text-left">
+                      <div className="flex items-center justify-between text-white/80">
+                        <h3 className="text-base font-semibold leading-tight drop-shadow-md sm:text-lg">{t(project.title)}</h3>
+                        <PlayCircle className="h-10 w-10 opacity-0 transition-opacity duration-300 group-hover:opacity-80" />
+                      </div>
+                      <p className="text-xs font-medium uppercase tracking-[0.35em] text-white/40">YouTube</p>
                     </div>
                   </CardContent>
                 </Card>
