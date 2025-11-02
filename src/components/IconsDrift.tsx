@@ -14,7 +14,7 @@ export default function IconsDrift() {
     return () => cancelAnimationFrame(raf);
   }, []);
   return (
-    <div ref={ref} className="absolute inset-0 -z-10 opacity-30">
+    <div ref={ref} className="pointer-events-none absolute inset-0 -z-10 opacity-30">
       {Array.from({length: 14}).map((_,i)=>{
         const icon = ICONS[i % ICONS.length];
         const top = 10 + (i*6)%80; const left = 8 + (i*9)%84; const size = 20 + (i%3)*6;
