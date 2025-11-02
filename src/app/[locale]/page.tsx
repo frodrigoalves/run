@@ -2,7 +2,21 @@
 import { useLocale, useTranslations } from 'next-intl';
 import FrasesOrbitais from '@/components/FrasesOrbitais';
 import IconsDrift from '@/components/IconsDrift';
+import GlobalControls from '@/components/global-controls';
+import { LocalizationProvider } from '@/components/localization-provider';
+import { useLocalization } from '@/hooks/use-localization';
 import Link from 'next/link';
+
+type LocaleSyncProps = { locale: string };
+
+function LocalizationSync({ locale }: LocaleSyncProps) {
+  const { changeLang } = useLocalization();
+  useEffect(() => {
+    const normalized = locale?.startsWith('pt') ? 'pt' : 'en';
+    changeLang(normalized);
+  }, [changeLang, locale]);
+  return null;
+}
 
 export default function Landing() {
   const t = useTranslations('landing');

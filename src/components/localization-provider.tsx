@@ -14,8 +14,13 @@ interface LocalizationContextType {
 
 export const LocalizationContext = createContext<LocalizationContextType | null>(null);
 
-export function LocalizationProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Language>('pt');
+interface ProviderProps {
+  children: ReactNode;
+  initialLang?: Language;
+}
+
+export function LocalizationProvider({ children, initialLang }: ProviderProps) {
+  const [lang, setLang] = useState<Language>(initialLang ?? 'pt');
 
   const changeLang = useCallback((newLang: Language) => {
     setLang(newLang);
@@ -29,11 +34,16 @@ export function LocalizationProvider({ children }: { children: ReactNode }) {
   }, [lang]);
 
   useEffect(() => {
+    if (initialLang) {
+      setLang(initialLang);
+      return;
+    }
+
     const savedLang = localStorage.getItem('lang') as Language | null;
     if (savedLang && (savedLang === 'pt' || savedLang === 'en')) {
       setLang(savedLang);
     }
-  }, []);
+  }, [initialLang]);
 
   const value = useMemo(() => ({ lang, changeLang, t }), [lang, changeLang, t]);
 
