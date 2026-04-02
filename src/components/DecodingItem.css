@@ -1,0 +1,82 @@
+/* ── DecodingItem ── */
+
+/* Container */
+.decoding-item-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  transition: opacity 0.5s ease;
+}
+
+.decoding-item-container[data-state='decoding'] {
+  opacity: 1;
+}
+
+.decoding-item-container[data-state='revealing'] {
+  opacity: 1;
+}
+
+.decoding-item-container[data-state='static'] {
+  opacity: 1;
+}
+
+.decoding-item-container[data-state='exiting'] {
+  opacity: 0;
+}
+
+/* ── Text ── */
+/* Use theme-aware foreground color via CSS custom properties */
+.decoding-item-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: hsl(var(--foreground) / 0.3);
+  transition: color 0.4s ease, letter-spacing 0.4s ease, font-weight 0.3s ease;
+}
+
+.decoding-item-text[data-state='revealing'] {
+  letter-spacing: 0.08em;
+  color: hsl(var(--foreground) / 0.7);
+  font-weight: 500;
+}
+
+.decoding-item-text[data-state='static'] {
+  letter-spacing: 0.04em;
+  color: hsl(var(--foreground) / 1);
+  font-weight: 600;
+}
+
+/* ── Progress bar ── */
+.decoding-item-progress {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 1px;
+  opacity: 0.5;
+  background: hsl(var(--foreground) / 0.4);
+  transition: width 0.1s linear;
+  border-radius: 1px;
+}
+
+/* ── CyberPunk theme override ── */
+.cyberpunk .decoding-item-text {
+  color: hsl(190 85% 55% / 0.3);
+}
+
+.cyberpunk .decoding-item-text[data-state='revealing'] {
+  color: hsl(190 85% 55% / 0.75);
+}
+
+.cyberpunk .decoding-item-text[data-state='static'] {
+  color: hsl(190 85% 70% / 1);
+}
+
+.cyberpunk .decoding-item-progress {
+  background: hsl(260, 85%, 65%);
+}

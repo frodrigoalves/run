@@ -1,0 +1,146 @@
+/* ── EnterSiteButton ── */
+
+.enter-site-btn {
+  position: relative;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  padding: 14px 34px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', 'Space Grotesk', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffffff;
+  pointer-events: auto;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              letter-spacing 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              padding 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              min-width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.enter-site-btn--expanded {
+  letter-spacing: 0.22em;
+  padding: 15px 42px;
+  min-width: 250px;
+  transform: scale(1.02);
+}
+
+/* ── Animated border frame ── */
+.enter-site-btn__border {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  pointer-events: none;
+}
+
+/* Standby pulsing glow */
+.enter-site-btn[data-phase='scramble'] .enter-site-btn__border,
+.enter-site-btn[data-phase='reveal'] .enter-site-btn__border,
+.enter-site-btn[data-phase='fast-reveal'] .enter-site-btn__border {
+  animation: btnBorderPulse 2.5s ease-in-out infinite;
+}
+
+.enter-site-btn[data-phase='static'] .enter-site-btn__border {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.enter-site-btn[data-phase='welcome'] .enter-site-btn__border {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.08),
+    0 0 50px rgba(255, 255, 255, 0.04),
+    inset 0 0 20px rgba(255, 255, 255, 0.03);
+}
+
+.enter-site-btn:hover .enter-site-btn__border {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* ── Background glow layer ── */
+.enter-site-btn__glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: 6px;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.enter-site-btn:hover .enter-site-btn__glow {
+  opacity: 1;
+}
+
+.enter-site-btn[data-phase='welcome'] .enter-site-btn__glow {
+  opacity: 1;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+}
+
+/* ── Text layer ── */
+.enter-site-btn__text {
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ── Keyframes ── */
+@keyframes btnBorderPulse {
+  0%, 100% {
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+  }
+  50% {
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.04);
+  }
+}
+
+/* ── CyberPunk theme overrides ── */
+.cyberpunk .enter-site-btn[data-phase='scramble'] .enter-site-btn__border,
+.cyberpunk .enter-site-btn[data-phase='reveal'] .enter-site-btn__border,
+.cyberpunk .enter-site-btn[data-phase='fast-reveal'] .enter-site-btn__border {
+  animation: btnBorderPulseCyber 2.5s ease-in-out infinite;
+}
+
+.cyberpunk .enter-site-btn[data-phase='welcome'] .enter-site-btn__border {
+  border-color: hsl(190, 85%, 55%);
+  box-shadow:
+    0 0 20px hsla(190, 85%, 55%, 0.15),
+    0 0 50px hsla(260, 85%, 65%, 0.08);
+}
+
+.cyberpunk .enter-site-btn:hover .enter-site-btn__border {
+  border-color: hsl(190, 85%, 55%);
+}
+
+@keyframes btnBorderPulseCyber {
+  0%, 100% {
+    border-color: hsla(260, 85%, 65%, 0.15);
+    box-shadow: none;
+  }
+  50% {
+    border-color: hsla(190, 85%, 55%, 0.5);
+    box-shadow: 0 0 15px hsla(190, 85%, 55%, 0.1);
+  }
+}
