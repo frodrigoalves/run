@@ -15,7 +15,7 @@ export default function About() {
   };
 
   return (
-    <section id="about" className="text-center">
+    <section id="about" className="section text-center">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground mb-6">
             {t(title)}

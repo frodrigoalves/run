@@ -134,6 +134,16 @@
     .sr-only {
         @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
     }
+  .section {
+    @apply py-12 md:py-20;
+  }
+  .section .container {
+    @apply px-4 md:px-6;
+  }
+  /* make anchors account for fixed topbar */
+  .section {
+    scroll-margin-top: 5.5rem;
+  }
 }
 
 @layer utilities {

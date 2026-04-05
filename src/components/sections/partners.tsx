@@ -8,7 +8,7 @@ export default function Partners() {
   const { t } = useLocalization();
 
   return (
-    <section className="py-12 overflow-hidden">
+    <section className="section overflow-hidden">
       <h2 className="text-3xl sm:text-4xl font-bold text-foreground text-center mb-12">
         <LocalizedText pt="Clientes e Parceiros" en="Clients & Partners" />
       </h2>

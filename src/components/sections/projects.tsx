@@ -21,7 +21,7 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="py-12 md:py-20">
+    <section id="projects" className="section">
       <div className="text-center max-w-3xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-12">{t(sectionTitle)}</h2>
       </div>
@@ -34,18 +34,19 @@ export default function Projects() {
       >
         <CarouselContent>
           {projectsData.map((project) => (
-            <CarouselItem key={project.id} className="md:basis-1/2">
+            <CarouselItem key={project.id} className="min-w-[280px] md:min-w-[480px]">
               <div className="p-1">
                 <Card className="overflow-hidden group border-0 glass-effect">
                   <CardContent className="p-0 relative aspect-video">
                     <iframe
+                      loading="lazy"
                       className="w-full h-full"
                       src={`https://www.youtube.com/embed/${project.embedId}?showinfo=0&controls=1&rel=0`}
                       title={t(project.title)}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     ></iframe>
-                     <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-all duration-300 flex flex-col justify-end p-4">
+                     <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-all duration-300 flex flex-col justify-end p-6">
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                            <PlayCircle className="w-16 h-16 text-white/70" />
                         </div>

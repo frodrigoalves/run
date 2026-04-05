@@ -33,7 +33,7 @@ export default function Gpts() {
   };
 
   return (
-    <section id="gpts" className="py-8">
+    <section id="gpts" className="section">
         <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{t(sectionTitle)}</h2>
             <p className="text-lg text-muted-foreground">{t(sectionDescription)}</p>
