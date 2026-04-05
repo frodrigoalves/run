@@ -5,24 +5,30 @@ import { decodingItems } from '@/lib/data';
 
 const MAX_ACTIVE = 6;
 
-/* ── Positions distributed around edges, avoiding center button area ── */
+/* ── Positions well distributed across entire screen height and width ── */
 const POSITIONS = [
-  { top: '6%', left: '4%' },
-  { top: '8%', left: '68%' },
-  { top: '16%', left: '22%' },
-  { top: '14%', left: '82%' },
-  { top: '28%', left: '5%' },
-  { top: '32%', left: '74%' },
-  { top: '42%', left: '2%' },
-  { top: '44%', left: '80%' },
-  { top: '58%', left: '4%' },
-  { top: '56%', left: '76%' },
-  { top: '70%', left: '10%' },
-  { top: '68%', left: '82%' },
-  { top: '80%', left: '6%' },
-  { top: '82%', left: '68%' },
-  { top: '90%', left: '22%' },
-  { top: '88%', left: '56%' },
+  /* Top-left quadrant */
+  { top: '12%', left: '8%' },
+  { top: '22%', left: '14%' },
+  { top: '35%', left: '6%' },
+  /* Top-right quadrant */
+  { top: '10%', left: '84%' },
+  { top: '24%', left: '88%' },
+  { top: '38%', left: '82%' },
+  /* Middle-left (safe distance from center) */
+  { top: '48%', left: '4%' },
+  { top: '55%', left: '12%' },
+  /* Middle-right (safe distance from center) */
+  { top: '50%', left: '88%' },
+  { top: '58%', left: '84%' },
+  /* Bottom-left quadrant */
+  { top: '68%', left: '10%' },
+  { top: '78%', left: '8%' },
+  { top: '88%', left: '14%' },
+  /* Bottom-right quadrant */
+  { top: '66%', left: '86%' },
+  { top: '76%', left: '82%' },
+  { top: '87%', left: '88%' },
 ];
 
 /* Fisher-Yates shuffle */

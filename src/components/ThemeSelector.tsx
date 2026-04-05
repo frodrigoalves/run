@@ -49,19 +49,19 @@ export default function ThemeSelector() {
   if (!mounted) return null;
 
   return (
-    <div className="flex items-center gap-0.5 rounded-full border border-white/10 px-1 py-1 backdrop-blur-md bg-white/5">
+    <div className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-1.5 py-1 backdrop-blur-xl shadow-sm shadow-slate-950/20">
       {themes.map(({ id, label, Icon }) => (
         <button
           key={id}
           onClick={() => setTheme(id)}
           aria-label={label}
-          className={`p-1.5 rounded-full transition-all duration-200 ${
+          className={`flex h-8 w-8 items-center justify-center rounded-full transition-all duration-200 ${
             theme === id
-              ? 'bg-white/15 text-white'
-              : 'text-white/40 hover:text-white/70'
+              ? 'bg-white/15 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.12)]'
+              : 'text-white/50 hover:text-white/85 hover:bg-white/10'
           }`}
         >
-          <Icon />
+          <Icon size={14} />
         </button>
       ))}
     </div>

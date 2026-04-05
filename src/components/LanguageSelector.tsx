@@ -34,19 +34,19 @@ export default function LanguageSelector() {
   };
 
   return (
-    <div className="flex items-center gap-0.5 rounded-full border border-white/10 px-1 py-1 backdrop-blur-md bg-white/5">
+    <div className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-1.5 py-1 backdrop-blur-xl shadow-sm shadow-slate-950/20">
       {locales.map(({ id, label }) => (
         <button
           key={id}
           onClick={() => switchTo(id)}
           aria-label={`Switch to ${label}`}
-          className={`flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-medium tracking-widest transition-all duration-200 font-sans ${
+          className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-[0.2em] transition-all duration-200 font-sans ${
             locale === id
-              ? 'bg-white/15 text-white'
-              : 'text-white/40 hover:text-white/70'
+              ? 'bg-white/15 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.12)]'
+              : 'text-white/40 hover:text-white/80 hover:bg-white/10'
           }`}
         >
-          <GlobeIcon />
+          <GlobeIcon size={12} />
           {label}
         </button>
       ))}

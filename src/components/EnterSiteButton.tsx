@@ -17,7 +17,7 @@ type Phase = 'scramble' | 'reveal' | 'static' | 'fast-reveal' | 'click-scramble'
 
 export default function EnterSiteButton() {
   const t = useTranslations('landing');
-  const { triggerGlobalDecode } = useLanding();
+  const { triggerGlobalDecode, buttonVisible, buttonPrompt } = useLanding();
 
   const enterText = t('enterSite');
   const welcomeText = t('welcome');
@@ -221,6 +221,8 @@ export default function EnterSiteButton() {
     setPhase('click-scramble');
   }, []);
 
+  if (!buttonVisible) return null;
+
   return (
     <button
       onMouseEnter={handleMouseEnter}
@@ -228,6 +230,7 @@ export default function EnterSiteButton() {
       onClick={handleClick}
       className={`enter-site-btn ${expanded ? 'enter-site-btn--expanded' : ''}`}
       data-phase={phase}
+      data-prompt={buttonPrompt ? 'true' : 'false'}
     >
       <span className="enter-site-btn__glow" />
       <span className="enter-site-btn__border" />

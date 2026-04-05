@@ -15,7 +15,8 @@ The landing page is available at `http://localhost:3000/pt/home` (or change the 
 
 Copy `.env.example` to `.env.local` and provide your Neon connection strings:
 
-```
+
+
 DATABASE_URL="postgresql://user:password@host/db?sslmode=require"
 DIRECT_URL="postgresql://user:password@host/db?sslmode=require"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
