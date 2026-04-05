@@ -121,6 +121,114 @@ function PhraseNode({ phrases, prefersReduced, seedDelay }: PhraseNodeProps) {
   );
 }
 
+function PhraseNode({ phrases, prefersReduced, seedDelay }: PhraseNodeProps) {
+  const [display, setDisplay] = useState('');
+  const [visible, setVisible] = useState(false);
+  const [position, setPosition] = useState<Position>(() => randomPosition());
+  const [tilt] = useState(() => (Math.random() - 0.5) * 10);
+
+  useEffect(() => {
+    if (!phrases.length) {
+      setDisplay('');
+      setVisible(false);
+      return undefined;
+    }
+
+    let cancelled = false;
+    let raf: number | undefined;
+    let cycleTimeout: ReturnType<typeof setTimeout> | undefined;
+    let holdTimeout: ReturnType<typeof setTimeout> | undefined;
+    let currentIndex = Math.floor(Math.random() * phrases.length);
+
+    const pickNextIndex = () => {
+      if (phrases.length <= 1) return currentIndex;
+      let next = Math.floor(Math.random() * phrases.length);
+      while (next === currentIndex) {
+        next = Math.floor(Math.random() * phrases.length);
+      }
+      currentIndex = next;
+      return currentIndex;
+    };
+
+    const clearTimers = () => {
+      if (cycleTimeout) clearTimeout(cycleTimeout);
+      if (holdTimeout) clearTimeout(holdTimeout);
+      if (raf) cancelAnimationFrame(raf);
+    };
+
+    const scheduleCycle = (delay: number) => {
+      if (cycleTimeout) clearTimeout(cycleTimeout);
+      cycleTimeout = setTimeout(() => {
+        if (cancelled) return;
+        const phrase = phrases[currentIndex] ?? '';
+        const decodeDuration = randomDuration(DECODE_DURATION_RANGE);
+        const holdDuration = randomDuration(HOLD_DURATION_RANGE);
+        setPosition(randomPosition());
+        setVisible(true);
+
+        if (prefersReduced) {
+          setDisplay(phrase);
+          if (holdTimeout) clearTimeout(holdTimeout);
+          holdTimeout = setTimeout(() => {
+            if (cancelled) return;
+            setVisible(false);
+            pickNextIndex();
+            scheduleCycle(randomBetween(MIN_DELAY, MAX_DELAY));
+          }, holdDuration);
+          return;
+        }
+
+        const startTime = performance.now();
+        const animate = (now: number) => {
+          if (cancelled) return;
+          const elapsed = now - startTime;
+          if (elapsed < decodeDuration) {
+            const progress = Math.min(1, elapsed / decodeDuration);
+            const eased = 1 - Math.pow(1 - progress, 2);
+            const revealed = Math.max(1, Math.floor(eased * phrase.length));
+            const decoded = phrase.slice(0, revealed);
+            const scrambled = scramble(Math.max(phrase.length - revealed, 0));
+            setDisplay(decoded + scrambled);
+            raf = requestAnimationFrame(animate);
+          } else {
+            setDisplay(phrase);
+            if (holdTimeout) clearTimeout(holdTimeout);
+            holdTimeout = setTimeout(() => {
+              if (cancelled) return;
+              setVisible(false);
+              pickNextIndex();
+              scheduleCycle(randomBetween(MIN_DELAY, MAX_DELAY));
+            }, holdDuration);
+          }
+        };
+
+        const scrambleLength = Math.max(Math.ceil(phrase.length * 0.6), 4);
+        setDisplay(scramble(scrambleLength));
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(animate);
+      }, delay);
+    };
+
+    scheduleCycle(seedDelay);
+
+    return () => {
+      cancelled = true;
+      clearTimers();
+    };
+  }, [phrases, prefersReduced, seedDelay]);
+
+  return (
+    <span
+      className={`pointer-events-none absolute font-mono text-[0.55rem] uppercase tracking-[0.3em] text-foreground/40 transition-opacity duration-700 ease-out md:text-[0.65rem] lg:text-[0.75rem] ${
+        visible ? 'opacity-80' : 'opacity-0'
+      }`}
+      style={{ top: position.top, left: position.left, transform: `translate(-50%, -50%) rotate(${tilt}deg)` }}
+    >
+      {display}
+    </span>
+  );
+}
+
 export default function FrasesOrbitais() {
   const t = useTranslations('landing');
   const phrases = useMemo(() => (t.raw('phrases') as string[]) ?? [], [t]);
